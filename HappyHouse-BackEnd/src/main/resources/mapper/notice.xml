@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.happyhouse.model.mapper.NoticeMapper">
+
+	<insert id="registerNotice" parameterType="NoticeDto">
+		insert into notice (id, subject, content, regtime)
+		values (#{id},
+		#{subject}, #{content}, now())
+		<selectKey resultType="int" keyProperty="noticeNo"
+			order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<resultMap type="NoticeDto" id="noticeList">
+		<result column="notice_no" property="noticeNo" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="subject" property="subject" />
+		<result column="content" property="content" />
+		<result column="regtime" property="regTime" />
+		<result column="view" property="view" />
+	</resultMap>
+
+	<select id="listNotice" parameterType="map"
+		resultMap="noticeList">
+		select notice_no,id, name, subject, regtime,view
+		from notice
+		join userinfo using(id)
+		order by notice_no desc
+	</select>
+
+	<select id="getNotice" parameterType="int"
+		resultMap="noticeList">
+		select notice_no,id, name, subject,content, regtime,view
+		from notice join userinfo using(id)
+		where notice_no = #{no}
+	</select>
+
+	<update id="updateNotice" parameterType="NoticeDto">
+		update notice
+		set subject
+		= #{subject}, content = #{content}
+		where notice_no = #{noticeNo}
+	</update>
+
+
+	<delete id="deleteNotice" parameterType="int">
+		delete from notice
+		where
+		notice_no = #{no}
+	</delete>
+	
+	<update id="updateView" parameterType="int">
+		update notice
+		set view = view+1
+		where notice_no = #{noticeNo}
+	</update>
+</mapper>

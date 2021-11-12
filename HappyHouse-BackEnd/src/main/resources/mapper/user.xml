@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.UserMapper">
+
+	<insert id="insertUser" parameterType="User">
+		insert into userinfo (id, pw, name, email)
+		values (#{id}, #{pw}, #{name}, #{email})
+	</insert>
+
+	<select id="login" parameterType="map" resultType="User">
+		select *
+		from userinfo
+		where id = #{id} and pw = #{pw}
+	</select>
+	
+	<select id="selectUser" parameterType="String" resultType="User">
+		select *
+		from userinfo
+		where id = #{id}
+	</select>
+	
+	<select id="searchInfo" parameterType="map" resultType="User">
+		select id, pw
+		from userinfo
+		where name=#{name} and email = #{email}
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(id)
+		from userinfo
+		where id = #{id}
+	</select>
+	
+	<update id="updateUser" parameterType="User">
+		update userinfo
+		set pw = #{pw}, name=#{name}, email=#{email}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="String">
+		delete from userinfo
+		where id = #{id}
+	</delete>
+	
+</mapper>
