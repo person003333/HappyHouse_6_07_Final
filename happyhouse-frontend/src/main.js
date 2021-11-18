@@ -5,10 +5,12 @@ import store from "./store";
 import VueSidebarMenu from "vue-sidebar-menu";
 
 import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
+import VueTyper from "vue-typer";
 
 Vue.config.productionTip = false;
 
 Vue.use(VueSidebarMenu);
+Vue.use(VueTyper);
 
 new Vue({
   router,

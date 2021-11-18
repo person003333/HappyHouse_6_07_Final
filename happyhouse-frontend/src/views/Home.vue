@@ -1,7 +1,8 @@
 <template>
   <div class="home" style="text-align: center">
     <div class="left">
-      <h1>사이트이름</h1>
+      <h1>HappyHappy</h1>
+      <h2>이름 뭘로..?</h2>
       <h2>문구(사이트소개)</h2>
     </div>
 
@@ -39,11 +40,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .left {
   float: left;
   width: 50%;
-  height: 80vh;
+  margin-top: 12rem;
 }
 
 h1 {
@@ -112,6 +113,15 @@ h1 {
   font-size: 12px;
 }
 
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
 /* .login-box form a a {
   position: relative;
   display: inline-block;
@@ -149,75 +159,65 @@ h1 {
   animation: btn-anim1 1s linear infinite;
 } */
 
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%,
-  100% {
-    left: 100%;
-  }
-}
+// @keyframes btn-anim1 {
+//   0% {
+//     left: -100%;
+//   }
+//   50%,
+//   100% {
+//     left: 100%;
+//   }
+// }
 
-.login-box a a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: btn-anim2 1s linear infinite;
-  animation-delay: 0.25s;
-}
+// .login-box a a span:nth-child(2) {
+//   top: -100%;
+//   right: 0;
+//   width: 2px;
+//   height: 100%;
+//   background: linear-gradient(180deg, transparent, #03e9f4);
+//   animation: btn-anim2 1s linear infinite;
+//   animation-delay: 0.25s;
+// }
 
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%,
-  100% {
-    top: 100%;
-  }
-}
+// @keyframes btn-anim2 {
+//   0% {
+//     top: -100%;
+//   }
+//   50%,
+//   100% {
+//     top: 100%;
+//   }
+// }
 
-.login-box a a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #03e9f4);
-  animation: btn-anim3 1s linear infinite;
-  animation-delay: 0.5s;
-}
+// .login-box a a span:nth-child(3) {
+//   bottom: 0;
+//   right: -100%;
+//   width: 100%;
+//   height: 2px;
+//   background: linear-gradient(270deg, transparent, #03e9f4);
+//   animation: btn-anim3 1s linear infinite;
+//   animation-delay: 0.5s;
+// }
 
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%,
-  100% {
-    right: 100%;
-  }
-}
+// @keyframes btn-anim3 {
+//   0% {
+//     right: -100%;
+//   }
+//   50%,
+//   100% {
+//     right: 100%;
+//   }
+// }
 
-.login-box a a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: btn-anim4 1s linear infinite;
-  animation-delay: 0.75s;
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,
-  100% {
-    bottom: 100%;
-  }
-}
+// .login-box a a span:nth-child(4) {
+//   bottom: -100%;
+//   left: 0;
+//   width: 2px;
+//   height: 100%;
+//   background: linear-gradient(360deg, transparent, #03e9f4);
+//   animation: btn-anim4 1s linear infinite;
+//   animation-delay: 0.75s;
+// }
 
 /* 로그인버튼 */
 button {
@@ -318,5 +318,15 @@ button {
 }
 .btn-6 span:hover:after {
   width: 100%;
+}
+
+//title
+@import url(https://fonts.googleapis.com/css?family=Righteous);
+h1 {
+  display: inline-block;
+  color: white;
+  font-family: "Righteous", serif;
+  font-size: 7rem;
+  text-shadow: 0.03em 0.03em 0 hsla(230, 40%, 50%, 1);
 }
 </style>
