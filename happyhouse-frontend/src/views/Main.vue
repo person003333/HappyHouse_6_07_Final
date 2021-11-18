@@ -54,10 +54,6 @@ export default {
 </script>
 
 <style lang="scss">
-:root {
-  background: rgba(219, 203, 192, 0.384) 10%;
-}
-
 #username {
   text-align: right;
   padding-top: 10px;

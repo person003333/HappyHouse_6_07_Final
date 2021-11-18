@@ -4,3 +4,12 @@
     <router-view></router-view>
   </div>
 </template>
+
+<style>
+:root {
+  background: rgba(219, 203, 192, 0.384) 10%;
+}
+body {
+  margin: 0;
+}
+</style>
