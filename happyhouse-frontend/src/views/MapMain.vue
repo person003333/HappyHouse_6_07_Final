@@ -9,7 +9,7 @@
         </b-row>
         <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
       </div>
-      <b-row>
+      <b-row id="search-info">
         <b-col cols="3" align="left">
           <house-list />
         </b-col>
