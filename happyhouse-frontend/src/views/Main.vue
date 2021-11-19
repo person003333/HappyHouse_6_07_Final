@@ -13,8 +13,7 @@
     </div>
 
     <!-- 메뉴들 라우터 뷰 -->
-    <MapMain></MapMain>
-    <router-view> </router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -22,14 +21,10 @@
 import { mapState, mapActions } from "vuex";
 const memberStore = "memberStore";
 
-import MapMain from "@/components/main/MapMain.vue";
 export default {
   name: "Main",
   computed: {
     ...mapState(memberStore, ["userInfo"]),
-  },
-  components: {
-    MapMain,
   },
   data() {
     return {
@@ -40,7 +35,7 @@ export default {
         },
 
         {
-          href: "/charts",
+          href: "/main/charts",
           title: "아파트",
           icon: "far fa-building ",
           child: [

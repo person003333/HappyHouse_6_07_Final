@@ -6,6 +6,7 @@ const mapStore = {
     sidos: [{ value: null, text: "선택하세요" }],
     guguns: [{ value: null, text: "선택하세요" }],
     dongs: [{ value: null, text: "선택하세요" }],
+    houses_origin: [],
     houses: [],
     house: null,
     sidoCode: null,
@@ -15,6 +16,8 @@ const mapStore = {
     marker: null,
     subway: "",
     store: "",
+    price_start: 0,
+    price_end: 1000,
   },
   mutations: {
     GET_SIDO_LIST(state, sidos) {
@@ -45,8 +48,33 @@ const mapStore = {
     },
     GET_HOUSE_LIST(state, houses, gugunCode) {
       state.gugunCode = gugunCode;
-      state.houses = houses;
-      state.house = houses[0];
+      state.houses_origin = houses;
+      state.houses = [];
+      for (let i = 0; i < state.houses_origin.length; i++) {
+        let price =
+          parseInt(state.houses_origin[i].recentPrice.replace(",", "")) / 1000;
+        console.log(price);
+        if (price >= state.price_start && price <= state.price_end) {
+          state.houses.push(state.houses_origin[i]);
+        }
+      }
+      state.house = state.houses[0];
+      return;
+    },
+    SET_HOUSE_LIST(state, price) {
+      console.log(price);
+      state.price_start = price[0];
+      state.price_end = price[1];
+      state.houses = [];
+      for (let i = 0; i < state.houses_origin.length; i++) {
+        let price =
+          parseInt(state.houses_origin[i].recentPrice.replace(",", "")) / 1000;
+        console.log(price);
+        if (price >= state.price_start && price <= state.price_end) {
+          state.houses.push(state.houses_origin[i]);
+        }
+      }
+      state.house = state.houses[0];
       return;
     },
     SET_DETAIL_HOUSE(state, house) {
@@ -110,12 +138,14 @@ const mapStore = {
       // house 일련번호를 통해 API 호출
       commit("SET_DETAIL_HOUSE", house);
     },
-
     setStore({ commit }, store) {
       commit("SET_STORE", store);
     },
     setSubway({ commit }, subway) {
       commit("SET_SUBWAY", subway);
+    },
+    setHouseList({ commit }, price) {
+      commit("SET_HOUSE_LIST", price);
     },
   },
 };

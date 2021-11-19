@@ -14,7 +14,7 @@
       ></b-img>
     </b-col>
     <b-col cols="10" class="align-self-center" style="font-size: 10pt">
-      [{{ house.aptCode }}] {{ house.aptName }}
+      [{{ house.aptCode }}] {{ house.aptName }} {{ house.recentPrice }}
     </b-col>
   </b-row>
 </template>

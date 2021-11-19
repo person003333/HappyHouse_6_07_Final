@@ -97,6 +97,12 @@ export default {
 
     // 각 카테고리에 클릭 이벤트를 등록합니다
     this.addCategoryClickEvent();
+
+    // 지도에 클릭 이벤트를 등록합니다
+    // 지도를 클릭하면 커스텀 오버레이를 숨깁니다.
+    kakao.maps.event.addListener(this.mapInstance, "click", () => {
+      this.placeOverlay.setMap(null);
+    });
   },
   methods: {
     ...mapActions(mapStore, ["detailHouse", "setStore", "setSubway"]),
@@ -485,6 +491,7 @@ export default {
   watch: {
     houses(newVal) {
       console.log(newVal);
+      this.placeOverlay.setMap(null);
       this.displayMarker();
     },
     house(newVal) {
