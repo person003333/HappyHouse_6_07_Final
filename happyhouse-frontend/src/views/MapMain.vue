@@ -76,4 +76,9 @@ export default {
   left: 400px;
   z-index: 20;
 }
+
+#search-info {
+  position: absolute;
+  top: 800px;
+}
 </style>
