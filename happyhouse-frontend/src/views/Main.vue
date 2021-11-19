@@ -8,7 +8,7 @@
       theme="white-theme"
     />
     <div id="username">
-      {{ userInfo.name }} 님
+      <router-link to="/board"> {{ userInfo.name }} 님</router-link>
       <span id="logout" @click="logoutProcess">로그아웃</span>
     </div>
 
@@ -51,12 +51,12 @@ export default {
           ],
         },
         {
-          href: "/",
+          href: "user",
           title: "마이페이지",
           icon: "fa fa-user",
         },
         {
-          href: "/dd",
+          href: "/main/board",
           title: "게시판",
           icon: "far fa-list-alt ",
         },

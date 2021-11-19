@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Main from "../views/Main.vue";
+import Board from "../views/Board.vue";
+import User from "../views/User.vue";
 import store from "@/store/index.js";
 
 Vue.use(VueRouter);
@@ -26,6 +28,18 @@ const routes = [
     path: "/main",
     name: "Main",
     component: Main,
+    children: [
+      {
+        path: "user",
+        name: "User",
+        component: User,
+      },
+      {
+        path: "board",
+        name: "Board",
+        component: Board,
+      },
+    ],
   },
 ];
 
