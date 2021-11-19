@@ -1,6 +1,12 @@
 <template>
   <div>
-    <b-table sticky-header responsive :items="house_deal" :fields="fields">
+    <b-table
+      class="scrollbar"
+      sticky-header
+      responsive
+      :items="house_deal"
+      :fields="fields"
+    >
       <template #cell(dealDate)="data">
         {{ data.item.dealYear }}.{{ data.item.dealMonth }}.{{
           data.item.dealDay

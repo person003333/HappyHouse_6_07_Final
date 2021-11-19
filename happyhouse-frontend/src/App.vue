@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <!-- 홈 or 메인 -->
-    <router-view></router-view>
+    <router-view
+      class="scrollbar"
+      id="service"
+      style="margin-left: 70px; padding: 0 200px"
+    ></router-view>
   </div>
 </template>
 
@@ -13,13 +17,20 @@
   font-weight: normal;
   font-style: normal;
 }
+#app {
+}
 body {
   margin: 0;
+  height: 100vh;
+
   font-family: "RIDIBatang" !important;
 }
 
+#service {
+  height: 100vh !important;
+}
+
 .scrollbar {
-  height: 600px;
   background: #e6e9f048;
   overflow-y: scroll;
   margin-bottom: 25px;
@@ -42,10 +53,10 @@ body {
     linear,
     left bottom,
     left top,
-    color-stop(0.25, rgb(227, 208, 230)),
-    color-stop(0.5, rgb(229, 221, 230)),
-    color-stop(0.75, rgb(214, 227, 235)),
-    color-stop(1, rgb(206, 221, 231))
+    color-stop(0.25, rgb(216, 166, 223)),
+    color-stop(0.5, rgba(223, 174, 230, 0.555)),
+    color-stop(0.75, rgba(170, 209, 233, 0.521)),
+    color-stop(1, rgb(150, 197, 228))
   );
 }
 </style>

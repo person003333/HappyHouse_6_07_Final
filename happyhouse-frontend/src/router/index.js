@@ -5,7 +5,7 @@ import Main from "../views/Main.vue";
 import Board from "../views/Board.vue";
 import User from "../views/User.vue";
 import store from "@/store/index.js";
-import MapMain from "@/components/main/MapMain.vue";
+import MapMain from "../views/MapMain.vue";
 Vue.use(VueRouter);
 
 const noHome = function (to, from, next) {
