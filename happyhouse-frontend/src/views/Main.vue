@@ -23,6 +23,7 @@ const memberStore = "memberStore";
 
 import MapMain from "@/components/main/MapMain.vue";
 export default {
+  name: "Main",
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
