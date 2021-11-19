@@ -2,7 +2,7 @@
   <div>
     <sidebar-menu
       :menu="menu"
-      collapsed="true"
+      :collapsed="true"
       width="250px"
       widthCollapsed="70px"
       theme="white-theme"

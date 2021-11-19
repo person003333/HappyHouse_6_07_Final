@@ -69,4 +69,8 @@ export default {
   methods: {},
 };
 </script>
-<style scoped></style>
+<style scoped>
+#index_section {
+  margin-left: 70px;
+}
+</style>
