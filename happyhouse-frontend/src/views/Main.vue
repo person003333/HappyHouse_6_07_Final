@@ -8,7 +8,7 @@
       theme="white-theme"
     />
     <div id="username">
-      {{ userInfo.name }}님
+      {{ userInfo.name }} 님
       <span id="logout" @click="logoutProcess">로그아웃</span>
     </div>
 
