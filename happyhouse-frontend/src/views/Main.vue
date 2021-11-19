@@ -12,11 +12,12 @@
     </div>
 
     <!-- 메뉴들 라우터 뷰 -->
-    <router-view></router-view>
+    <MapMain></MapMain>
   </div>
 </template>
 
 <script>
+import MapMain from "@/components/main/MapMain.vue";
 export default {
   data() {
     return {
@@ -49,6 +50,9 @@ export default {
         },
       ],
     };
+  },
+  components: {
+    MapMain,
   },
 };
 </script>
