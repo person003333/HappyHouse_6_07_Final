@@ -28,6 +28,7 @@ const routes = [
     path: "/main",
     name: "Main",
     component: Main,
+    redirect: "/main/map",
     children: [
       {
         path: "user",
@@ -40,7 +41,7 @@ const routes = [
         component: Board,
       },
       {
-        path: "charts",
+        path: "map",
         name: "MapMain",
         component: MapMain,
       },

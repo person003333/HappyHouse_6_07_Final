@@ -3,12 +3,12 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import VueSidebarMenu from "vue-sidebar-menu";
-import Vuebar from "vuebar";
+// import Vuebar from "vuebar";
 import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 
 Vue.config.productionTip = false;
 
-Vue.use(Vuebar);
+// Vue.use(Vuebar);
 Vue.use(VueSidebarMenu);
 
 import "bootstrap/dist/css/bootstrap.css";

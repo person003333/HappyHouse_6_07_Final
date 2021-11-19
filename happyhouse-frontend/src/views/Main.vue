@@ -35,12 +35,12 @@ export default {
         },
 
         {
-          href: "/main/charts",
+          href: "/main/map",
           title: "아파트",
           icon: "far fa-building ",
           child: [
             {
-              href: "/charts/sublink",
+              href: "/map/sublink",
               title: "서브링크가능",
             },
           ],

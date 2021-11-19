@@ -47,7 +47,7 @@
     <b-container
       style="overflow-y: scroll; height: 200px"
       v-if="houses && houses.length != 0"
-      class="bv-example-row mt-3"
+      class="bv-example-row mt-3 scrollbar"
     >
       <house-list-row
         v-for="(house, index) in houses"
