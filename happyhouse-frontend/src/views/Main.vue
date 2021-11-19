@@ -14,6 +14,7 @@
 
     <!-- 메뉴들 라우터 뷰 -->
     <MapMain></MapMain>
+    <router-view></router-view>
   </div>
 </template>
 
