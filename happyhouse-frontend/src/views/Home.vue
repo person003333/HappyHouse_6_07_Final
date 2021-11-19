@@ -8,35 +8,73 @@
 
     <div class="login-box">
       <h2>Login</h2>
-      <form>
+      <form onsubmit="return false">
         <div class="user-box">
-          <input type="text" name="" required="" />
+          <input
+            type="text"
+            name=""
+            required=""
+            @keyup.enter="confirm"
+            v-model="user.id"
+          />
           <label>ID</label>
         </div>
         <div class="user-box">
-          <input type="password" name="" required="" />
+          <input
+            type="password"
+            name=""
+            required=""
+            @keyup.enter="confirm"
+            v-model="user.pw"
+          />
           <label>Password</label>
         </div>
         <button class="custom-btn btn-6"><span>Sign Up</span></button>
-        <router-link :to="{ name: 'Main' }">
-          <!-- <a>
+
+        <!-- <a>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             Submit
           </a> -->
-          <button class="custom-btn btn-6"><span>Sign In</span></button>
-        </router-link>
+        <button class="custom-btn btn-6" @click="confirm">
+          <span>Sign In</span>
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
   name: "Home",
-  components: {},
+  data() {
+    return {
+      user: {
+        id: null,
+        pw: null,
+      },
+    };
+  },
+  computed: {
+    ...mapState(memberStore, ["isLogin", "isLoginError"]),
+  },
+  methods: {
+    ...mapActions(memberStore, ["userConfirm", "getUserInfo"]),
+    async confirm() {
+      await this.userConfirm(this.user);
+      let token = sessionStorage.getItem("access-token");
+      if (this.isLogin) {
+        await this.getUserInfo(token);
+        this.$router.push({ name: "Main" });
+      }
+    },
+  },
 };
 </script>
 

@@ -9,7 +9,7 @@ public interface UserService {
 
 	void insertUser(User user) throws SQLException;
 
-	User login(String id, String pw) throws SQLException;
+	User login(User user) throws SQLException;
 
 	User searchInfo(String name, String email) throws SQLException;
 
@@ -18,4 +18,6 @@ public interface UserService {
 	void deleteUser(String user_id) throws SQLException;
 	
 	int idCheck(String userId) throws Exception;
+	
+	public User userInfo(String id) throws Exception;
 }

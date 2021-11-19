@@ -1,15 +1,14 @@
 package com.ssafy.happyhouse.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,21 +16,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.model.dto.User;
+import com.ssafy.happyhouse.model.service.JwtServiceImpl;
 import com.ssafy.happyhouse.model.service.UserService;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@Controller
+@RestController
 @RequestMapping("/api/user")
 public class UserController {
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
 
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private JwtServiceImpl jwtService;
+
 	@GetMapping("/idCheck")
-	@ResponseBody
 	public int idCheck(String ckid) throws Exception {
 		int cnt = 1;
 		cnt = userService.idCheck(ckid);
@@ -39,21 +43,52 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	@ResponseBody
-	public String login(String id, String pw, Model model, HttpSession session, HttpServletResponse response)
-			throws Exception {
-		System.out.println(id + " " + pw);
-		User user = userService.login(id, pw);
+	public ResponseEntity<Map<String, Object>> login(@RequestBody User user) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
 
-		if (user != null) {
-			session.setAttribute("userInfo", user);
-			return "success";
+		try {
+			User loginUser = userService.login(user);
+			if (loginUser != null) {
+				String token = jwtService.create("userid", loginUser.getId(), "access-token");// key, data, subject
+				resultMap.put("access-token", token);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
-		return "fail";
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	@GetMapping("/info/{id}")
+	public ResponseEntity<Map<String, Object>> getInfo(@PathVariable("id") String id, HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		if (jwtService.isUsable(request.getHeader("access-token"))) {
+			try {
+//				로그인 사용자 정보.
+				User user = userService.userInfo(id);
+				resultMap.put("userInfo", user);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} catch (Exception e) {
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+		} else {
+			resultMap.put("message", FAIL);
+			status = HttpStatus.ACCEPTED;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 	@GetMapping("/searchInfo")
-	@ResponseBody
 	public User searchInfo(String name, String email) throws Exception {
 
 		User user = userService.searchInfo(name, email);
@@ -64,27 +99,20 @@ public class UserController {
 		return user;
 	}
 
-	@GetMapping("/logout")
-	@ResponseBody
-	public String logout(HttpSession session) throws Exception {
-		session.invalidate();
-		return "index";
-	}
-
 	@PostMapping("")
-	@ResponseBody
 	public String register(User user, Model model) throws Exception {
 		userService.insertUser(user);
 		return "success";
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@PathVariable("id") String id, User user, HttpServletRequest request) throws Exception {
+	public ResponseEntity<String> update(@PathVariable("id") String id, User user, HttpServletRequest request)
+			throws Exception {
 		userService.updateUser(user);
 
 		HttpSession session = request.getSession();
 		session.setAttribute("userInfo", user);
-		return new ResponseEntity<>("update",HttpStatus.OK);
+		return new ResponseEntity<>("update", HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
@@ -97,13 +125,8 @@ public class UserController {
 			userService.deleteUser(id);
 			System.out.println("삭제");
 			request.getSession().invalidate();
-			return new ResponseEntity<>("delete",HttpStatus.OK);
+			return new ResponseEntity<>("delete", HttpStatus.OK);
 		}
-		return new ResponseEntity<>("fail",HttpStatus.NO_CONTENT);
-	}
-
-	@GetMapping("/myPage")
-	public String myPage() {
-		return "myPage";
+		return new ResponseEntity<>("fail", HttpStatus.NO_CONTENT);
 	}
 }

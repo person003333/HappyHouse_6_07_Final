@@ -9,9 +9,9 @@ public interface UserMapper {
 
 	void insertUser(User user) throws SQLException;
 
-	User login(String id, String pw) throws SQLException;
-
-	User selectUser(String userId) throws SQLException;
+	User login(User user) throws SQLException;
+	
+	 User userInfo(String id) throws SQLException;
 
 	User searchInfo(String name, String email) throws SQLException;
 

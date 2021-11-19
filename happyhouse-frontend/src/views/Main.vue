@@ -8,7 +8,8 @@
       theme="white-theme"
     />
     <div id="username">
-      <router-link :to="{ name: 'Home' }">홈</router-link>김싸피님
+      {{ userInfo.name }}님
+      <span id="logout" @click="logoutProcess">로그아웃</span>
     </div>
 
     <!-- 메뉴들 라우터 뷰 -->
@@ -17,7 +18,13 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+const memberStore = "memberStore";
+
 export default {
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   data() {
     return {
       menu: [
@@ -50,6 +57,13 @@ export default {
       ],
     };
   },
+  methods: {
+    ...mapActions(memberStore, ["logout"]),
+    logoutProcess() {
+      this.logout();
+      this.$router.push({ name: "Home" });
+    },
+  },
 };
 </script>
 
@@ -57,9 +71,17 @@ export default {
 #username {
   text-align: right;
   padding-top: 10px;
-  padding-right: 40px;
+  padding-right: 150px;
   height: 30px;
-  background-color: turquoise;
+  font-size: 1.2em;
+
+  #logout {
+    font-size: 0.5em;
+    color: rgb(129, 129, 129);
+  }
+  #logout:hover {
+    cursor: pointer;
+  }
 }
 
 .vsm--arrow {

@@ -9,14 +9,14 @@
 		values (#{id}, #{pw}, #{name}, #{email})
 	</insert>
 
-	<select id="login" parameterType="map" resultType="User">
-		select *
+	<select id="login" parameterType="User" resultType="User">
+		select id,name
 		from userinfo
 		where id = #{id} and pw = #{pw}
 	</select>
 	
-	<select id="selectUser" parameterType="String" resultType="User">
-		select *
+	<select id="userInfo" parameterType="String" resultType="User">
+		select id,name,email
 		from userinfo
 		where id = #{id}
 	</select>

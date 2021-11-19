@@ -3,9 +3,18 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+import createPersistedState from "vuex-persistedstate";
+import memberStore from "@/store/modules/memberStore.js";
+
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {},
+  modules: {
+    memberStore,
+  },
+  plugins: [
+    createPersistedState({
+      // 브라우저 종료시 제거하기 위해 localStorage가 아닌 sessionStorage로 변경. (default: localStorage)
+      // storage: sessionStorage,
+      storage: sessionStorage,
+    }),
+  ],
 });

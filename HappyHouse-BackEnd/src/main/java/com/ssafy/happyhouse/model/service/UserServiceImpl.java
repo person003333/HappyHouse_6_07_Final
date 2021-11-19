@@ -18,15 +18,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void insertUser(User user) throws SQLException {
-		User existedUser = userMapper.selectUser(user.getId());
+		User existedUser = userMapper.userInfo(user.getId());
 		if (existedUser != null)
 			return;
 		userMapper.insertUser(user);
 	}
 
 	@Override
-	public User login(String id, String pw) throws SQLException {
-		return userMapper.login(id,pw);
+	public User login(User user) throws SQLException {
+		if(user.getId() == null || user.getPw() == null)
+			return null;
+		return userMapper.login(user);
+	}
+	
+	@Override
+	public User userInfo(String id) throws Exception {
+		return userMapper.userInfo(id);
 	}
 
 	@Override
