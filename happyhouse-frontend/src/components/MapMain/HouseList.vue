@@ -65,7 +65,7 @@
 
 <script>
 import VueSlider from "vue-slider-component";
-import HouseListRow from "@/components/main/HouseListRow.vue";
+import HouseListRow from "@/components/MapMain/HouseListRow.vue";
 import { mapState, mapActions } from "vuex";
 
 import "vue-slider-component/theme/default.css";

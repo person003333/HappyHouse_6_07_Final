@@ -1,15 +1,13 @@
 <template>
-  <section id="index_section">
-    <b-container class="bv-example-row mt-3 text-center">
-      <div class="card col-sm-12 mt-1" style="min-height: 400px">
-        <b-row>
+  <section id="index_section" class="d-flex justify-content-center">
+    <b-container class="bv-example-row mt-3 text-center" style="width=100%">
+      <div class="col-sm-12 mt-1" style="min-height: 400px">
+        <b-row id="house-search" style="width: 40%">
           <b-col>
             <house-search-bar></house-search-bar>
           </b-col>
         </b-row>
-        <div class="col-12" id="map_info">
-          <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
-        </div>
+        <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
       </div>
       <b-row>
         <b-col cols="3" align="left">
@@ -27,11 +25,11 @@
 </template>
 
 <script>
-import HouseSearchBar from "@/components/main/HouseSearchBar.vue";
-import HouseList from "@/components/main/HouseList.vue";
-import HouseDetail from "@/components/main/HouseDetail.vue";
-import HouseDeal from "@/components/main/HouseDeal.vue";
-import KakaoMap from "@/components/main/KakaoMap.vue";
+import HouseSearchBar from "@/components/MapMain/HouseSearchBar.vue";
+import HouseList from "@/components/MapMain/HouseList.vue";
+import HouseDetail from "@/components/MapMain/HouseDetail.vue";
+import HouseDeal from "@/components/MapMain/HouseDeal.vue";
+import KakaoMap from "@/components/MapMain/KakaoMap.vue";
 
 import { mapState } from "vuex";
 
@@ -70,7 +68,12 @@ export default {
 };
 </script>
 <style scoped>
-#index_section {
-  margin-left: 70px;
+.container {
+  max-width: 90vw !important;
+}
+#house-search {
+  position: absolute;
+  left: 400px;
+  z-index: 20;
 }
 </style>

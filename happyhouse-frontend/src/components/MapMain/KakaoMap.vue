@@ -1,6 +1,6 @@
 <template>
   <div class="map_wrap">
-    <div ref="map" class="kmap"></div>
+    <div ref="map" class="kmap" style="width: 100%; height: 600px"></div>
     <ul id="category" ref="category">
       <li id="BK9" data-order="0">
         <span class="category_bg bank"></span>
@@ -525,7 +525,9 @@ export default {
   font-size: 12px;
 }
 .map_wrap {
-  position: relative;
+  position: absolute;
+  top: 0px;
+  left: 0px;
   width: 100%;
   height: 400px;
 }

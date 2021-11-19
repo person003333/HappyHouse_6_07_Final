@@ -182,6 +182,7 @@ export default {
   text-align: right;
   padding-top: 20px;
   margin-bottom: 50px;
+  margin-right: 120px;
   height: 30px;
   font-size: 1.2em;
 

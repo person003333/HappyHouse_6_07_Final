@@ -4,12 +4,12 @@
     <router-view
       class="scrollbar"
       id="service"
-      style="margin-left: 70px; padding: 0 200px"
+      style="margin-left: 70px"
     ></router-view>
   </div>
 </template>
 
-<style>
+<style lang="scss">
 @font-face {
   font-family: "RIDIBatang";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff")
@@ -17,8 +17,13 @@
   font-weight: normal;
   font-style: normal;
 }
-#app {
+
+.custom-select {
+  border: 1.4px solid rgba(0, 0, 0, 0.651) !important;
+  background: #f7f8fa !important;
+  font-size: 1.1em !important;
 }
+
 body {
   margin: 0;
   height: 100vh;
