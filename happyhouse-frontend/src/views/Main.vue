@@ -18,16 +18,16 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import { mapState, mapActions } from "vuex";
 const memberStore = "memberStore";
 
-=======
 import MapMain from "@/components/main/MapMain.vue";
->>>>>>> c5866bef93cf64cf299d949e416f97c2e8fe0ae1
 export default {
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+  },
+  components: {
+    MapMain,
   },
   data() {
     return {
@@ -61,17 +61,12 @@ export default {
       ],
     };
   },
-<<<<<<< HEAD
   methods: {
     ...mapActions(memberStore, ["logout"]),
     logoutProcess() {
       this.logout();
       this.$router.push({ name: "Home" });
     },
-=======
-  components: {
-    MapMain,
->>>>>>> c5866bef93cf64cf299d949e416f97c2e8fe0ae1
   },
 };
 </script>
