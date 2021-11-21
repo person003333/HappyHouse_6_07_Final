@@ -11,11 +11,21 @@
         <h2>Login</h2>
         <form onsubmit="return false">
           <div class="user-box">
-            <input type="text" @keyup.enter="confirm" v-model="user.id" />
+            <input
+              type="text"
+              @keyup.enter="confirm"
+              v-model="user.id"
+              required=""
+            />
             <label>ID</label>
           </div>
           <div class="user-box">
-            <input type="password" @keyup.enter="confirm" v-model="user.pw" />
+            <input
+              type="password"
+              @keyup.enter="confirm;"
+              v-model="user.pw"
+              required=""
+            />
             <label>Password</label>
           </div>
           <button
@@ -45,27 +55,48 @@
         <h2>Welcome</h2>
         <form onsubmit="return false">
           <div class="user-box">
-            <input type="text" @keyup.enter="signup" v-model="join.id" />
+            <input
+              type="text"
+              @keyup.enter="signup"
+              v-model="join.id"
+              required=""
+            />
             <label>ID</label>
           </div>
           <div class="user-box">
-            <input type="password" @keyup.enter="signup" v-model="join.pw" />
+            <input
+              type="password"
+              @keyup.enter="signup"
+              v-model="join.pw"
+              required=""
+            />
             <label>Password</label>
           </div>
           <div class="user-box">
             <input
               type="password"
               @keyup.enter="signup"
+              required=""
               v-model="join.confirmpw"
             />
             <label>Confirm Password</label>
           </div>
           <div class="user-box">
-            <input type="text" @keyup.enter="signup" v-model="join.name" />
+            <input
+              type="text"
+              @keyup.enter="signup"
+              v-model="join.name"
+              required=""
+            />
             <label>Name</label>
           </div>
           <div class="user-box">
-            <input type="text" @keyup.enter="signup" v-model="join.email" />
+            <input
+              type="text"
+              @keyup.enter="signup"
+              v-model="join.email"
+              required=""
+            />
             <label>Email</label>
           </div>
           <button class="custom-btn btn-6" @click="signup">
