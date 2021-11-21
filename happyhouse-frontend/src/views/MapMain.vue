@@ -1,7 +1,34 @@
 <template>
   <section id="index_section" class="d-flex justify-content-center">
     <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
-    <div id="info" class="scrollbar" style="border-radius: 5px">
+    <span
+      v-show="!toggle"
+      style="position: absolute; left: 95%; top: 10%"
+      @click="toggle = !toggle"
+    >
+      <i class="fas fa-list fa-2x"></i>
+    </span>
+    <div
+      id="info"
+      class="scrollbar"
+      style="border-radius: 10px"
+      v-show="toggle"
+    >
+      <span
+        v-show="toggle"
+        style="position: relative; left: 90%; top: 1%"
+        @click="toggle = !toggle"
+      >
+        <i class="fas fa-times fa-2x"></i
+      ></span>
+
+      <!-- <div style="font-size: calc(5em)">
+        <label class="toggle happy-sad">
+          <input type="checkbox" class="toggle-checkbox" />
+          <div class="toggle-btn"></div>
+        </label>
+      </div> -->
+
       <house-search-bar
         id="house-search"
         style="width: 100%; margin: 0px"
@@ -49,6 +76,7 @@ export default {
       markers_category: [],
       harbors: [],
       list: true,
+      toggle: true,
     };
   },
   components: {
@@ -81,10 +109,6 @@ export default {
   width: 95%;
 }
 
-#search-info {
-  position: relative;
-  top: 250px;
-}
 .map_wrap {
   position: absolute;
   top: 70px;
@@ -97,7 +121,7 @@ export default {
   top: 10%;
   z-index: 5;
   width: 25%;
-  height: 89%;
+  height: 85%;
   background-color: #f7f8fa;
 }
 #toList {
@@ -107,4 +131,51 @@ export default {
 #toList :hover {
   cursor: pointer;
 }
+
+.toggle {
+  color: #c3b4d9;
+  position: relative;
+  left: 90%;
+  top: 1%;
+}
+
+/* .toggle {
+  position: relative;
+  width: 1em;
+  height: 0.1em;
+  border-radius: 0.5em;
+  border: 0.015em solid #9f9f9f;
+  background-image: linear-gradient(#f2f2f2, #fff, #f2f2f2);
+  margin: 0.26em 0.15em;
+  cursor: pointer;
+  filter: drop-shadow(0.015em 0.015em 0.01em rgba(0, 0, 0, 0.3));
+}
+
+.toggle-btn::after {
+  position: absolute;
+  top: -0.14rem;
+  left: 0;
+  width: 50%;
+  font-size: 0.35em;
+  text-align: center;
+  transition: all 500ms cubic-bezier(0.34, 0.78, 0.55, 1.4);
+}
+
+.toggle-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
+.toggle-checkbox:checked + .toggle-btn::after {
+  left: 50%;
+}
+
+
+.happy-sad .toggle-btn::after {
+  content: "😁zz";
+}
+
+.happy-sad .toggle-checkbox:checked + .toggle-btn::after {
+  content: "😭";
+} */
 </style>

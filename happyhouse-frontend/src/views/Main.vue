@@ -7,6 +7,8 @@
       widthCollapsed="70px"
       theme="white-theme"
     />
+    <!-- <div>dㅏ</div> -->
+    <h1 style="position: absolute; left: 150px; top: 10px">Hom's TOUCH</h1>
     <div id="username">
       {{ userInfo.name }} 님
       <span id="logout" @click="logoutProcess">로그아웃</span>
@@ -173,5 +175,13 @@ export default {
       }
     }
   }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Righteous);
+h1 {
+  display: inline-block;
+  color: rgb(207, 198, 218);
+  font-family: "Righteous", serif;
+  text-shadow: 0.03em 0.03em 0 rgb(39, 46, 83);
 }
 </style>
