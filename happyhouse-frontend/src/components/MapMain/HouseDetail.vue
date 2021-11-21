@@ -2,13 +2,14 @@
   <b-container class="bv-example-row">
     <b-row>
       <b-col
-        ><h3>{{ house.aptName }}</h3></b-col
+        ><h3 class="mb-4">{{ house.aptName }}</h3></b-col
       >
     </b-row>
+    <b-row class="d-flex x justify-content-center mb-4"
+      ><b-col cols="10" align-self="stretch"
+        ><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img></b-col
+    ></b-row>
     <b-row class="mb-2 mt-1">
-      <b-col cols="5" align-self="stretch"
-        ><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img
-      ></b-col>
       <b-col>
         <table class="table">
           <tr class="table-secondary">
