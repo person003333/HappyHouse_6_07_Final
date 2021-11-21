@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <!-- 홈 or 메인 -->
-    <router-view
-      class="scrollbar"
-      id="service"
-      style="margin-left: 70px"
-    ></router-view>
+    <router-view id="service"></router-view>
   </div>
 </template>
 
@@ -27,7 +23,7 @@
 body {
   margin: 0;
   height: 100vh;
-
+  background-color: #e6e9f048 !important;
   font-family: "RIDIBatang" !important;
 }
 
@@ -36,7 +32,6 @@ body {
 }
 
 .scrollbar {
-  background: #e6e9f048;
   overflow-y: scroll;
   margin-bottom: 25px;
 }

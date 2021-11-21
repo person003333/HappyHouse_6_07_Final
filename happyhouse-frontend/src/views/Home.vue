@@ -1,54 +1,102 @@
 <template>
   <div class="home" style="text-align: center">
-    <div class="left">
-      <h1>HappyHappy</h1>
-      <h2>이름 뭘로..?</h2>
-      <h2>문구(사이트소개)</h2>
+    <div id="title">
+      <h1>Hom's TOUCH</h1>
+      <h3 style="margin-top: 10%">당신의 손길이 깃든</h3>
+      <h3 style="margin-top: 5%">나만의 보금자리</h3>
     </div>
 
     <div class="login-box">
-      <h2>Login</h2>
-      <form onsubmit="return false">
-        <div class="user-box">
-          <input
-            type="text"
-            name=""
-            required=""
-            @keyup.enter="confirm"
-            v-model="user.id"
-          />
-          <label>ID</label>
-        </div>
-        <div class="user-box">
-          <input
-            type="password"
-            name=""
-            required=""
-            @keyup.enter="confirm"
-            v-model="user.pw"
-          />
-          <label>Password</label>
-        </div>
-        <button class="custom-btn btn-6"><span>Sign Up</span></button>
+      <div id="loginbox" v-show="user.show">
+        <h2>Login</h2>
+        <form onsubmit="return false">
+          <div class="user-box">
+            <input type="text" @keyup.enter="confirm" v-model="user.id" />
+            <label>ID</label>
+          </div>
+          <div class="user-box">
+            <input type="password" @keyup.enter="confirm" v-model="user.pw" />
+            <label>Password</label>
+          </div>
+          <button
+            class="custom-btn btn-6"
+            @click="
+              user.show = !user.show;
+              join.show = !join.show;
+            "
+          >
+            <span>Sign Up</span>
+          </button>
 
-        <!-- <a>
+          <!-- <a>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             Submit
           </a> -->
-        <button class="custom-btn btn-6" @click="confirm">
-          <span>Sign In</span>
-        </button>
-      </form>
+          <button class="custom-btn btn-6" @click="confirm">
+            <span>Sign In</span>
+          </button>
+        </form>
+      </div>
+
+      <div id="joinbox" v-show="join.show">
+        <h2>Welcome</h2>
+        <form onsubmit="return false">
+          <div class="user-box">
+            <input type="text" @keyup.enter="signup" v-model="join.id" />
+            <label>ID</label>
+          </div>
+          <div class="user-box">
+            <input type="password" @keyup.enter="signup" v-model="join.pw" />
+            <label>Password</label>
+          </div>
+          <div class="user-box">
+            <input
+              type="password"
+              @keyup.enter="signup"
+              v-model="join.confirmpw"
+            />
+            <label>Confirm Password</label>
+          </div>
+          <div class="user-box">
+            <input type="text" @keyup.enter="signup" v-model="join.name" />
+            <label>Name</label>
+          </div>
+          <div class="user-box">
+            <input type="text" @keyup.enter="signup" v-model="join.email" />
+            <label>Email</label>
+          </div>
+          <button class="custom-btn btn-6" @click="signup">
+            <span>Sign Up</span>
+          </button>
+
+          <!-- <a>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Submit
+          </a> -->
+          <button
+            class="custom-btn btn-6"
+            @click="
+              user.show = !user.show;
+              join.show = !join.show;
+            "
+          >
+            <span>Sign In</span>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-
+import http from "@/util/http-common.js";
 const memberStore = "memberStore";
 
 export default {
@@ -56,8 +104,17 @@ export default {
   data() {
     return {
       user: {
+        show: true,
         id: null,
         pw: null,
+      },
+      join: {
+        show: false,
+        id: null,
+        pw: null,
+        confirmpw: null,
+        name: null,
+        email: null,
       },
     };
   },
@@ -74,15 +131,64 @@ export default {
         this.$router.push({ name: "Main" });
       }
     },
+
+    signup() {
+      if (!this.join.id) {
+        alert("아이디를 확인하세요.");
+        return;
+      }
+      if (!this.join.pw) {
+        alert("비밀번호를 확인하세요.");
+        return;
+      }
+      if (this.join.pw != this.join.confirmpw) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+      }
+      if (!this.join.name) {
+        alert("이름을 확인하세요.");
+        return;
+      }
+      if (!this.join.email) {
+        alert("이메일을 확인하세요.");
+        return;
+      }
+      console.log(this.join.id);
+      http
+        .get("/api/user/idCheck", {
+          params: {
+            ckid: this.join.id,
+          },
+        })
+        .then(({ data }) => {
+          console.log(data);
+          if (data == 1) {
+            alert("이미 사용중인 아이디입니다.");
+            return;
+          }
+
+          http
+            .post("/api/user", {
+              id: this.join.id,
+              pw: this.join.pw,
+              name: this.join.name,
+              email: this.join.email,
+            })
+            .then(() => {
+              alert("회원가입 완료");
+              location.reload();
+            });
+        });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.left {
-  float: left;
-  width: 50%;
-  margin-top: 12rem;
+#title {
+  position: absolute;
+  top: 30%;
+  left: 13%;
 }
 
 h1 {
@@ -358,6 +464,11 @@ button {
   width: 100%;
 }
 
+.login-box {
+  h2 {
+    font-size: 3rem;
+  }
+}
 //title
 @import url(https://fonts.googleapis.com/css?family=Righteous);
 h1 {
@@ -365,6 +476,11 @@ h1 {
   color: white;
   font-family: "Righteous", serif;
   font-size: 7rem;
+  text-shadow: 0.03em 0.03em 0 hsla(230, 40%, 50%, 1);
+}
+h3 {
+  font-size: 2rem;
+  color: rgb(236, 252, 255);
   text-shadow: 0.03em 0.03em 0 hsla(230, 40%, 50%, 1);
 }
 </style>

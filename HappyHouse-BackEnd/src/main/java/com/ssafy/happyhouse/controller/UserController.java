@@ -36,7 +36,8 @@ public class UserController {
 	private JwtServiceImpl jwtService;
 
 	@GetMapping("/idCheck")
-	public int idCheck(String ckid) throws Exception {
+	public int idCheck( String ckid) throws Exception {
+		System.out.println(ckid);
 		int cnt = 1;
 		cnt = userService.idCheck(ckid);
 		return cnt;
@@ -96,11 +97,11 @@ public class UserController {
 		if (user == null) {
 			return null;
 		}
-		return user;
+		return user;  
 	}
 
 	@PostMapping("")
-	public String register(User user, Model model) throws Exception {
+	public String register(@RequestBody User user) throws Exception {
 		userService.insertUser(user);
 		return "success";
 	}

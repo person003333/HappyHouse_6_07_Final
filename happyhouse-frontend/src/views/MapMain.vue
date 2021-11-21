@@ -71,6 +71,10 @@ export default {
 .container {
   max-width: 90vw !important;
 }
+#index_section {
+  margin-bottom: 0px !important;
+  height: 92.5%;
+}
 #house-search {
   position: absolute;
   left: 400px;
@@ -78,7 +82,7 @@ export default {
 }
 
 #search-info {
-  position: absolute;
-  top: 800px;
+  position: relative;
+  top: 250px;
 }
 </style>

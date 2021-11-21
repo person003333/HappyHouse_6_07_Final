@@ -13,7 +13,7 @@
     </div>
 
     <!-- 메뉴들 라우터 뷰 -->
-    <router-view></router-view>
+    <router-view class="scrollbar" style="margin-left: 70px"></router-view>
   </div>
 </template>
 
@@ -36,14 +36,14 @@ export default {
 
         {
           href: "/main/map",
-          title: "아파트",
+          title: "거래정보",
           icon: "far fa-building ",
-          child: [
-            {
-              href: "/map/sublink",
-              title: "서브링크가능",
-            },
-          ],
+          // child: [
+          //   {
+          //     href: "/map/sublink",
+          //     title: "서브링크가능",
+          //   },
+          // ],
         },
         {
           href: "user",
@@ -72,7 +72,7 @@ export default {
 #username {
   text-align: right;
   padding-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   margin-right: 120px;
   height: 30px;
   font-size: 1.2em;
@@ -156,7 +156,7 @@ export default {
   .vsm--icon,
 .v-sidebar-menu.vsm_white-theme .vsm--link_level-1.vsm--link_active .vsm--icon {
   color: #4675af !important;
-  background-color: #ab50bd65 !important;
+  background-color: #ffffffd2 !important;
 }
 
 //선택 안된 아이콘
