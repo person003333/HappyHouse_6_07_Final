@@ -2,7 +2,7 @@ package com.ssafy.happyhouse.model.dto;
 
 public class HouseInfoDto {
 
-	private int aptCode;
+	private String aptCode;
 	private String aptName;
 	private String dongCode;
 	private String dongName;
@@ -24,10 +24,10 @@ public class HouseInfoDto {
 	public void setArea(String area) {
 		this.area = area;
 	}
-	public int getAptCode() {
+	public String getAptCode() {
 		return aptCode;
 	}
-	public void setAptCode(int aptCode) {
+	public void setAptCode(String aptCode) {
 		this.aptCode = aptCode;
 	}
 	public String getAptName() {

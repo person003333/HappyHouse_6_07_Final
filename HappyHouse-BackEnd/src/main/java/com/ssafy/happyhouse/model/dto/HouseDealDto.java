@@ -2,7 +2,7 @@ package com.ssafy.happyhouse.model.dto;
 
 public class HouseDealDto {
 	private int no;
-	private int aptCode;
+	private String aptCode;
 	private String aptName;
 	private String dealAmount;
 	private int dealYear;
@@ -17,7 +17,7 @@ public class HouseDealDto {
 	public HouseDealDto() {
 		super();
 	}
-	public HouseDealDto(int no, int aptCode, String dealAmount, int dealYear, int dealMonth, int dealDay, String area,
+	public HouseDealDto(int no, String aptCode, String dealAmount, int dealYear, int dealMonth, int dealDay, String area,
 			String floor, String type, String rentMoney) {
 		super();
 		this.no = no;
@@ -37,10 +37,10 @@ public class HouseDealDto {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getAptCode() {
+	public String getAptCode() {
 		return aptCode;
 	}
-	public void setAptCode(int aptCode) {
+	public void setAptCode(String aptCode) {
 		this.aptCode = aptCode;
 	}
 	public String getDealAmount() {
