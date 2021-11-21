@@ -107,27 +107,17 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> update(@PathVariable("id") String id, User user, HttpServletRequest request)
+	public ResponseEntity<String> update(@PathVariable("id") String id,@RequestBody User user)
 			throws Exception {
+		user.setId(id);
 		userService.updateUser(user);
-
-		HttpSession session = request.getSession();
-		session.setAttribute("userInfo", user);
 		return new ResponseEntity<>("update", HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> update(@PathVariable("id") String id, HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("userInfo");
-
-		// 세션과 다른 id 삭제 방지
-		if (user.getId().equals(id)) {
+	public ResponseEntity<String> update(@PathVariable("id") String id) throws Exception {
 			userService.deleteUser(id);
 			System.out.println("삭제");
-			request.getSession().invalidate();
 			return new ResponseEntity<>("delete", HttpStatus.OK);
-		}
-		return new ResponseEntity<>("fail", HttpStatus.NO_CONTENT);
 	}
 }
