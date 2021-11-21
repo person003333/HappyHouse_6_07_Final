@@ -17,7 +17,7 @@
 .custom-select {
   border: 1.4px solid rgba(0, 0, 0, 0.651) !important;
   background: #f7f8fa !important;
-  font-size: 1.1em !important;
+  font-size: 1em !important;
 }
 
 body {
@@ -44,6 +44,7 @@ body {
 
 .scrollbar::-webkit-scrollbar {
   width: 5px;
+
   background-color: #f5f5f5;
 }
 

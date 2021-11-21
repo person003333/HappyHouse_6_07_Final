@@ -45,14 +45,15 @@
       <b-button block variant="danger">검색</b-button>
     </b-dropdown>
     <b-container
-      style="overflow-y: scroll; height: 200px"
+      style="height: 100%"
       v-if="houses && houses.length != 0"
-      class="bv-example-row mt-3 scrollbar"
+      class="bv-example-row mt-3"
     >
       <house-list-row
         v-for="(house, index) in houses"
         :key="index"
         :house="house"
+        v-on="$listeners"
       />
     </b-container>
     <b-container v-else class="bv-example-row mt-3">

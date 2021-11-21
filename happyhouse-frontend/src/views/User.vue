@@ -4,8 +4,8 @@
     style="height: 90vh; padding: 0px !important"
   >
     <div class="container col-lg-5 col-lg-7" style="height: 90%">
-      <div class="card mb-4" style="margin-top: 40px; height: 85% !important">
-        <div class="card-body">
+      <div class="card mb-4" style="margin-top: 60px; height: 85% !important">
+        <div class="card-body mt-4">
           <h2 class="card-title" v-show="!edit">회원 정보 확인</h2>
           <h2 class="card-title" v-show="edit">회원 정보 수정</h2>
           <!-- <p class="card-text"></p> -->
@@ -89,13 +89,13 @@
             style="
               float: right;
               margin-right: 150px;
-              width: 20%;
+              width: 18%;
               display: flex;
               justify-content: space-between;
             "
           >
             <b-button
-              class="btn-lg btn-group btn-animated mt-3"
+              class="btn btn-group btn-animated mt-3"
               id="editBtn"
               @click="edit = !edit"
               v-show="!edit"
@@ -103,7 +103,7 @@
               <i class="bi-pencil-square"></i>수정
             </b-button>
             <b-button
-              class="btn-lg btn-group btn-animated mt-3"
+              class="btn btn-group btn-animated mt-3"
               id="editBtn"
               @click="modify"
               v-show="edit"
@@ -113,7 +113,7 @@
 
             <!-- Button trigger modal -->
             <b-button
-              class="btn-lg btn-danger btn-group btn-animated mt-3"
+              class="btn btn-danger btn-group btn-animated mt-3"
               @click="$bvModal.show('deleteCheckModal')"
               id="deleteBtn"
             >
@@ -291,5 +291,10 @@ label {
 #deleteBtn:hover {
   background-image: linear-gradient(135deg, #a8453f 10%, #2d0d33 100%);
   border-color: rgba(255, 255, 255, 0);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
 }
 </style>

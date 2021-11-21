@@ -39,6 +39,8 @@ export default {
     },
     selectHouse() {
       this.detailHouse(this.house);
+      console.log(this);
+      this.$emit("toDetail");
     },
   },
 };

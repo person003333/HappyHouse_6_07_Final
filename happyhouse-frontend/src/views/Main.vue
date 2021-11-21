@@ -13,7 +13,7 @@
     </div>
 
     <!-- 메뉴들 라우터 뷰 -->
-    <router-view class="scrollbar" style="margin-left: 70px"></router-view>
+    <router-view style="margin-left: 70px"></router-view>
   </div>
 </template>
 

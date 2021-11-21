@@ -1,26 +1,23 @@
 <template>
   <section id="index_section" class="d-flex justify-content-center">
-    <b-container class="bv-example-row mt-3 text-center" style="width=100%">
-      <div class="col-sm-12 mt-1" style="min-height: 400px">
-        <b-row id="house-search" style="width: 40%">
-          <b-col>
-            <house-search-bar></house-search-bar>
-          </b-col>
-        </b-row>
-        <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
+    <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
+    <div id="info" class="scrollbar" style="border-radius: 5px">
+      <house-search-bar
+        id="house-search"
+        style="width: 100%; margin: 0px"
+        class="d-flex justify-content-center"
+      ></house-search-bar>
+      <div v-show="list">
+        <house-list v-on:toDetail="toDetail"></house-list>
       </div>
-      <b-row id="search-info">
-        <b-col cols="3" align="left">
-          <house-list />
-        </b-col>
-        <b-col cols="5">
-          <house-detail />
-        </b-col>
-        <b-col cols="4">
-          <house-deal />
-        </b-col>
-      </b-row>
-    </b-container>
+      <div v-show="!list">
+        <div id="toList" @click="list = !list">
+          <i class="fas fa-arrow-left"></i> <span>목록으로</span>
+        </div>
+        <house-detail style="width: 90%; margin: 10px auto" />
+        <house-deal style="width: 90%; margin: 20px auto" />
+      </div>
+    </div>
   </section>
 </template>
 
@@ -51,6 +48,7 @@ export default {
       markers_apt: [],
       markers_category: [],
       harbors: [],
+      list: true,
     };
   },
   components: {
@@ -64,25 +62,49 @@ export default {
     ...mapState(mapStore, ["map", "marker", "houses"]),
   },
   mounted() {},
-  methods: {},
+  methods: {
+    toDetail() {
+      this.list = !this.list;
+    },
+  },
 };
 </script>
 <style scoped>
 .container {
-  max-width: 90vw !important;
+  max-width: 98.1% !important;
+  padding: 0px;
+  margin: 0px;
 }
 #index_section {
   margin-bottom: 0px !important;
   height: 92.5%;
-}
-#house-search {
-  position: absolute;
-  left: 400px;
-  z-index: 20;
+  width: 95%;
 }
 
 #search-info {
   position: relative;
   top: 250px;
+}
+.map_wrap {
+  position: absolute;
+  top: 70px;
+  height: 92.5% !important;
+  z-index: 0;
+}
+#info {
+  position: absolute;
+  left: 72%;
+  top: 10%;
+  z-index: 5;
+  width: 25%;
+  height: 89%;
+  background-color: #f7f8fa;
+}
+#toList {
+  margin: 20px 10px;
+}
+
+#toList :hover {
+  cursor: pointer;
 }
 </style>
