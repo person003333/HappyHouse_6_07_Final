@@ -1,23 +1,42 @@
 <template>
   <div>
-    <b-dropdown
-      size="lg"
-      variant="link"
-      toggle-class="text-decoration-none"
-      no-caret
-    >
-      <template #button-content>
-        <i class="fas fa-sliders-h"></i>
-      </template>
-      <b-dropdown-group
-        id="dropdown-group-2"
-        header="거래 일자"
-        style="width: 240px"
-      >
-        <b-container fluid class="text-center"> </b-container>
-      </b-dropdown-group>
-      <b-button block variant="danger" @click="toSearch">검색</b-button>
-    </b-dropdown>
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-form-datepicker
+            size="sm"
+            v-model="value_start"
+            :min="min"
+            :max="max"
+            locale="ko-kr"
+            :date-format-options="{
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+            }"
+          ></b-form-datepicker> </b-col
+        >~
+        <b-col>
+          <b-form-datepicker
+            size="sm"
+            v-model="value_end"
+            :min="min"
+            :max="max"
+            locale="ko-kr"
+            :date-format-options="{
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+            }"
+          ></b-form-datepicker>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-button block variant="danger" @click="toSearch">검색</b-button>
+        </b-col>
+      </b-row>
+    </b-container>
     <b-table
       class="scrollbar"
       sticky-header
@@ -35,17 +54,24 @@
 </template>
 
 <script>
-import http from "@/util/http-common.js";
-import { mapState } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 const mapStore = "mapStore";
 export default {
   name: "Housedeal",
   computed: {
-    ...mapState(mapStore, ["house"]),
+    ...mapState(mapStore, ["house", "date_start", "date_end", "house_deal"]),
   },
   data() {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    // 15th two months prior
+    const minDate = new Date();
+    minDate.setYear(2015);
+    minDate.setMonth(0);
+    minDate.setDate(1);
+    // 15th in two months
+    const maxDate = new Date(today);
     return {
-      house_deal: null,
       fields: [
         {
           key: "dealAmount",
@@ -60,29 +86,30 @@ export default {
           label: "판매 일자",
         },
       ],
+
+      min: minDate,
+      max: new Date(maxDate),
+      value_start: minDate,
+      value_end: new Date(maxDate),
     };
   },
   watch: {
     house(newVal) {
+      console.log(this.value_start);
       this.dealInfo(newVal.aptCode);
     },
   },
   mounted() {
+    this.value_start = this.date_start;
+    this.value_end = this.date_end;
     this.dealInfo(this.house.aptCode);
   },
 
   methods: {
-    dealInfo(code) {
-      const params = { aptCode: code };
-      http
-        .get("/map/apt_detail", { params })
-        .then((response) => {
-          console.log(response.data);
-          this.house_deal = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    ...mapActions(mapStore, ["dealInfo"]),
+    ...mapMutations(mapStore, ["SET_HOUSE_DEAL"]),
+    toSearch() {
+      this.SET_HOUSE_DEAL([this.value_start, this.value_end]);
     },
   },
 };
