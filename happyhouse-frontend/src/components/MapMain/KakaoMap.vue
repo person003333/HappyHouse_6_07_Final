@@ -125,20 +125,10 @@ export default {
         });
       });
     },
-    showOnMap(harbor) {
-      console.log(harbor);
-      this.options.center = {
-        lat: harbor.Ma,
-        lng: harbor.La,
-      };
-    },
     displayPlacehouse(place) {
       console.log(place);
       //지도 클릭한 매물로 이동
-      this.options.center = {
-        lat: place.lat,
-        lng: place.lng,
-      };
+      this.mapInstance.panTo(new kakao.maps.LatLng(place.lat, place.lng));
 
       this.currCategory = "SW8";
       this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
@@ -188,7 +178,7 @@ export default {
         });
       // 마커가 지도 위에 표시되도록 설정합니다
       marker.setMap(this.mapInstance);
-      this.showOnMap(position);
+      this.mapInstance.panTo(marker.getPosition());
       // 생성된 마커를 배열에 추가합니다
       this.markers_house.push(marker);
       return marker;
