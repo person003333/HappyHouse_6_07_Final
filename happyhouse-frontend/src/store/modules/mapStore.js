@@ -27,6 +27,8 @@ const mapStore = {
     date_end: new Date(today),
     house_deal: [],
     house_deal_origin: [],
+
+    house_deal_chart: [],
   },
   mutations: {
     GET_SIDO_LIST(state, sidos) {
@@ -101,6 +103,7 @@ const mapStore = {
     },
     GET_HOUSE_DEAL(state, house_deal) {
       state.house_deal = [];
+      state.house_deal_chart = [];
       state.date_start = new Date(state.date_start);
       state.date_end = new Date(state.date_end);
       state.house_deal_origin = house_deal;
@@ -115,13 +118,23 @@ const mapStore = {
         if (
           state.date_start.valueOf() <= date.valueOf() &&
           state.date_end.valueOf() >= date.valueOf()
-        )
+        ) {
           state.house_deal.push(state.house_deal_origin[i]);
+          state.house_deal_chart.push([
+            date,
+            parseInt(
+              parseInt(state.house_deal_origin[i].dealAmount.replace(",", "")) /
+                parseInt(state.house_deal_origin[i].area)
+            ),
+          ]);
+        }
       }
+      console.log(state.house_deal_chart);
     },
 
     SET_HOUSE_DEAL(state, value_date) {
       state.house_deal = [];
+      state.house_deal_chart = [];
       state.date_start = new Date(value_date[0]);
       state.date_end = new Date(value_date[1]);
       for (let i = 0; i < state.house_deal_origin.length; i++) {
@@ -139,8 +152,16 @@ const mapStore = {
         if (
           state.date_start.getTime() <= date.getTime() &&
           state.date_end.getTime() >= date.getTime()
-        )
+        ) {
           state.house_deal.push(state.house_deal_origin[i]);
+          state.house_deal_chart.push([
+            date,
+            parseInt(
+              parseInt(state.house_deal_origin[i].dealAmount.replace(",", "")) /
+                parseInt(state.house_deal_origin[i].area)
+            ),
+          ]);
+        }
       }
       console.log(value_date[0]);
       console.log(value_date[1]);

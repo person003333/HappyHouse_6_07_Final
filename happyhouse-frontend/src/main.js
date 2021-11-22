@@ -21,6 +21,11 @@ Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
 
+import Chartkick from "vue-chartkick";
+import Chart from "chart.js";
+
+Vue.use(Chartkick.use(Chart));
+
 new Vue({
   router,
   store,

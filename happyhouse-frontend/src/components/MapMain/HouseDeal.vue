@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-container>
+      <line-chart :data="house_deal_chart" :download="true"></line-chart>
       <b-row>
         <b-col>
           <b-form-datepicker
@@ -59,7 +60,13 @@ const mapStore = "mapStore";
 export default {
   name: "Housedeal",
   computed: {
-    ...mapState(mapStore, ["house", "date_start", "date_end", "house_deal"]),
+    ...mapState(mapStore, [
+      "house",
+      "date_start",
+      "date_end",
+      "house_deal",
+      "house_deal_chart",
+    ]),
   },
   data() {
     const now = new Date();
