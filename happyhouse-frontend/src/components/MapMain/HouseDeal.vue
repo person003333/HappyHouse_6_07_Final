@@ -1,7 +1,11 @@
 <template>
   <div>
     <b-container>
-      <line-chart :data="house_deal_chart" :download="true"></line-chart>
+      <line-chart
+        :data="house_deal_chart"
+        :colors="['#00b', '#666']"
+        :download="true"
+      ></line-chart>
       <b-row>
         <b-col>
           <b-form-datepicker
