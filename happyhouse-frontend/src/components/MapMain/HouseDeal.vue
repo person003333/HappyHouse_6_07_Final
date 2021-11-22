@@ -1,5 +1,23 @@
 <template>
   <div>
+    <b-dropdown
+      size="lg"
+      variant="link"
+      toggle-class="text-decoration-none"
+      no-caret
+    >
+      <template #button-content>
+        <i class="fas fa-sliders-h"></i>
+      </template>
+      <b-dropdown-group
+        id="dropdown-group-2"
+        header="거래 일자"
+        style="width: 240px"
+      >
+        <b-container fluid class="text-center"> </b-container>
+      </b-dropdown-group>
+      <b-button block variant="danger" @click="toSearch">검색</b-button>
+    </b-dropdown>
     <b-table
       class="scrollbar"
       sticky-header
