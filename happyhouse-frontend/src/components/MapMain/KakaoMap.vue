@@ -143,11 +143,20 @@ export default {
       this.currCategory = "";
 
       this.detailHouse(place);
-      var content = '<div class="placeinfo">';
+      var content = '<div class="placehouse">';
 
       content +=
-        '    <span title="' + place.aptName + '">' + place.aptName + "</span>";
-
+        '    <span title="' +
+        place.aptName +
+        '" class="title">' +
+        place.aptName +
+        "</span>";
+      content +=
+        '<span title="' +
+        place.recentPrice +
+        '">최근 거래가 : ' +
+        place.recentPrice +
+        "만 원</span>";
       content += "</div>" + '<div class="after"></div>';
 
       this.contentNode.innerHTML = content;
@@ -585,12 +594,14 @@ export default {
 #category li.on .category_bg {
   background-position-x: -46px;
 }
-.placeinfo_wrap {
+.placeinfo_wrap,
+.placehouse_wrap {
   position: absolute;
   bottom: 28px;
   left: -150px;
   width: 300px;
 }
+.placehouse,
 .placeinfo {
   position: relative;
   width: 100%;
@@ -600,10 +611,12 @@ export default {
   padding-bottom: 10px;
   background: #fff;
 }
+.placehouse:nth-of-type(n),
 .placeinfo:nth-of-type(n) {
   border: 0;
   box-shadow: 0px 1px 2px #888;
 }
+.placehouse_wrap .after,
 .placeinfo_wrap .after {
   content: "";
   position: relative;
@@ -613,12 +626,17 @@ export default {
   height: 12px;
   background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
 }
+.placehouse a,
+.placehouse a:hover,
+.placehouse a:active,
 .placeinfo a,
 .placeinfo a:hover,
 .placeinfo a:active {
   color: #fff;
   text-decoration: none;
 }
+.placehouse a,
+.placehouse span,
 .placeinfo a,
 .placeinfo span {
   display: block;
@@ -626,10 +644,23 @@ export default {
   overflow: hidden;
   white-space: nowrap;
 }
+.placehouse span,
 .placeinfo span {
   margin: 5px 5px 0 5px;
   cursor: default;
   font-size: 13px;
+}
+.placehouse .title {
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 6px 6px 0 0;
+  margin: -1px -1px 0 -1px;
+  padding: 10px;
+  color: #fff;
+  background: #5050d9;
+  background: #5050d9
+    url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+    no-repeat right 14px center;
 }
 .placeinfo .title {
   font-weight: bold;
