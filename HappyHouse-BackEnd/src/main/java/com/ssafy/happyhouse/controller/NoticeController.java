@@ -32,11 +32,16 @@ public class NoticeController {
 		noticeService.registerNotice(notice);
 	}
 
-	@GetMapping("/list")
+	@GetMapping("")
 	public List<NoticeDto> list() throws Exception {
 		return noticeService.listNotice();
 	}
 	
+	@GetMapping("/notice")
+	public List<NoticeDto> noticelist() throws Exception {
+		return noticeService.notice();
+	}
+	 
 	@GetMapping("/{noticeNo}")
 	public NoticeDto getNotice(@PathVariable("noticeNo") String noticeNo) throws Exception {
 		return noticeService.getNotice(Integer.parseInt(noticeNo));

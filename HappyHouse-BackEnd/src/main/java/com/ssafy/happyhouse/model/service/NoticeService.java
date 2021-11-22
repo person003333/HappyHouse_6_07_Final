@@ -11,11 +11,13 @@ public interface NoticeService {
 
 	List<NoticeDto> listNotice() throws Exception;
 
+	List<NoticeDto> notice() throws Exception;
+
 	NoticeDto getNotice(int noticeNo) throws Exception;
 
 	void updateNotice(NoticeDto notice) throws Exception;
 
 	void deleteNotice(int noticeNo) throws Exception;
-	
+
 	void updateView(int noticeNo) throws Exception;
 }

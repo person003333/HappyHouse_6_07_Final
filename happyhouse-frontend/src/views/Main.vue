@@ -8,7 +8,9 @@
       theme="white-theme"
     />
     <!-- <div>dㅏ</div> -->
-    <h1 style="position: absolute; left: 150px; top: 10px">Hom's TOUCH</h1>
+    <h1 id="logo" style="position: absolute; left: 150px; top: 10px">
+      Hom's TOUCH
+    </h1>
     <div id="username">
       {{ userInfo.name }} 님
       <span id="logout" @click="logoutProcess">로그아웃</span>
@@ -48,7 +50,7 @@ export default {
           // ],
         },
         {
-          href: "user",
+          href: "/main/user",
           title: "마이페이지",
           icon: "fa fa-user",
         },
@@ -178,7 +180,7 @@ export default {
 }
 
 @import url(https://fonts.googleapis.com/css?family=Righteous);
-h1 {
+#logo {
   display: inline-block;
   color: rgb(207, 198, 218);
   font-family: "Righteous", serif;

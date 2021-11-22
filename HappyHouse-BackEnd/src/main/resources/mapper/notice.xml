@@ -27,9 +27,27 @@
 
 	<select id="listNotice" parameterType="map"
 		resultMap="noticeList">
-		select notice_no,id, name, subject, regtime,view
+		select notice_no,id, u.name, subject, 
+		case when date_format(regtime, '%Y%m%d') = date_format(now(), '%Y%m%d')
+				then date_format(regtime, '%H:%i:%s')
+				else date_format(regtime, '%y.%m.%d')
+				end regtime,view
 		from notice
-		join userinfo using(id)
+		left join userinfo u using(id)
+		where id!='admin'
+		order by notice_no desc
+	</select>
+	
+		<select id="notice" parameterType="map"
+		resultMap="noticeList">
+		select notice_no,id, u.name, subject, 
+		case when date_format(regtime, '%Y%m%d') = date_format(now(), '%Y%m%d')
+				then date_format(regtime, '%H:%i:%s')
+				else date_format(regtime, '%y.%m.%d')
+				end regtime,view
+		from notice
+		left join userinfo u using(id)
+		where id='admin'
 		order by notice_no desc
 	</select>
 

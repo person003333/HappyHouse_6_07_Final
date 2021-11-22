@@ -6,6 +6,11 @@ import Board from "../views/Board.vue";
 import User from "../views/User.vue";
 import store from "@/store/index.js";
 import MapMain from "../views/MapMain.vue";
+import BoardList from "../components/Board/BoardList.vue";
+import BoardCreate from "../components/Board/BoardCreate.vue";
+import BoardView from "../components/Board/BoardView.vue";
+import NoticeView from "../components/Board/NoticeView.vue";
+import BoardModify from "../components/Board/BoardModify.vue";
 Vue.use(VueRouter);
 
 const noHome = function (to, from, next) {
@@ -39,6 +44,34 @@ const routes = [
         path: "board",
         name: "Board",
         component: Board,
+        redirect: "/main/board/list",
+        children: [
+          {
+            path: "list",
+            name: "BoardList",
+            component: BoardList,
+          },
+          {
+            path: "create",
+            name: "BoardCreate",
+            component: BoardCreate,
+          },
+          {
+            path: "view/:no",
+            name: "BoardView",
+            component: BoardView,
+          },
+          {
+            path: "noticeview/:no",
+            name: "NoticeView",
+            component: NoticeView,
+          },
+          {
+            path: "modify/:no",
+            name: "BoardModify",
+            component: BoardModify,
+          },
+        ],
       },
       {
         path: "map",
