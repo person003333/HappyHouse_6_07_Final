@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-between">
       <router-link
-        :to="{ name: 'BoardList' }"
+        :to="{ name: 'BoardList', params: { page: 1 } }"
         class="btn"
         style="font-size: 1.2em"
         ><i class="fa fa-list" aria-hidden="true"></i> 목록</router-link
@@ -118,7 +118,7 @@ export default {
       http
         .delete(`/api/notice/${this.$route.params.no}`)
         .then(() => {
-          this.$router.push({ name: "BoardList" });
+          this.$router.push({ name: "BoardList", params: { page: 1 } });
         })
         .catch((err) => console.log(err));
     },
