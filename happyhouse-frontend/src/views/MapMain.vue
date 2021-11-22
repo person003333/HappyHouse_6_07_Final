@@ -87,7 +87,7 @@ export default {
     KakaoMap,
   },
   computed: {
-    ...mapState(mapStore, ["map", "marker", "houses", "dongCode"]),
+    ...mapState(mapStore, ["map", "marker", "houses", "dongCode", "house"]),
   },
   mounted() {},
   methods: {
@@ -96,6 +96,9 @@ export default {
     },
   },
   watch: {
+    house() {
+      this.list = false;
+    },
     dongCode(newVal) {
       console.log(newVal);
       this.list = true;
