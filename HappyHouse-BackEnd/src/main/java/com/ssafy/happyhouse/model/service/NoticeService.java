@@ -4,12 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.happyhouse.model.dto.NoticeDto;
+import com.ssafy.happyhouse.model.dto.NoticeParameterDto;
 
 public interface NoticeService {
 
 	void registerNotice(NoticeDto notice) throws SQLException;
 
-	List<NoticeDto> listNotice() throws Exception;
+	List<NoticeDto> listNotice(NoticeParameterDto noticeParameterDto) throws Exception;
 
 	List<NoticeDto> notice() throws Exception;
 

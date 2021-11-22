@@ -3,6 +3,8 @@ package com.ssafy.happyhouse.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.happyhouse.model.dto.NoticeDto;
+import com.ssafy.happyhouse.model.dto.NoticeParameterDto;
 import com.ssafy.happyhouse.model.service.NoticeService;
 
 import io.swagger.annotations.Api;
@@ -33,8 +36,8 @@ public class NoticeController {
 	}
 
 	@GetMapping("")
-	public List<NoticeDto> list() throws Exception {
-		return noticeService.listNotice();
+	public ResponseEntity<List<NoticeDto>> listArticle( NoticeParameterDto noticeParameterDto) throws Exception {
+		return new ResponseEntity<List<NoticeDto>>(noticeService.listNotice(noticeParameterDto), HttpStatus.OK);
 	}
 	
 	@GetMapping("/notice")

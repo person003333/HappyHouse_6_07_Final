@@ -1,10 +1,14 @@
 <template>
   <div>
     <b-container class="bv-example-row mt-3 text-center">
-      <h2 style="font-size: 2.4em" class="underline-hotpink">자유게시판</h2>
+      <router-link :to="{ name: 'Board' }" style="color: rgba(5, 5, 5, 90)"
+        ><h2 style="font-size: 2.4em" class="underline-hotpink">
+          자유게시판
+        </h2></router-link
+      >
 
       <hr class="mt-5" />
-      <router-view></router-view>
+      <router-view> </router-view>
     </b-container>
   </div>
 </template>

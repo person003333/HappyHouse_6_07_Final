@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- 홈 or 메인 -->
-    <router-view id="service"></router-view>
+    <router-view id="service" class="scrollbar"></router-view>
   </div>
 </template>
 

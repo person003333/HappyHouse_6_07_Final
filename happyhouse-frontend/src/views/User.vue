@@ -178,7 +178,6 @@ export default {
   },
   created() {
     this.id = this.userInfo.id;
-    this.pw = this.userInfo.pw;
     this.name = this.userInfo.name;
     this.email = this.userInfo.email;
   },

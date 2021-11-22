@@ -11,10 +11,15 @@
     <h1 id="logo" style="position: absolute; left: 150px; top: 10px">
       Hom's TOUCH
     </h1>
-    <div id="username">
+    <div
+      id="username"
+      style="position: absolute; right: 0px; top: 10px; z-index: 10"
+    >
       {{ userInfo.name }} 님
       <span id="logout" @click="logoutProcess">로그아웃</span>
     </div>
+
+    <div style="height: 70px"></div>
 
     <!-- 메뉴들 라우터 뷰 -->
     <router-view style="margin-left: 70px"></router-view>

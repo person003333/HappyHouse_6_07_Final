@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.model.service;
+ package com.ssafy.happyhouse.model.service;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.happyhouse.model.dto.NoticeDto;
+import com.ssafy.happyhouse.model.dto.NoticeParameterDto;
 import com.ssafy.happyhouse.model.mapper.NoticeMapper;
 import com.ssafy.happyhouse.model.mapper.UserMapper;
 
@@ -23,8 +24,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeDto> listNotice() throws Exception {
-		return noticeMapper.listNotice();
+	public List<NoticeDto> listNotice(NoticeParameterDto noticeParameterDto) throws Exception {
+		int start =noticeParameterDto.getPg() == 0 ? 0 : (noticeParameterDto.getPg() - 1) * noticeParameterDto.getSpp();
+		noticeParameterDto.setStart(start);
+		return noticeMapper.listNotice(noticeParameterDto);
 	}
 	
 	@Override

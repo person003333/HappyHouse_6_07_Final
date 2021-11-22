@@ -4,6 +4,7 @@
       id="searchform"
       class="form-inline justify-content-end mt-4"
       method="get"
+      onSubmit="return false;"
     >
       <input type="hidden" name="pg" value="1" />
       <b-form-select v-model="key" :options="keys"></b-form-select>
@@ -13,16 +14,13 @@
         id="sword"
         name="word"
         v-model="word"
+        @keyup.enter="search"
       />
-      <b-button
-        type="button"
-        id="searchBtn"
-        class="ml-1 btn btn-outline-primary"
-        @click="search"
-      >
+      <b-button type="button" id="searchBtn" class="ml-1 btn" @click="search">
         검색
       </b-button>
     </b-form>
+
     <!-- <b-table
       small
       outlined
@@ -36,7 +34,7 @@
     >
     </b-table> -->
 
-    <ul>
+    <ul style="padding: 0px; margin: auto" class="mt-5 mb-5">
       <li
         style="padding-left: 4%; padding-right: 10%; border-bottom: solid 0.5px"
       >
@@ -68,124 +66,150 @@
           </div>
         </div>
       </li>
+
       <li
-        style="padding-left: 4%; padding-right: 10%"
+        style="padding-left: 4%; padding-right: 8%"
         v-for="notice in notices"
         :key="notice.id"
       >
-        <div
-          class="notice-item"
-          id="notice"
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          "
-        >
-          <span>
-            <router-link
-              :to="{ name: 'NoticeView', params: { no: notice.번호 } }"
-              style="font-size: 1.15em; margin: 0"
-            >
-              <strong class="notice_icon"
-                ><i class="fa fa-volume-up" aria-hidden="true"></i>
-                [공지]</strong
-              >
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
-                notice.제목
-              }}
-            </router-link></span
-          >
+        <router-link :to="{ name: 'NoticeView', params: { no: notice.번호 } }">
           <div
+            class="notice-item"
+            id="notice"
             style="
-              width: 42%;
               display: flex;
               align-items: center;
               justify-content: space-between;
             "
           >
-            <div style="width: 90px">
-              <span class="sv_member" style="color: #d81e22">{{
-                notice.이름
-              }}</span>
+            <div class="d-flex justify-content-between" style="width: 55%">
+              <div>
+                <span>
+                  <strong class="notice_icon" style="color: rgb(250, 70, 124)"
+                    ><i class="fa fa-volume-up" aria-hidden="true"></i>
+                    [공지사항]</strong
+                  >
+                </span>
+              </div>
+              <div style="width: 75%; text-align: left">
+                <span>
+                  <a style="font-size: 1.15em; margin: 0">{{
+                    notice.제목
+                  }}</a></span
+                >
+              </div>
             </div>
-            <span
-              ><i
-                style="color: #005bfe"
-                class="fa fa-eye"
-                aria-hidden="true"
-              ></i
-              ><span
+
+            <div
+              style="
+                width: 44%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
+              <div style="width: 90px">
+                <span class="sv_member" style="color: #d81e22">{{
+                  notice.이름
+                }}</span>
+              </div>
+              <span style="width: 60px; text-align: left"
+                ><i
+                  style="color: #005bfe"
+                  class="fa fa-eye"
+                  aria-hidden="true"
+                ></i
                 ><span
-                  style="margin: 0 5px 0 3px; color: #005bfe"
-                  class="cnt_hit"
-                  >{{ notice.조회수 }}</span
+                  ><span
+                    style="margin: 0 5px 0 3px; color: #005bfe"
+                    class="cnt_hit"
+                    >{{ notice.조회수 }}</span
+                  ></span
                 ></span
-              ></span
-            ><span> {{ notice.등록일 }}</span>
+              ><span> {{ notice.등록일 }}</span>
+            </div>
           </div>
-        </div>
+        </router-link>
       </li>
+
       <li
-        style="padding-left: 4%; padding-right: 10%"
+        style="padding-left: 4%; padding-right: 8%"
         v-for="item in items"
         :key="item.id"
       >
-        <div
-          class="notice-item"
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          "
-        >
-          <span>
-            {{ item.번호 }} &nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <router-link
-              style="font-size: 1.15em; margin: 0"
-              :to="{ name: 'BoardView', params: { no: item.번호 } }"
-              >{{ item.제목 }}
-            </router-link></span
-          >
+        <router-link :to="{ name: 'BoardView', params: { no: item.번호 } }">
           <div
+            class="notice-item"
             style="
-              width: 42%;
               display: flex;
               align-items: center;
               justify-content: space-between;
             "
           >
-            <div style="width: 90px">
-              <span class="sv_member">{{ item.이름 }}</span>
+            <div class="d-flex justify-content-between" style="width: 55%">
+              <div>
+                <span> {{ item.번호 }} &nbsp;</span>
+              </div>
+              <div style="width: 75%; text-align: left">
+                <span
+                  ><a style="font-size: 1.15em; margin: 0">{{ item.제목 }}</a>
+                </span>
+              </div>
             </div>
-            <span
-              ><i
-                style="color: #005bfe"
-                class="fa fa-eye"
-                aria-hidden="true"
-              ></i
-              ><span
+
+            <div
+              style="
+                width: 44%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
+              <div style="width: 90px">
+                <span class="sv_member">{{ item.이름 }}</span>
+              </div>
+              <span style="width: 60px; text-align: left"
+                ><i
+                  style="color: #005bfe"
+                  class="fa fa-eye"
+                  aria-hidden="true"
+                ></i
                 ><span
-                  style="margin: 0 5px 0 3px; color: #005bfe"
-                  class="cnt_hit"
-                  >{{ item.조회수 }}</span
+                  ><span
+                    style="margin: 0 5px 0 3px; color: #005bfel"
+                    class="cnt_hit"
+                    >{{ item.조회수 }}</span
+                  ></span
                 ></span
-              ></span
-            ><span> {{ item.등록일 }}</span>
+              ><span> {{ item.등록일 }}</span>
+            </div>
           </div>
-        </div>
+        </router-link>
       </li>
     </ul>
 
-    <b-button variant="outline-info" :to="{ name: 'QnACreate' }"
-      >글 작성</b-button
+    <div
+      id="btn-group"
+      class="d-flex justify-content-between"
+      style="width: 18%; float: right"
     >
+      <b-button
+        v-if="this.userInfo.id == 'admin'"
+        variant="outline-primary"
+        :to="{ name: 'BoardCreate' }"
+        >공지사항 작성</b-button
+      >
+      <b-button v-else variant="outline-info" :to="{ name: 'BoardCreate' }"
+        >글 작성</b-button
+      >
+    </div>
   </div>
 </template>
 
 <script>
 import http from "@/util/http-common.js";
+import { mapState } from "vuex";
+const memberStore = "memberStore";
 export default {
   name: "BoardList",
   data() {
@@ -194,11 +218,10 @@ export default {
       notices: [],
       word: null,
       keys: {
-        id: "아이디",
-        qna_no: "글번호",
+        name: "작성자",
         subject: "제목",
       },
-      key: "id",
+      key: "name",
     };
   },
   created() {
@@ -229,11 +252,15 @@ export default {
       });
     });
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   methods: {
     showView(item) {
       console.log(item[0].번호);
       this.$router.push({ name: "QnAView", params: { no: item[0].번호 } });
     },
+
     search() {
       this.items = [];
       const params = { key: this.key, word: this.word };
@@ -243,11 +270,16 @@ export default {
             번호: d.noticeNo,
             제목: d.subject,
             작성자: d.id,
+            이름: d.name,
             등록일: d.regTime,
             조회수: d.view,
           });
         });
       });
+    },
+
+    reload() {
+      location.reload();
     },
   },
 };
@@ -270,5 +302,12 @@ ul {
 }
 a {
   color: rgb(87, 91, 114);
+}
+a:hover {
+  text-decoration: none;
+}
+li:hover {
+  background-color: #dadce083;
+  cursor: pointer;
 }
 </style>

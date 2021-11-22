@@ -1,19 +1,24 @@
 <template>
   <div>
     <div class="d-flex justify-content-between">
-      <a class="btn" style="font-size: 1.2em"
-        ><i class="fa fa-list" aria-hidden="true"></i> 목록</a
+      <router-link
+        :to="{ name: 'BoardList' }"
+        class="btn"
+        style="font-size: 1.2em"
+        ><i class="fa fa-list" aria-hidden="true"></i> 목록</router-link
       >
-      <div>
-        같은 유저일때만
-        <span class="btn">수정하기</span><span class="btn">삭제하기</span>
+      <div
+        v-if="this.board.id == this.userInfo.id || this.userInfo.id == 'admin'"
+      >
+        <span class="btn" @click="toModify">수정하기</span>
+        <span class="btn" @click="deleteBoard">삭제하기</span>
       </div>
     </div>
     <div id="container">
       <article style="width: 70%; margin: auto">
         <header>
           <h2 id="bo_v_title">
-            <span> 글 제목</span>
+            <span>{{ board.subject }}</span>
           </h2>
           <p><i class="far fa-clock"></i> 21-11-22 08:58</p>
         </header>
@@ -21,15 +26,17 @@
         <section
           id="bo_v_info"
           class="d-flex justify-content-between"
-          style="width: 70%; margin: auto; font-size: 0.9em; color: gray"
+          style="width: 90%; margin: auto; font-size: 0.9em; color: gray"
         >
-          <span>작성자: 으잉zz</span>
-
-          <span class="sound_only"
-            >조회: <i class="fa fa-eye" aria-hidden="true"></i>
-            {{ board.view }}</span
+          <span style="width: 150px"
+            >작성자: {{ board.name }}({{ board.id }})</span
           >
-          <span class="sound_only"
+
+          <span style="width: 150px"
+            >조회: <i class="fa fa-eye" aria-hidden="true"></i>
+            {{ board.view }}회</span
+          >
+          <span style="width: 150px"
             >댓글: <i class="fa fa-commenting-o" aria-hidden="true"></i>
             {{ board.comment.length }}건</span
           >
@@ -53,10 +60,16 @@
         </section>
 
         <!-- 댓글 리스트 -->
-        <section id="bo_vc">
+        <section id="bo_vc" style="margin-bottom: 80px">
           <h4 style="text-align: left">댓글목록</h4>
           <hr />
           <p id="bo_vc_empty" style="color: #d15ca4">등록된 댓글이 없습니다.</p>
+          <div>댓글을</div>
+          <div>댓글을</div>
+          <div>댓글을</div>
+          <div>댓글을</div>
+          <div>댓글을</div>
+          <div>댓글을</div>
           <div>댓글을</div>
         </section>
       </article>
@@ -66,6 +79,8 @@
 
 <script>
 import http from "@/util/http-common.js";
+import { mapState } from "vuex";
+const memberStore = "memberStore";
 
 export default {
   name: "QnAView",
@@ -82,6 +97,9 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   created() {
     http.get(`/api/notice/${this.$route.params.no}`).then(({ data }) => {
       this.board.id = data.id;
@@ -94,21 +112,22 @@ export default {
     });
   },
   methods: {
-    deleteQnA() {
+    deleteBoard() {
+      if (!confirm("해당 글을 삭제하시겠습니까?")) return;
+
       http
-        .delete(`/qna/${this.$route.params.no}`)
-        .then((res) => {
-          if (res.data == "success") alert("삭제완료");
-          else alert("삭제실패");
-          this.$router.push({ name: "QnAList" });
+        .delete(`/api/notice/${this.$route.params.no}`)
+        .then(() => {
+          this.$router.push({ name: "BoardList" });
         })
         .catch((err) => console.log(err));
     },
 
-    modifyQnA() {
+    toModify() {
       console.log("modify");
+      console.log(this.$route.params.no);
       this.$router.push({
-        name: "QnAModify",
+        name: "BoardModify",
         params: { no: this.$route.params.no },
       });
     },
