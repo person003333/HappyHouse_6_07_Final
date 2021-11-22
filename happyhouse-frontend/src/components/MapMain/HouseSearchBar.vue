@@ -74,11 +74,8 @@ export default {
     },
     searchApt() {
       if (this.dongCode) {
-        this.getHouseList(this.dongCode).then(() => {
-          console.log("emit");
-          // EventBus.$emit("displayMarker");
-          // this.$emit("displayMarker");
-        });
+        console.log(this.dongCode);
+        this.getHouseList(this.dongCode);
       }
     },
   },

@@ -46,8 +46,7 @@ const mapStore = {
     CLEAR_DONG_LIST(state) {
       state.dongs = [{ value: null, text: "선택하세요" }];
     },
-    GET_HOUSE_LIST(state, houses, gugunCode) {
-      state.gugunCode = gugunCode;
+    GET_HOUSE_LIST(state, houses) {
       state.houses_origin = houses;
       state.houses = [];
       for (let i = 0; i < state.houses_origin.length; i++) {
@@ -87,6 +86,10 @@ const mapStore = {
     SET_SUBWAY(state, subway) {
       state.subway = subway;
     },
+    SET_DONGCODE(state, dongCode) {
+      state.dongCode = dongCode;
+      console.log(dongCode);
+    },
   },
   actions: {
     getSido({ commit }) {
@@ -123,12 +126,13 @@ const mapStore = {
         });
     },
     getHouseList({ commit }, dongCode) {
+      commit("SET_DONGCODE", dongCode);
+      console.log(dongCode);
       const params = { dong: dongCode };
       http
         .get("/map/apt", { params })
         .then((response) => {
-          console.log(response.data);
-          commit("GET_HOUSE_LIST", response.data, dongCode);
+          commit("GET_HOUSE_LIST", response.data);
         })
         .catch((error) => {
           console.log(error);

@@ -87,12 +87,18 @@ export default {
     KakaoMap,
   },
   computed: {
-    ...mapState(mapStore, ["map", "marker", "houses"]),
+    ...mapState(mapStore, ["map", "marker", "houses", "dongCode"]),
   },
   mounted() {},
   methods: {
     toDetail() {
       this.list = !this.list;
+    },
+  },
+  watch: {
+    dongCode(newVal) {
+      console.log(newVal);
+      this.list = true;
     },
   },
 };
