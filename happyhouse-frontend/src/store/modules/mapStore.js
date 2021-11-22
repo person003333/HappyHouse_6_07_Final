@@ -73,7 +73,7 @@ const mapStore = {
           state.houses.push(state.houses_origin[i]);
         }
       }
-      state.house = state.houses[0];
+      //state.house = state.houses[0];
       return;
     },
     SET_DETAIL_HOUSE(state, house) {

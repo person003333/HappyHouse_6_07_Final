@@ -42,7 +42,7 @@
         />
       </b-dropdown-group>
 
-      <b-button block variant="danger">검색</b-button>
+      <b-button block variant="danger" @click="toSearch">검색</b-button>
     </b-dropdown>
     <b-container
       style="height: 100%"
@@ -91,12 +91,15 @@ export default {
   },
   methods: {
     ...mapActions(mapStore, ["setHouseList"]),
+    toSearch() {
+      this.setHouseList(this.value_price);
+    },
   },
   watch: {
-    value_price(newVal) {
-      console.log(newVal);
-      this.setHouseList(newVal);
-    },
+    // value_price(newVal) {
+    //   console.log(newVal);
+    //   this.setHouseList(newVal);
+    // },
   },
 };
 </script>
