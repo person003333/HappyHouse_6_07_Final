@@ -1,59 +1,93 @@
 <template>
   <div>
-    <b-container>
-      <line-chart
-        :data="house_deal_group"
-        :colors="['#00b', '#666', '#b00', '#0b0']"
-        :download="true"
-        :messages="{ empty: 'No data' }"
-        adapter="chartjs"
-        pointStyle="dash"
-        :min="50000"
-        :xmin="date_start"
-        :xmax="date_end"
-      ></line-chart>
-      <b-row>
-        <b-col>
-          <b-form-datepicker
-            size="sm"
-            v-model="value_start"
-            :min="min"
-            :max="max"
-            locale="ko-kr"
-            :date-format-options="{
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-            }"
-          ></b-form-datepicker> </b-col
-        >~
-        <b-col>
-          <b-form-datepicker
-            size="sm"
-            v-model="value_end"
-            :min="min"
-            :max="max"
-            locale="ko-kr"
-            :date-format-options="{
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-            }"
-          ></b-form-datepicker>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-button block variant="danger" @click="toSearch">검색</b-button>
-        </b-col>
-      </b-row>
-    </b-container>
+    <div class="d-flex mt-5">
+      <b-form-datepicker
+        size="sm"
+        v-model="value_start"
+        :min="min"
+        :max="max"
+        locale="ko-kr"
+        :date-format-options="{
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        }"
+      ></b-form-datepicker>
+      <span class="ml-3 mr-3" style="font-size: 1.5em"> ~ </span>
+
+      <b-form-datepicker
+        size="sm"
+        v-model="value_end"
+        :min="min"
+        :max="max"
+        locale="ko-kr"
+        :date-format-options="{
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        }"
+      ></b-form-datepicker>
+
+      <b-button
+        block
+        style="width: 30%; background-color: #7a7ad8; border: none"
+        class="ml-2"
+        @click="toSearch"
+        >검색</b-button
+      >
+    </div>
+    <div
+      style="width: 15%"
+      class="mt-4 toggle"
+      v-if="this.graph"
+      @click="graph = !graph"
+    >
+      <i class="fas fa-chevron-up"></i>접기
+    </div>
+    <div
+      style="width: 30%"
+      class="mt-4 toggle"
+      v-if="!this.graph"
+      @click="graph = !graph"
+    >
+      <i class="fas fa-chevron-down"></i>그래프 펼치기
+    </div>
+    <line-chart
+      :data="house_deal_group"
+      :colors="['#00b', '#666', '#b00', '#0b0']"
+      :download="true"
+      :messages="{ empty: 'No data' }"
+      adapter="chartjs"
+      pointStyle="dash"
+      :min="50000"
+      :xmin="date_start"
+      :xmax="date_end"
+      v-if="graph"
+    ></line-chart>
+    <div
+      class="mt-5 toggle"
+      style="width: 15%"
+      v-if="this.dealList"
+      @click="dealList = !dealList"
+    >
+      <i class="fas fa-chevron-up"></i>접기
+    </div>
+    <div
+      class="mt-5 toggle"
+      style="width: 30%"
+      v-if="!this.dealList"
+      @click="dealList = !dealList"
+    >
+      <i class="fas fa-chevron-down"></i>거래내역 펼치기
+    </div>
     <b-table
       class="scrollbar"
       sticky-header
       responsive
       :items="house_deal"
       :fields="fields"
+      style="max-height: 470px"
+      v-if="dealList"
     >
       <template #cell(dealDate)="data">
         {{ data.item.dealYear }}.{{ data.item.dealMonth }}.{{
@@ -93,11 +127,11 @@ export default {
       fields: [
         {
           key: "dealAmount",
-          label: "거래 금액",
+          label: "거래 금액(만원)",
         },
         {
           key: "area",
-          label: "면적",
+          label: "면적(m²)",
         },
         {
           key: "dealDate",
@@ -109,6 +143,8 @@ export default {
       max: new Date(maxDate),
       value_start: minDate,
       value_end: new Date(maxDate),
+      graph: true,
+      dealList: true,
     };
   },
   watch: {
@@ -133,4 +169,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.toggle:hover {
+  cursor: pointer;
+}
+</style>

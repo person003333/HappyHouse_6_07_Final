@@ -8,9 +8,12 @@
       theme="white-theme"
     />
     <!-- <div>dㅏ</div> -->
-    <h1 id="logo" style="position: absolute; left: 150px; top: 10px">
-      Hom's TOUCH
-    </h1>
+    <router-link :to="{ name: 'Main' }"
+      ><h1 id="logo" style="position: absolute; left: 150px; top: 10px">
+        Hom's TOUCH
+      </h1></router-link
+    >
+
     <div
       id="username"
       style="position: absolute; right: 0px; top: 10px; z-index: 10"
