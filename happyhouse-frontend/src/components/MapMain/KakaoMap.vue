@@ -63,11 +63,13 @@ export default {
   },
   created() {
     EventBus.$on("push-subway", (payload) => {
-      this.displaySubwayMarker();
+      if (this.marker_subway == null) this.displaySubwayMarker();
+      else this.removeMarker_subway();
       console.log(payload);
     });
     EventBus.$on("push-store", (payload) => {
-      this.displayStoreMarker();
+      if (this.marker_store == null) this.displayStoreMarker();
+      else this.removeMarker_store();
       console.log(payload);
     });
   },
