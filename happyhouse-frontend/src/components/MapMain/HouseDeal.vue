@@ -59,7 +59,6 @@
       :messages="{ empty: 'No data' }"
       adapter="chartjs"
       pointStyle="dash"
-      :min="50000"
       :xmin="date_start"
       :xmax="date_end"
       v-if="graph"
