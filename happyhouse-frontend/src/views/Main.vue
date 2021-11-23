@@ -8,9 +8,12 @@
       theme="white-theme"
     />
     <!-- <div>dㅏ</div> -->
-    <h1 id="logo" style="position: absolute; left: 150px; top: 10px">
-      Hom's TOUCH
-    </h1>
+    <router-link :to="{ name: 'Main' }"
+      ><h1 id="logo" style="position: absolute; left: 150px; top: 10px">
+        Hom's TOUCH
+      </h1></router-link
+    >
+
     <div
       id="username"
       style="position: absolute; right: 0px; top: 10px; z-index: 10"
@@ -187,7 +190,7 @@ export default {
 @import url(https://fonts.googleapis.com/css?family=Righteous);
 #logo {
   display: inline-block;
-  color: rgb(207, 198, 218);
+  color: #5c8cf1e5;
   font-family: "Righteous", serif;
   text-shadow: 0.03em 0.03em 0 rgb(39, 46, 83);
 }
