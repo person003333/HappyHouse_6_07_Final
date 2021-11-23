@@ -679,18 +679,20 @@ export default {
       // 몇번째 카테고리가 선택되어 있는지 얻어옵니다
       // 이 순서는 스프라이트 이미지에서의 위치를 계산하는데 사용됩니다
       var store_min = 1000;
-      var submay_min = 1500;
+      var submay_min = 2000;
       var distance;
       for (var i = 0; i < places.length; i++) {
         ((place) => {
           if (place.category_group_code == "SW8") {
+            console.log("sw8");
+            console.log(place);
             distance = this.calcDistance(
-              place.y,
-              place.x,
               this.house.lat,
-              this.house.lng
+              this.house.lng,
+              place.y,
+              place.x
             );
-            if (submay_min > distance) {
+            if (parseFloat(submay_min) > parseFloat(distance)) {
               submay_min = distance;
               this.setSubway([
                 place.place_name + " (" + distance + "m)",
@@ -699,12 +701,12 @@ export default {
             }
           } else if (place.category_group_code == "CS2") {
             distance = this.calcDistance(
-              place.y,
-              place.x,
               this.house.lat,
-              this.house.lng
+              this.house.lng,
+              place.y,
+              place.x
             );
-            if (store_min > distance) {
+            if (parseFloat(store_min) > parseFloat(distance)) {
               store_min = distance;
               this.setStore([place.place_name + " (" + distance + "m)", place]);
             }
