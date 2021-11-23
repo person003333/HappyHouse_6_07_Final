@@ -37,7 +37,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 // import EventBus from "@/api/EventBus";
-
+import EventBus from "@/api/EventBus.js";
 const mapStore = "mapStore";
 let kakao = window.kakao;
 export default {
@@ -60,6 +60,16 @@ export default {
       currCategory: "",
       ps: null,
     };
+  },
+  created() {
+    EventBus.$on("push-subway", (payload) => {
+      this.displaySubwayMarker();
+      console.log(payload);
+    });
+    EventBus.$on("push-store", (payload) => {
+      this.displayStoreMarker();
+      console.log(payload);
+    });
   },
   computed: {
     ...mapState(mapStore, [
@@ -167,7 +177,7 @@ export default {
   methods: {
     ...mapActions(mapStore, ["detailHouse", "setStore", "setSubway"]),
     //근처 편의점, 지하철 마커
-    displaySSMarker() {
+    displayStoreMarker() {
       //편의점
       this.removeMarker_store();
       var marker = this.addMarker_store(
@@ -176,6 +186,8 @@ export default {
       kakao.maps.event.addListener(marker, "click", () => {
         this.displayPlaceStore(this.store);
       });
+    },
+    displaySubwayMarker() {
       //지하철
       this.removeMarker_subway();
       var marker2 = this.addMarker_subway(
@@ -734,6 +746,8 @@ export default {
       this.displayPlacehouse(newVal);
       this.storeOverlay.setMap(null);
       this.subwayOverlay.setMap(null);
+      this.removeMarker_subway();
+      this.removeMarker_store();
     },
     "options.level"(cur, prev) {
       console.log(`[LEVEL CHANGED] ${prev} => ${cur}`); // for testing
@@ -742,10 +756,6 @@ export default {
     "options.center"(cur) {
       // console.log("[NEW CENTER]", cur.lat, cur.lng); // for test
       this.mapInstance.setCenter(new kakao.maps.LatLng(cur.lat, cur.lng));
-    },
-    store(newVal) {
-      console.log(newVal);
-      this.displaySSMarker();
     },
   },
 };

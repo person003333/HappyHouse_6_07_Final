@@ -35,11 +35,11 @@
               }}원
             </td>
           </tr>
-          <tr class="table-warning">
+          <tr class="table-warning" @click="clickSubway">
             <td>지하철</td>
             <td>{{ subway_text }}</td>
           </tr>
-          <tr class="table-success">
+          <tr class="table-success" @click="clickStore">
             <td>편의점</td>
             <td>{{ store_text }}</td>
           </tr>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import EventBus from "@/api/EventBus.js";
 import { mapState } from "vuex";
 const mapStore = "mapStore";
 export default {
@@ -61,6 +62,14 @@ export default {
     price(value) {
       if (!value) return value;
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
+  methods: {
+    clickSubway() {
+      EventBus.$emit("push-subway", "안녕");
+    },
+    clickStore() {
+      EventBus.$emit("push-store", "안녕");
     },
   },
 };
