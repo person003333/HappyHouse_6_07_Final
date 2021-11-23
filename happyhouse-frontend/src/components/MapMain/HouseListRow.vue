@@ -33,7 +33,8 @@ export default {
     index: Number,
   },
   mounted() {
-    this.$refs.image.className = "marker_image marker_posiont_" + this.index;
+    this.$refs.image.className =
+      "marker_image marker_posiont_" + (this.index % 45);
   },
   methods: {
     ...mapActions(mapStore, ["detailHouse"]),
