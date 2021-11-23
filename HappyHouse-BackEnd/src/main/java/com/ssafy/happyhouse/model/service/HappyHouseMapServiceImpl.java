@@ -42,4 +42,9 @@ public class HappyHouseMapServiceImpl implements HappyHouseMapService {
 		return sqlSession.getMapper(HouseMapMapper.class).getAptDeal(aptCode);
 	}
 
+	@Override
+	public HouseInfoDto getAptDetail(String aptCode) throws Exception {
+		return sqlSession.getMapper(HouseMapMapper.class).getAptDetail(aptCode);
+	}
+
 }

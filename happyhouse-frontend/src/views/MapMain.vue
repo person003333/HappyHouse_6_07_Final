@@ -8,11 +8,52 @@
     </div>
 
     <div
+      id="myinfo"
+      class="scrollbar"
+      style="border-radius: 10px"
+      v-show="mytoggle"
+    >
+      <span
+        id="x"
+        v-show="mytoggle"
+        style="position: relative; left: 90%; top: 1%"
+        @click="mytoggle = false"
+      >
+        <i class="fas fa-times fa-2x"></i
+      ></span>
+
+      <div>
+        <my-house-detail style="width: 90%; margin: 10px auto" />
+        <my-house-deal style="width: 90%; margin: 20px auto" />
+      </div>
+    </div>
+
+    <div
       id="info"
       class="scrollbar"
       style="border-radius: 10px"
       v-show="toggle"
     >
+      <b-dropdown
+        id="dropdown-right"
+        right
+        text="관심 목록"
+        variant="primary"
+        class="m-2"
+      >
+        <table>
+          <tr @click="chosemyhouse('11110-100')">
+            <td>
+              <div @click="chosemyhouse('11110-100')">1</div>
+            </td>
+          </tr>
+          <tr @click="chosemyhouse('11110-101')">
+            <td>
+              <div>2</div>
+            </td>
+          </tr>
+        </table>
+      </b-dropdown>
       <span
         id="x"
         v-show="toggle"
@@ -41,7 +82,7 @@
         <div id="toList" @click="list = !list">
           <i class="fas fa-arrow-left"></i> <span>목록으로</span>
         </div>
-        <house-detail style="width: 90%; margin: 10px auto" />
+        <house-detail :house="house" style="width: 90%; margin: 10px auto" />
         <house-deal style="width: 90%; margin: 20px auto" />
       </div>
     </div>
@@ -53,9 +94,11 @@ import HouseSearchBar from "@/components/MapMain/HouseSearchBar.vue";
 import HouseList from "@/components/MapMain/HouseList.vue";
 import HouseDetail from "@/components/MapMain/HouseDetail.vue";
 import HouseDeal from "@/components/MapMain/HouseDeal.vue";
+import MyHouseDetail from "@/components/MapMain/myHouseDetail.vue";
+import MyHouseDeal from "@/components/MapMain/myHouseDeal.vue";
 import KakaoMap from "@/components/MapMain/KakaoMap.vue";
 
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 // import MarkerHandler from "@/components/main/marker-handler";
 
@@ -77,6 +120,7 @@ export default {
       harbors: [],
       list: true,
       toggle: true,
+      mytoggle: false,
     };
   },
   components: {
@@ -84,15 +128,26 @@ export default {
     HouseList,
     HouseDetail,
     HouseDeal,
+    MyHouseDetail,
+    MyHouseDeal,
     KakaoMap,
   },
   computed: {
     ...mapState(mapStore, ["map", "marker", "houses", "dongCode", "house"]),
   },
-  mounted() {},
+  mounted() {
+    this.chosemyhouse("11110-100");
+  },
   methods: {
+    ...mapActions("myhouseStore", ["detailHouse"]),
     toDetail() {
       this.list = !this.list;
+    },
+
+    chosemyhouse(aptCode) {
+      console.log(aptCode);
+      this.detailHouse(aptCode);
+      this.mytoggle = true;
     },
   },
   watch: {
@@ -124,6 +179,15 @@ export default {
   height: 92.5% !important;
   z-index: 0;
 }
+#myinfo {
+  position: absolute;
+  left: 47%;
+  top: 10%;
+  z-index: 5;
+  width: 25%;
+  height: 85%;
+  background-color: #f7f8fa;
+}
 #info {
   position: absolute;
   left: 72%;
@@ -142,6 +206,12 @@ export default {
 }
 
 .toggle {
+  color: #c3b4d9;
+  position: relative;
+  left: 90%;
+  top: 1%;
+}
+.mytoggle {
   color: #c3b4d9;
   position: relative;
   left: 90%;
@@ -167,6 +237,24 @@ export default {
   box-shadow: none;
 }
 
+#mytoggleBtn {
+  width: 40px;
+  height: 40px;
+  background-color: #293e6d;
+  border-radius: 40px;
+  position: absolute;
+  left: 9%;
+  top: 2%;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+
+#mytoggleBtn:hover {
+  background: #afafd3;
+  cursor: pointer;
+  color: #7a7ad8;
+  box-shadow: none;
+}
 #x :hover {
   cursor: pointer;
 }

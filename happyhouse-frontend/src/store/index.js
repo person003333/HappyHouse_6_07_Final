@@ -9,10 +9,13 @@ import memberStore from "@/store/modules/memberStore.js";
 
 import mapStore from "@/store/modules/mapStore.js";
 
+import myhouseStore from "@/store/modules/myhouseStore.js";
+
 const store = new Vuex.Store({
   modules: {
     mapStore,
     memberStore,
+    myhouseStore,
   },
   plugins: [
     createPersistedState({

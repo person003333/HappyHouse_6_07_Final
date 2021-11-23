@@ -36,6 +36,19 @@
 		where dongCode = #{dong} 
 		order by aptName
 	</select>
+	
+	<select id="getAptDetail" parameterType="string" resultType="houseInfoDto">
+		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun, h.lat, h.lng, si.sidoname, gu.gugunname,
+				(select dealAmount from housedeal where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode = h.aptCode)) recentPrice,
+				(select cast(concat(dealYear,"/",dealMonth,"/",dealDay)as date) from housedeal where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode = h.aptCode)) recentDeal
+		from houseinfo h
+		left join sidocode si
+		on left(h.dongcode,2) = left(si.sidocode,2)
+		left join guguncode gu
+		on left(h.dongcode,5) = left(gu.guguncode,5)
+		where aptCode = #{aptCode} 
+		order by aptName
+	</select>
 
 	<select id="getAptDeal" parameterType="string" resultType="houseDealDto">
 		select hd.aptCode, tmp.aptName ,hd.dealAmount, hd.dealYear, hd.dealMonth, hd.dealDay, hd.area
