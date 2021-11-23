@@ -421,11 +421,7 @@ button {
 }
 .btn-6 {
   background: rgb(247, 150, 192);
-  background: radial-gradient(
-    circle,
-    rgba(247, 150, 192, 0.521) 0%,
-    rgba(118, 173, 241, 0.514) 100%
-  );
+  background: #7a7ad8;
   line-height: 42px;
   padding: 0;
   border: none;
@@ -458,8 +454,8 @@ button {
   transition: all 500ms ease;
 }
 .btn-6:hover {
-  background: transparent;
-  color: #76aef1;
+  background: #afafd3;
+  color: #7a7ad8;
   box-shadow: none;
 }
 .btn-6:hover:before {
@@ -515,7 +511,7 @@ h1 {
 }
 h3 {
   font-size: 2rem;
-  color: rgb(236, 252, 255);
+  color: rgb(251, 254, 255);
   text-shadow: 0.03em 0.03em 0 hsla(230, 40%, 50%, 1);
 }
 </style>

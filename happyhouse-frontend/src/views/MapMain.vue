@@ -1,13 +1,12 @@
 <template>
   <section id="index_section" class="d-flex justify-content-center">
     <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
-    <span
-      v-show="!toggle"
-      style="position: absolute; left: 95%; top: 10%"
-      @click="toggle = !toggle"
-    >
-      <i class="fas fa-list fa-2x"></i>
-    </span>
+    <div id="toggleBtn" v-show="!toggle" @click="toggle = !toggle">
+      <span style="position: absolute; top: 25%; left: 25%; color: white">
+        <i class="fas fa-list fa-2x"></i>
+      </span>
+    </div>
+
     <div
       id="info"
       class="scrollbar"
@@ -15,6 +14,7 @@
       v-show="toggle"
     >
       <span
+        id="x"
         v-show="toggle"
         style="position: relative; left: 90%; top: 1%"
         @click="toggle = !toggle"
@@ -146,6 +146,29 @@ export default {
   position: relative;
   left: 90%;
   top: 1%;
+}
+
+#toggleBtn {
+  width: 70px;
+  height: 70px;
+  background-color: #293e6d;
+  border-radius: 50px;
+  position: absolute;
+  left: 94.4%;
+  top: 9%;
+  transition-property: all;
+  transition-duration: 300ms;
+}
+
+#toggleBtn:hover {
+  background: #afafd3;
+  cursor: pointer;
+  color: #7a7ad8;
+  box-shadow: none;
+}
+
+#x :hover {
+  cursor: pointer;
 }
 
 /* .toggle {

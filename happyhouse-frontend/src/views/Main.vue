@@ -187,7 +187,7 @@ export default {
 @import url(https://fonts.googleapis.com/css?family=Righteous);
 #logo {
   display: inline-block;
-  color: rgb(207, 198, 218);
+  color: #5c8cf1e5;
   font-family: "Righteous", serif;
   text-shadow: 0.03em 0.03em 0 rgb(39, 46, 83);
 }
