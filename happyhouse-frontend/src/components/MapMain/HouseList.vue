@@ -42,6 +42,7 @@
         v-for="(house, index) in houses"
         :key="index"
         :house="house"
+        :index="index"
         v-on="$listeners"
       />
     </b-container>

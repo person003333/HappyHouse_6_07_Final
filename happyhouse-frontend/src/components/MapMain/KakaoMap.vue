@@ -110,7 +110,7 @@ export default {
       this.removeMarkers_apt();
       console.log("[아파트 목록]", this.houses);
       this.houses.forEach((house, index) => {
-        console.log("[아파트 목록]", house);
+        console.log("[아파트 목록]", index, house);
         // create markers
         var marker = this.addMarker_h(
           new kakao.maps.LatLng(house.lat, house.lng),
@@ -168,11 +168,14 @@ export default {
     // 마커를 생성하고 지도위에 표시하는 함수입니다
     addMarker_h(position, idx) {
       var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+          "http://t1.daumcdn.net/localimg/localimages/07/2012/img/marker_normal.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
         imgOptions = {
-          spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-          spriteOrigin: new kakao.maps.Point(0, idx * 46 + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+          spriteSize: new kakao.maps.Size(644, 946), // 스프라이트 이미지의 크기
+          spriteOrigin: new kakao.maps.Point(
+            44 * parseInt(idx / 15) + 46,
+            (idx % 15) * 46 + 10
+          ), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
           offset: new kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
         },
         markerImage = new kakao.maps.MarkerImage(
