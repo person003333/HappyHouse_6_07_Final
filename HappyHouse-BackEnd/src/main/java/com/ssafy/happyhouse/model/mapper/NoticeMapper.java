@@ -21,4 +21,6 @@ public interface NoticeMapper {
 	void deleteNotice(int noticeNo) throws Exception;
 
 	void updateView(int noticeNo)throws Exception;
+	
+	int totalCnt() throws Exception;
 }

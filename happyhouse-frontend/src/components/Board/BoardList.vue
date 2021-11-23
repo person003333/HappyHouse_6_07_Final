@@ -72,7 +72,9 @@
         v-for="notice in notices"
         :key="notice.id"
       >
-        <router-link :to="{ name: 'NoticeView', params: { no: notice.번호 } }">
+        <router-link
+          :to="{ name: 'NoticeView', params: { no: notice.noticeNo } }"
+        >
           <div
             class="notice-item"
             id="notice"
@@ -94,7 +96,7 @@
               <div style="width: 75%; text-align: left">
                 <span>
                   <a style="font-size: 1.15em; margin: 0">{{
-                    notice.제목
+                    notice.subject
                   }}</a></span
                 >
               </div>
@@ -108,11 +110,11 @@
                 justify-content: space-between;
               "
             >
-              <div style="width: 90px">
+              <span style="width: 90px">
                 <span class="sv_member" style="color: #d81e22">{{
-                  notice.이름
+                  notice.name
                 }}</span>
-              </div>
+              </span>
               <span style="width: 60px; text-align: left"
                 ><i
                   style="color: #005bfe"
@@ -120,13 +122,11 @@
                   aria-hidden="true"
                 ></i
                 ><span
-                  ><span
-                    style="margin: 0 5px 0 3px; color: #005bfe"
-                    class="cnt_hit"
-                    >{{ notice.조회수 }}</span
-                  ></span
+                  style="margin: 0 5px 0 3px; color: #005bfe"
+                  class="cnt_hit"
+                  >{{ notice.view }}</span
                 ></span
-              ><span> {{ notice.등록일 }}</span>
+              ><span style="width: 60px"> {{ notice.regTime }}</span>
             </div>
           </div>
         </router-link>
@@ -137,7 +137,7 @@
         v-for="item in items"
         :key="item.id"
       >
-        <router-link :to="{ name: 'BoardView', params: { no: item.번호 } }">
+        <router-link :to="{ name: 'BoardView', params: { no: item.noticeNo } }">
           <div
             class="notice-item"
             style="
@@ -148,11 +148,13 @@
           >
             <div class="d-flex justify-content-between" style="width: 55%">
               <div>
-                <span> {{ item.번호 }} &nbsp;</span>
+                <span> {{ item.noticeNo }} &nbsp;</span>
               </div>
               <div style="width: 75%; text-align: left">
                 <span
-                  ><a style="font-size: 1.15em; margin: 0">{{ item.제목 }}</a>
+                  ><a style="font-size: 1.15em; margin: 0">{{
+                    item.subject
+                  }}</a>
                 </span>
               </div>
             </div>
@@ -166,7 +168,7 @@
               "
             >
               <div style="width: 90px">
-                <span class="sv_member">{{ item.이름 }}</span>
+                <span class="sv_member">{{ item.name }}</span>
               </div>
               <span style="width: 60px; text-align: left"
                 ><i
@@ -175,33 +177,34 @@
                   aria-hidden="true"
                 ></i
                 ><span
-                  ><span
-                    style="margin: 0 5px 0 3px; color: #005bfel"
-                    class="cnt_hit"
-                    >{{ item.조회수 }}</span
-                  ></span
+                  style="margin: 0 5px 0 3px; color: #005bfel"
+                  class="cnt_hit"
+                  >{{ item.view }}</span
                 ></span
-              ><span> {{ item.등록일 }}</span>
+              ><span style="width: 60px"> {{ item.regTime }}</span>
             </div>
           </div>
         </router-link>
       </li>
     </ul>
-
-    <div
-      id="btn-group"
-      class="d-flex justify-content-between"
-      style="width: 18%; float: right"
-    >
-      <b-button
-        v-if="this.userInfo.id == 'admin'"
-        variant="outline-primary"
-        :to="{ name: 'BoardCreate' }"
-        >공지사항 작성</b-button
+    <div class="d-flex justify-content-between">
+      <div style="width: 11%"></div>
+      <pagination style="margin: 0px" />
+      <div
+        id="btn-group"
+        class="d-flex justify-content-between"
+        style="width: 18%; position: inherit; height: 5%"
       >
-      <b-button v-else variant="outline-info" :to="{ name: 'BoardCreate' }"
-        >글 작성</b-button
-      >
+        <b-button
+          v-if="this.userInfo.id == 'admin'"
+          variant="outline-primary"
+          :to="{ name: 'BoardCreate' }"
+          >공지사항 작성</b-button
+        >
+        <b-button v-else variant="outline-info" :to="{ name: 'BoardCreate' }"
+          >글 작성</b-button
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -209,6 +212,8 @@
 <script>
 import http from "@/util/http-common.js";
 import { mapState } from "vuex";
+import Pagination from "./Pagination.vue";
+
 const memberStore = "memberStore";
 export default {
   name: "BoardList",
@@ -220,40 +225,75 @@ export default {
       keys: {
         name: "작성자",
         subject: "제목",
+        content: "내용",
       },
       key: "name",
+      pageLimit: 7,
+      pageOffset: 0,
     };
   },
+  components: { Pagination },
   created() {
-    http.get("/api/notice").then(({ data }) => {
-      data.forEach((d) => {
-        this.items.push({
-          번호: d.noticeNo,
-          제목: d.subject,
-          작성자: d.id,
-          이름: d.name,
-          등록일: d.regTime,
-          조회수: d.view,
-        });
+    this.pageOffset = this.$route.params.page;
+    console.log("헬로");
+    http
+      .get("/api/notice", {
+        params: { pg: this.pageOffset, spp: this.pageLimit },
+      })
+      .then(({ data }) => {
+        this.items = data;
+        // data.forEach((d) => {
+        //   this.items.push({
+        //     번호: d.noticeNo,
+        //     제목: d.subject,
+        //     작성자: d.id,
+        //     이름: d.name,
+        //     등록일: d.regTime,
+        //     조회수: d.view,
+        //   });
+        // });
       });
-    });
 
     http.get("/api/notice/notice").then(({ data }) => {
       console.log(data);
-      data.forEach((d) => {
-        this.notices.push({
-          번호: d.noticeNo,
-          제목: d.subject,
-          작성자: d.id,
-          이름: d.name,
-          등록일: d.regTime,
-          조회수: d.view,
-        });
-      });
+      this.notices = data;
+      // data.forEach((d) => {
+      //   this.notices.push({
+      //     번호: d.noticeNo,
+      //     제목: d.subject,
+      //     작성자: d.id,
+      //     이름: d.name,
+      //     등록일: d.regTime,
+      //     조회수: d.view,
+      //   });
+      // });
     });
   },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+  },
+  watch: {
+    "$route.params": function () {
+      this.items = [];
+      http
+        .get("/api/notice", {
+          params: { pg: this.$route.params.page, spp: this.pageLimit },
+        })
+        .then(({ data }) => {
+          this.items = data;
+          // data.forEach((d) => {
+
+          //   this.items.push({
+          //     번호: d.noticeNo,
+          //     제목: d.subject,
+          //     작성자: d.id,
+          //     이름: d.name,
+          //     등록일: d.regTime,
+          //     조회수: d.view,
+          //   });
+          // });
+        });
+    },
   },
   methods: {
     showView(item) {
@@ -265,16 +305,17 @@ export default {
       this.items = [];
       const params = { key: this.key, word: this.word };
       http.get("/api/notice", { params }).then(({ data }) => {
-        data.forEach((d) => {
-          this.items.push({
-            번호: d.noticeNo,
-            제목: d.subject,
-            작성자: d.id,
-            이름: d.name,
-            등록일: d.regTime,
-            조회수: d.view,
-          });
-        });
+        this.items = data;
+        // data.forEach((d) => {
+        //   this.items.push({
+        //     번호: d.noticeNo,
+        //     제목: d.subject,
+        //     작성자: d.id,
+        //     이름: d.name,
+        //     등록일: d.regTime,
+        //     조회수: d.view,
+        //   });
+        // });
       });
     },
 

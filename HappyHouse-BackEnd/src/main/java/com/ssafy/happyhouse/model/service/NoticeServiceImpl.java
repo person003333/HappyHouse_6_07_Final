@@ -56,4 +56,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public void updateView(int noticeNo) throws Exception {
 		noticeMapper.updateView(noticeNo);
 	}
+	
+	@Override
+	public int totalCnt() throws Exception{
+		return noticeMapper.totalCnt();
+	}
 }

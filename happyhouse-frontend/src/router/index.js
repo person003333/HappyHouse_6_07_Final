@@ -44,10 +44,10 @@ const routes = [
         path: "board",
         name: "Board",
         component: Board,
-        redirect: "/main/board/list",
+        redirect: { name: "BoardList", params: { page: 1 } },
         children: [
           {
-            path: "list",
+            path: "list/:page",
             name: "BoardList",
             component: BoardList,
           },

@@ -45,6 +45,12 @@ public class NoticeController {
 		return noticeService.notice();
 	}
 	 
+	@GetMapping("/total")
+	public int totalCnt() throws Exception {
+		System.out.println("??");
+		return noticeService.totalCnt();
+	} 
+	
 	@GetMapping("/{noticeNo}")
 	public NoticeDto getNotice(@PathVariable("noticeNo") String noticeNo) throws Exception {
 		return noticeService.getNotice(Integer.parseInt(noticeNo));
