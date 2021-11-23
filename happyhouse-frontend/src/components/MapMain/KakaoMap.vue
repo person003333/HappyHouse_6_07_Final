@@ -315,7 +315,7 @@ export default {
       this.currCategory = "SW8";
       this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
         location: new kakao.maps.LatLng(place.lat, place.lng),
-        radius: 1000,
+        radius: 2000,
       });
       this.currCategory = "CS2";
       this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
@@ -691,11 +691,11 @@ export default {
               this.house.lng
             );
             if (submay_min > distance) {
+              submay_min = distance;
               this.setSubway([
                 place.place_name + " (" + distance + "m)",
                 place,
               ]);
-              submay_min = distance;
             }
           } else if (place.category_group_code == "CS2") {
             distance = this.calcDistance(
@@ -705,8 +705,8 @@ export default {
               this.house.lng
             );
             if (store_min > distance) {
-              this.setStore([place.place_name + " (" + distance + "m)", place]);
               store_min = distance;
+              this.setStore([place.place_name + " (" + distance + "m)", place]);
             }
           }
         })(places[i]);
