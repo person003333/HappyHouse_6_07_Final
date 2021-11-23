@@ -129,7 +129,7 @@ export default {
       fields: [
         {
           key: "dealAmount",
-          label: "거래 금액(만원)",
+          label: "거래 금액(만 원)",
           sortable: true,
         },
         {
@@ -139,7 +139,7 @@ export default {
         },
         {
           key: "dealDate",
-          label: "판매 일자",
+          label: "거래 일자",
           sortable: true,
         },
       ],
