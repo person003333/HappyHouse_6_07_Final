@@ -149,8 +149,8 @@ export default {
     // 커스텀 오버레이 컨텐츠를 설정합니다
     this.placeOverlay.setContent(this.contentNode);
     this.houseOverlay.setContent(this.contentNode_house);
-    this.storeOverlay.setContent(this.contentNode_house);
-    this.subwayOverlay.setContent(this.contentNode_house);
+    this.storeOverlay.setContent(this.contentNode_store);
+    this.subwayOverlay.setContent(this.contentNode_subway);
 
     // 각 카테고리에 클릭 이벤트를 등록합니다
     this.addCategoryClickEvent();
@@ -166,15 +166,23 @@ export default {
   },
   methods: {
     ...mapActions(mapStore, ["detailHouse", "setStore", "setSubway"]),
-
+    //근처 편의점, 지하철 마커
     displaySSMarker() {
+      //편의점
       this.removeMarker_store();
-      this.removeMarker_subway();
       var marker = this.addMarker_store(
         new kakao.maps.LatLng(this.store.y, this.store.x)
       );
       kakao.maps.event.addListener(marker, "click", () => {
         this.displayPlaceStore(this.store);
+      });
+      //지하철
+      this.removeMarker_subway();
+      var marker2 = this.addMarker_subway(
+        new kakao.maps.LatLng(this.subway.y, this.subway.x)
+      );
+      kakao.maps.event.addListener(marker2, "click", () => {
+        this.displayPlaceSubway(this.subway);
       });
     },
     displayMarker() {
@@ -190,11 +198,100 @@ export default {
 
         // 마커와 검색결과 항목을 클릭 했을 때
         // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
-
         kakao.maps.event.addListener(marker, "click", () => {
           this.displayPlacehouse(house);
         });
       });
+    },
+
+    displayPlaceStore(place) {
+      console.log("store_palce");
+      var content =
+        '<div class="placess">' +
+        '   <a class="title" href="' +
+        place.place_url +
+        '" target="_blank" title="' +
+        place.place_name +
+        '">' +
+        place.place_name +
+        "</a>";
+
+      if (place.road_address_name) {
+        content +=
+          '    <span title="' +
+          place.road_address_name +
+          '">' +
+          place.road_address_name +
+          "</span>" +
+          '  <span class="jibun" title="' +
+          place.address_name +
+          '">(지번 : ' +
+          place.address_name +
+          ")</span>";
+      } else {
+        content +=
+          '    <span title="' +
+          place.address_name +
+          '">' +
+          place.address_name +
+          "</span>";
+      }
+
+      content +=
+        '    <span class="tel">' +
+        place.phone +
+        "</span>" +
+        "</div>" +
+        '<div class="after"></div>';
+
+      this.contentNode_store.innerHTML = content;
+      this.storeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
+      this.storeOverlay.setMap(this.mapInstance);
+    },
+    displayPlaceSubway(place) {
+      console.log("subway_palce");
+      console.log(place);
+      var content =
+        '<div class="placess">' +
+        '   <a class="title" href="' +
+        place.place_url +
+        '" target="_blank" title="' +
+        place.place_name +
+        '">' +
+        place.place_name +
+        "</a>";
+
+      if (place.road_address_name) {
+        content +=
+          '    <span title="' +
+          place.road_address_name +
+          '">' +
+          place.road_address_name +
+          "</span>" +
+          '  <span class="jibun" title="' +
+          place.address_name +
+          '">(지번 : ' +
+          place.address_name +
+          ")</span>";
+      } else {
+        content +=
+          '    <span title="' +
+          place.address_name +
+          '">' +
+          place.address_name +
+          "</span>";
+      }
+
+      content +=
+        '    <span class="tel">' +
+        place.phone +
+        "</span>" +
+        "</div>" +
+        '<div class="after"></div>';
+
+      this.contentNode_subway.innerHTML = content;
+      this.subwayOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
+      this.subwayOverlay.setMap(this.mapInstance);
     },
     displayPlacehouse(place) {
       console.log(place);
@@ -241,10 +338,33 @@ export default {
     addMarker_store(position) {
       var imageSrc =
           "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
-        imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
+        imageSize = new kakao.maps.Size(64, 69), // 마커 이미지의 크기
         imgOptions = {
-          spriteSize: new kakao.maps.Size(644, 946), // 스프라이트 이미지의 크기
-          spriteOrigin: new kakao.maps.Point(46, 46 + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+          offset: new kakao.maps.Point(27, 69), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+        },
+        markerImage = new kakao.maps.MarkerImage(
+          imageSrc,
+          imageSize,
+          imgOptions
+        ),
+        // 마커를 생성합니다
+        marker = new kakao.maps.Marker({
+          position: position,
+          image: markerImage,
+        });
+      console.log(marker);
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(this.mapInstance);
+      // 생성된 마커를 배열에 추가합니다
+      this.marker_store = marker;
+      return marker;
+    },
+    //지하철 마커를 생성하고 지도위에 표시하는 함수입니다.
+    addMarker_subway(position) {
+      var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+        imageSize = new kakao.maps.Size(64, 69), // 마커 이미지의 크기
+        imgOptions = {
           offset: new kakao.maps.Point(27, 69), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
         },
         markerImage = new kakao.maps.MarkerImage(
@@ -259,12 +379,10 @@ export default {
         });
       // 마커가 지도 위에 표시되도록 설정합니다
       marker.setMap(this.mapInstance);
-      this.mapInstance.panTo(marker.getPosition());
       // 생성된 마커를 배열에 추가합니다
-      this.markers_store = marker;
+      this.marker_subway = marker;
       return marker;
     },
-
     // 마커를 생성하고 지도위에 표시하는 함수입니다
     addMarker_h(position, idx) {
       var imageSrc =
@@ -310,12 +428,12 @@ export default {
     },
     //편의점 마커 삭제
     removeMarker_store() {
-      this.marker_store.setMap(null);
+      if (this.marker_store != null) this.marker_store.setMap(null);
       this.marker_store = null;
     },
     //지하철 마커 삭제
     removeMarker_subway() {
-      this.marker_subway.setMap(null);
+      if (this.marker_subway != null) this.marker_subway.setMap(null);
       this.marker_subway = null;
     },
 
@@ -608,10 +726,14 @@ export default {
       console.log(newVal);
       this.placeOverlay.setMap(null);
       this.houseOverlay.setMap(null);
+      this.storeOverlay.setMap(null);
+      this.subwayOverlay.setMap(null);
       this.displayMarker();
     },
     house(newVal) {
       this.displayPlacehouse(newVal);
+      this.storeOverlay.setMap(null);
+      this.subwayOverlay.setMap(null);
     },
     "options.level"(cur, prev) {
       console.log(`[LEVEL CHANGED] ${prev} => ${cur}`); // for testing
@@ -621,12 +743,9 @@ export default {
       // console.log("[NEW CENTER]", cur.lat, cur.lng); // for test
       this.mapInstance.setCenter(new kakao.maps.LatLng(cur.lat, cur.lng));
     },
-    subway(newVal) {
-      this.displaySSMarker();
-      console.log(newVal);
-    },
     store(newVal) {
       console.log(newVal);
+      this.displaySSMarker();
     },
   },
 };
@@ -725,6 +844,7 @@ export default {
   left: -150px;
   width: 300px;
 }
+.placess,
 .placehouse,
 .placeinfo {
   position: relative;
@@ -735,6 +855,7 @@ export default {
   padding-bottom: 10px;
   background: #fff;
 }
+.placess:nth-of-type(n),
 .placehouse:nth-of-type(n),
 .placeinfo:nth-of-type(n) {
   border: 0;
@@ -750,6 +871,9 @@ export default {
   height: 12px;
   background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
 }
+.placess a,
+.placess a:hover,
+.placess a:active,
 .placehouse a,
 .placehouse a:hover,
 .placehouse a:active,
@@ -759,6 +883,8 @@ export default {
   color: #fff;
   text-decoration: none;
 }
+.placess a,
+.placess span,
 .placehouse a,
 .placehouse span,
 .placeinfo a,
@@ -768,11 +894,24 @@ export default {
   overflow: hidden;
   white-space: nowrap;
 }
+.placess span,
 .placehouse span,
 .placeinfo span {
   margin: 5px 5px 0 5px;
   cursor: default;
   font-size: 13px;
+}
+.placess .title {
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 6px 6px 0 0;
+  margin: -1px -1px 0 -1px;
+  padding: 10px;
+  color: #fff;
+  background: #50d950;
+  background: #50d950
+    url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+    no-repeat right 14px center;
 }
 .placehouse .title {
   font-weight: bold;
