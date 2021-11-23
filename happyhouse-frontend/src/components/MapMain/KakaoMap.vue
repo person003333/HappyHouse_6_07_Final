@@ -350,11 +350,10 @@ export default {
 
     //편의점 마커를 생성하고 지도위에 표시하는 함수입니다.
     addMarker_store(position) {
-      var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
-        imageSize = new kakao.maps.Size(64, 69), // 마커 이미지의 크기
+      var imageSrc = "https://cdn-icons-png.flaticon.com/512/854/854929.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+        imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
         imgOptions = {
-          offset: new kakao.maps.Point(27, 69), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+          offset: new kakao.maps.Point(18, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
         },
         markerImage = new kakao.maps.MarkerImage(
           imageSrc,
