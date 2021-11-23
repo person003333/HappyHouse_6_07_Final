@@ -5,9 +5,9 @@ public class HouseInfoDto {
 	private String aptCode;
 	private String aptName;
 	private String dongCode;
-	private String dongName;
-	private String sidoName;
-	private String gugunName;
+	private String dongname;
+	private String sidoname;
+	private String gugunname;
 	private int buildYear;
 	private String jibun;
 	private String lat;
@@ -15,9 +15,34 @@ public class HouseInfoDto {
 	private String img;
 	private String recentPrice;
 	private String area;
+	private String recentDeal;
 	
 	
 	
+	public String getDongname() {
+		return dongname;
+	}
+	public void setDongname(String dongname) {
+		this.dongname = dongname;
+	}
+	public String getSidoname() {
+		return sidoname;
+	}
+	public void setSidoname(String sidoname) {
+		this.sidoname = sidoname;
+	}
+	public String getGugunname() {
+		return gugunname;
+	}
+	public void setGugunname(String gugunname) {
+		this.gugunname = gugunname;
+	}
+	public String getRecentDeal() {
+		return recentDeal;
+	}
+	public void setRecentDeal(String recentDeal) {
+		this.recentDeal = recentDeal;
+	}
 	public String getArea() {
 		return area;
 	}
@@ -43,22 +68,22 @@ public class HouseInfoDto {
 		this.dongCode = dongCode;
 	}
 	public String getDongName() {
-		return dongName;
+		return dongname;
 	}
 	public void setDongName(String dongName) {
-		this.dongName = dongName;
+		this.dongname = dongName;
 	}
 	public String getSidoName() {
-		return sidoName;
+		return sidoname;
 	}
 	public void setSidoName(String sidoName) {
-		this.sidoName = sidoName;
+		this.sidoname = sidoName;
 	}
 	public String getGugunName() {
-		return gugunName;
+		return gugunname;
 	}
 	public void setGugunName(String gugunName) {
-		this.gugunName = gugunName;
+		this.gugunname = gugunName;
 	}
 	public int getBuildYear() {
 		return buildYear;

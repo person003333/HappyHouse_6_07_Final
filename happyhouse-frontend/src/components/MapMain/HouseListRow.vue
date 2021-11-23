@@ -10,8 +10,10 @@
       <span class="marker_image" ref="image"></span>
     </b-col>
     <b-col cols="10" class="align-self-center" style="font-size: 10pt">
-      [ {{ index }} {{ house.aptCode }}] {{ house.aptName }}
-      {{ house.recentPrice }}
+      {{ house.aptName }}<br />
+      최근 거래 :
+      {{ house.recentPrice }}만원
+      {{ house.recentDeal }}
     </b-col>
   </b-row>
 </template>
