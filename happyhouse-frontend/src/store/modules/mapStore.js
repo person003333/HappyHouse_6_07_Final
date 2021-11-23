@@ -18,8 +18,10 @@ const mapStore = {
     dongCode: null,
     map: null,
     marker: null,
-    subway: "",
-    store: "",
+    store_text: "",
+    subway_text: "",
+    subway: null,
+    store: null,
     price_start: 0,
     price_end: 1000,
 
@@ -93,10 +95,12 @@ const mapStore = {
     },
 
     SET_STORE(state, store) {
-      state.store = store;
+      state.store_text = store[0];
+      state.store = store[1];
     },
     SET_SUBWAY(state, subway) {
-      state.subway = subway;
+      state.subway_text = subway[0];
+      state.subway = subway[1];
     },
     SET_DONGCODE(state, dongCode) {
       state.dongCode = dongCode;

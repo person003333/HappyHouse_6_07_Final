@@ -28,6 +28,9 @@
       </li>
     </ul>
     <div ref="contentNode"></div>
+    <div ref="contentNode_house"></div>
+    <div ref="contentNode_store"></div>
+    <div ref="contentNode_subway"></div>
   </div>
 </template>
 
@@ -43,16 +46,30 @@ export default {
     return {
       mapInstance: null,
       markers_house: [],
-
-      placeOverlay: null,
-      contentNode: null,
       markers_category: [],
+      marker_store: null,
+      marker_subway: null,
+      placeOverlay: null,
+      houseOverlay: null,
+      storeOverlay: null,
+      subwayOverlay: null,
+      contentNode: null,
+      contentNode_house: null,
+      contentNode_store: null,
+      contentNode_subway: null,
       currCategory: "",
       ps: null,
     };
   },
   computed: {
-    ...mapState(mapStore, ["houses", "house", "store", "subway"]),
+    ...mapState(mapStore, [
+      "houses",
+      "house",
+      "store",
+      "subway",
+      "store_test",
+      "subway_text",
+    ]),
   },
   mounted() {
     kakao = kakao || window.kakao;
@@ -67,7 +84,13 @@ export default {
     });
 
     this.placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
+    this.houseOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
+    this.storeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
+    this.subwayOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 });
     this.contentNode = this.$refs.contentNode;
+    this.contentNode_house = this.$refs.contentNode_house;
+    this.contentNode_store = this.$refs.contentNode_store;
+    this.contentNode_subway = this.$refs.contentNode_subway;
 
     this.ps = new kakao.maps.services.Places(this.mapInstance);
     //마커를 표시합니다
@@ -78,7 +101,9 @@ export default {
 
     // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다
     this.contentNode.className = "placeinfo_wrap";
-
+    this.contentNode_house.className = "placeinfo_wrap";
+    this.contentNode_store.className = "placeinfo_wrap";
+    this.contentNode_subway.className = "placeinfo_wrap";
     // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
     // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다
     this.addEventHandle(
@@ -91,9 +116,41 @@ export default {
       "touchstart",
       kakao.maps.event.preventMap
     );
-
+    this.addEventHandle(
+      this.contentNode_house,
+      "mousedown",
+      kakao.maps.event.preventMap
+    );
+    this.addEventHandle(
+      this.contentNode_house,
+      "touchstart",
+      kakao.maps.event.preventMap
+    );
+    this.addEventHandle(
+      this.contentNode_store,
+      "mousedown",
+      kakao.maps.event.preventMap
+    );
+    this.addEventHandle(
+      this.contentNode_store,
+      "touchstart",
+      kakao.maps.event.preventMap
+    );
+    this.addEventHandle(
+      this.contentNode_subway,
+      "mousedown",
+      kakao.maps.event.preventMap
+    );
+    this.addEventHandle(
+      this.contentNode_subway,
+      "touchstart",
+      kakao.maps.event.preventMap
+    );
     // 커스텀 오버레이 컨텐츠를 설정합니다
     this.placeOverlay.setContent(this.contentNode);
+    this.houseOverlay.setContent(this.contentNode_house);
+    this.storeOverlay.setContent(this.contentNode_house);
+    this.subwayOverlay.setContent(this.contentNode_house);
 
     // 각 카테고리에 클릭 이벤트를 등록합니다
     this.addCategoryClickEvent();
@@ -102,10 +159,24 @@ export default {
     // 지도를 클릭하면 커스텀 오버레이를 숨깁니다.
     kakao.maps.event.addListener(this.mapInstance, "click", () => {
       this.placeOverlay.setMap(null);
+      this.houseOverlay.setMap(null);
+      this.storeOverlay.setMap(null);
+      this.subwayOverlay.setMap(null);
     });
   },
   methods: {
     ...mapActions(mapStore, ["detailHouse", "setStore", "setSubway"]),
+
+    displaySSMarker() {
+      this.removeMarker_store();
+      this.removeMarker_subway();
+      var marker = this.addMarker_store(
+        new kakao.maps.LatLng(this.store.y, this.store.x)
+      );
+      kakao.maps.event.addListener(marker, "click", () => {
+        this.displayPlaceStore(this.store);
+      });
+    },
     displayMarker() {
       this.removeMarkers_apt();
       console.log("[아파트 목록]", this.houses);
@@ -159,12 +230,41 @@ export default {
         "만 원</span>";
       content += "</div>" + '<div class="after"></div>';
 
-      this.contentNode.innerHTML = content;
-      this.placeOverlay.setPosition(
+      this.contentNode_house.innerHTML = content;
+      this.houseOverlay.setPosition(
         new kakao.maps.LatLng(place.lat, place.lng)
       );
-      this.placeOverlay.setMap(this.mapInstance);
+      this.houseOverlay.setMap(this.mapInstance);
     },
+
+    //편의점 마커를 생성하고 지도위에 표시하는 함수입니다.
+    addMarker_store(position) {
+      var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+        imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
+        imgOptions = {
+          spriteSize: new kakao.maps.Size(644, 946), // 스프라이트 이미지의 크기
+          spriteOrigin: new kakao.maps.Point(46, 46 + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+          offset: new kakao.maps.Point(27, 69), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+        },
+        markerImage = new kakao.maps.MarkerImage(
+          imageSrc,
+          imageSize,
+          imgOptions
+        ),
+        // 마커를 생성합니다
+        marker = new kakao.maps.Marker({
+          position: position,
+          image: markerImage,
+        });
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(this.mapInstance);
+      this.mapInstance.panTo(marker.getPosition());
+      // 생성된 마커를 배열에 추가합니다
+      this.markers_store = marker;
+      return marker;
+    },
+
     // 마커를 생성하고 지도위에 표시하는 함수입니다
     addMarker_h(position, idx) {
       var imageSrc =
@@ -208,6 +308,16 @@ export default {
       }
       this.markers_house = [];
     },
+    //편의점 마커 삭제
+    removeMarker_store() {
+      this.marker_store.setMap(null);
+      this.marker_store = null;
+    },
+    //지하철 마커 삭제
+    removeMarker_subway() {
+      this.marker_subway.setMap(null);
+      this.marker_subway = null;
+    },
 
     // 엘리먼트에 이벤트 핸들러를 등록하는 함수입니다
     addEventHandle(target, type, callback) {
@@ -244,10 +354,10 @@ export default {
         this.displayPlaces(data);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         if (this.currCategory == "SW8") {
-          this.setSubway("없음");
+          this.setSubway(["없음", null]);
         }
         if (this.currCategory == "CS2") {
-          this.setStore("없음");
+          this.setStore(["없음", null]);
         }
         // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
       } else if (status === kakao.maps.services.Status.ERROR) {
@@ -449,7 +559,10 @@ export default {
               this.house.lng
             );
             if (submay_min > distance) {
-              this.setSubway(place.place_name + " (" + distance + "m)");
+              this.setSubway([
+                place.place_name + " (" + distance + "m)",
+                place,
+              ]);
               submay_min = distance;
             }
           } else if (place.category_group_code == "CS2") {
@@ -460,7 +573,7 @@ export default {
               this.house.lng
             );
             if (store_min > distance) {
-              this.setStore(place.place_name + " (" + distance + "m)");
+              this.setStore([place.place_name + " (" + distance + "m)", place]);
               store_min = distance;
             }
           }
@@ -494,6 +607,7 @@ export default {
     houses(newVal) {
       console.log(newVal);
       this.placeOverlay.setMap(null);
+      this.houseOverlay.setMap(null);
       this.displayMarker();
     },
     house(newVal) {
@@ -506,6 +620,13 @@ export default {
     "options.center"(cur) {
       // console.log("[NEW CENTER]", cur.lat, cur.lng); // for test
       this.mapInstance.setCenter(new kakao.maps.LatLng(cur.lat, cur.lng));
+    },
+    subway(newVal) {
+      this.displaySSMarker();
+      console.log(newVal);
+    },
+    store(newVal) {
+      console.log(newVal);
     },
   },
 };

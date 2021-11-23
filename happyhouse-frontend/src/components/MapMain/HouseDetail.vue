@@ -37,11 +37,11 @@
           </tr>
           <tr class="table-warning">
             <td>지하철</td>
-            <td>{{ subway }}</td>
+            <td>{{ subway_text }}</td>
           </tr>
           <tr class="table-success">
             <td>편의점</td>
-            <td>{{ store }}</td>
+            <td>{{ store_text }}</td>
           </tr>
         </table>
       </b-col>
@@ -55,7 +55,7 @@ const mapStore = "mapStore";
 export default {
   name: "HouseDetail",
   computed: {
-    ...mapState(mapStore, ["house", "subway", "store"]),
+    ...mapState(mapStore, ["house", "subway_text", "store_text"]),
   },
   filters: {
     price(value) {
