@@ -2,9 +2,15 @@
   <div>
     <b-container>
       <line-chart
-        :data="house_deal_chart"
-        :colors="['#00b', '#666']"
+        :data="house_deal_group"
+        :colors="['#00b', '#666', '#b00', '#0b0']"
         :download="true"
+        :messages="{ empty: 'No data' }"
+        adapter="chartjs"
+        pointStyle="dash"
+        :min="50000"
+        :xmin="date_start"
+        :xmax="date_end"
       ></line-chart>
       <b-row>
         <b-col>
@@ -70,6 +76,7 @@ export default {
       "date_end",
       "house_deal",
       "house_deal_chart",
+      "house_deal_group",
     ]),
   },
   data() {
@@ -118,7 +125,7 @@ export default {
 
   methods: {
     ...mapActions(mapStore, ["dealInfo"]),
-    ...mapMutations(mapStore, ["SET_HOUSE_DEAL"]),
+    ...mapMutations(mapStore, ["SET_HOUSE_DEAL", "GROUP_HOUSE_AREA"]),
     toSearch() {
       this.SET_HOUSE_DEAL([this.value_start, this.value_end]);
     },

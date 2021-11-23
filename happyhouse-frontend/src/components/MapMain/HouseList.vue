@@ -1,21 +1,9 @@
 <template>
   <div>
-    <b-dropdown
-      size="lg"
-      variant="link"
-      toggle-class="text-decoration-none"
-      no-caret
-    >
-      <template #button-content>
-        <i class="fas fa-sliders-h"></i>
-      </template>
-
-      <b-dropdown-group
-        id="dropdown-group-2"
-        header="가격(천 만원)"
-        style="width: 240px"
-      >
-        <b-container fluid class="text-center">
+    <b-container fluid class="text-center">
+      <b-row>
+        <b-col cols="8">
+          가격(천 만원)
           <b-row align-h="between">
             <b-col cols="5">
               <input
@@ -33,17 +21,18 @@
               />
             </b-col>
           </b-row>
-        </b-container>
-        <VueSlider
-          :min="0"
-          :max="1000"
-          :interval="0.01"
-          v-model="value_price"
-        />
-      </b-dropdown-group>
-
-      <b-button block variant="danger" @click="toSearch">검색</b-button>
-    </b-dropdown>
+          <VueSlider
+            :min="0"
+            :max="1000"
+            :interval="0.01"
+            v-model="value_price"
+          />
+        </b-col>
+        <b-col align-self="center">
+          <b-button block variant="danger" @click="toSearch">검색</b-button>
+        </b-col>
+      </b-row>
+    </b-container>
     <b-container
       style="height: 100%"
       v-if="houses && houses.length != 0"

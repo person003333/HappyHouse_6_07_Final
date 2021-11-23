@@ -28,7 +28,10 @@ const mapStore = {
     house_deal: [],
     house_deal_origin: [],
 
+    house_deal_group_last: [],
+    house_deal_group: [],
     house_deal_chart: [],
+    house_type: [],
   },
   mutations: {
     GET_SIDO_LIST(state, sidos) {
@@ -63,7 +66,6 @@ const mapStore = {
       for (let i = 0; i < state.houses_origin.length; i++) {
         let price =
           parseInt(state.houses_origin[i].recentPrice.replace(",", "")) / 1000;
-        console.log(price);
         if (price >= state.price_start && price <= state.price_end) {
           state.houses.push(state.houses_origin[i]);
         }
@@ -79,7 +81,6 @@ const mapStore = {
       for (let i = 0; i < state.houses_origin.length; i++) {
         let price =
           parseInt(state.houses_origin[i].recentPrice.replace(",", "")) / 1000;
-        console.log(price);
         if (price >= state.price_start && price <= state.price_end) {
           state.houses.push(state.houses_origin[i]);
         }
@@ -107,64 +108,71 @@ const mapStore = {
       state.date_start = new Date(state.date_start);
       state.date_end = new Date(state.date_end);
       state.house_deal_origin = house_deal;
+    },
+    SET_HOUSE_DEAL_CHART(state, value) {
+      console.log(value);
       for (let i = 0; i < state.house_deal_origin.length; i++) {
-        console.log(state.house_deal_origin[i]);
         var date = new Date(
           state.house_deal_origin[i].dealYear,
           state.house_deal_origin[i].dealMonth - 1,
           state.house_deal_origin[i].dealDay
         );
-
-        if (
-          state.date_start.valueOf() <= date.valueOf() &&
-          state.date_end.valueOf() >= date.valueOf()
-        ) {
-          state.house_deal.push(state.house_deal_origin[i]);
-          state.house_deal_chart.push([
+        for (let j = 0; j < state.house_type.length; j++) {
+          if (state.house_type[j] == state.house_deal_origin[i].area) {
+            state.house_deal_group_last[j].deal = state.house_deal_origin[
+              i
+            ].dealAmount.replace(",", "");
+          }
+          state.house_deal_group[j].data.push([
             date,
-            parseInt(
-              parseInt(state.house_deal_origin[i].dealAmount.replace(",", "")) /
-                parseInt(state.house_deal_origin[i].area)
-            ),
+            state.house_deal_group_last[j].deal,
           ]);
         }
       }
-      console.log(state.house_deal_chart);
+      console.log(state.house_deal_group);
     },
-
     SET_HOUSE_DEAL(state, value_date) {
       state.house_deal = [];
       state.house_deal_chart = [];
       state.date_start = new Date(value_date[0]);
       state.date_end = new Date(value_date[1]);
       for (let i = 0; i < state.house_deal_origin.length; i++) {
-        console.log(state.house_deal_origin[i]);
         var date = new Date(
           state.house_deal_origin[i].dealYear,
           state.house_deal_origin[i].dealMonth - 1,
           state.house_deal_origin[i].dealDay
         );
 
-        console.log(date.getTime());
-        console.log(state.date_start.getTime());
-        console.log(state.date_end.getTime());
-
         if (
           state.date_start.getTime() <= date.getTime() &&
           state.date_end.getTime() >= date.getTime()
         ) {
           state.house_deal.push(state.house_deal_origin[i]);
-          state.house_deal_chart.push([
-            date,
-            parseInt(
-              parseInt(state.house_deal_origin[i].dealAmount.replace(",", "")) /
-                parseInt(state.house_deal_origin[i].area)
-            ),
-          ]);
         }
       }
-      console.log(value_date[0]);
-      console.log(value_date[1]);
+      console.log(state.house_deal_chart);
+    },
+    GROUP_HOUSE_AREA(state, g) {
+      state.house_type = [];
+      state.house_deal_group = [];
+      state.house_deal_group_last = [];
+      for (let i = 0; i < state.house_deal_origin.length; i++) {
+        state.house_type.push(state.house_deal_origin[i].area);
+      }
+      state.house_type = [...new Set(state.house_type)];
+      state.house_type.sort();
+      state.house_deal_group = [];
+      for (let i = 0; i < state.house_type.length; i++) {
+        state.house_deal_group.push({
+          name: state.house_type[i],
+          data: [],
+        });
+        state.house_deal_group_last.push({
+          deal: 0,
+        });
+      }
+      console.log("group " + g + state.house_type);
+      console.log(state.house_deal_group[1]);
     },
   },
   actions: {
@@ -233,6 +241,8 @@ const mapStore = {
         .get("/map/apt_detail", { params })
         .then((response) => {
           commit("GET_HOUSE_DEAL", response.data);
+          commit("GROUP_HOUSE_AREA", "OK");
+          commit("SET_HOUSE_DEAL_CHART", "set_chart");
         })
         .catch((error) => {
           console.log(error);
