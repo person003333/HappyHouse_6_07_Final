@@ -29,7 +29,9 @@
           />
         </b-col>
         <b-col align-self="center">
-          <b-button block variant="danger" @click="toSearch">검색</b-button>
+          <b-button block style="background-color: #7a7ad8" @click="toSearch"
+            >검색</b-button
+          >
         </b-col>
       </b-row>
     </b-container>

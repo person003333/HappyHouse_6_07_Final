@@ -1,6 +1,6 @@
 <template>
   <b-row
-    class="m-2"
+    style="margin: 15px 0"
     @click="selectHouse"
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
@@ -10,9 +10,10 @@
       <span class="marker_image" ref="image"></span>
     </b-col>
     <b-col cols="10" class="align-self-center" style="font-size: 10pt">
-      {{ house.aptName }}<br />
+      <strong style="font-size: 1.1em">{{ house.aptName }}</strong
+      ><br />
       최근 거래 :
-      {{ house.recentPrice }}만원
+      {{ house.recentPrice }}만 원 &nbsp;&nbsp;&nbsp;&nbsp;
       {{ house.recentDeal }}
     </b-col>
   </b-row>
@@ -32,6 +33,11 @@ export default {
     house: Object,
     index: Number,
   },
+  // created() {
+  //   if(this.house.img!=null&&this.house.img!='')
+  //     this.house.img
+  //   console.log(this.house);
+  // },
   mounted() {
     this.$refs.image.className =
       "marker_image marker_posiont_" + (this.index % 45);

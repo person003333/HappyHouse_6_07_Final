@@ -57,7 +57,7 @@
       <span
         id="x"
         v-show="toggle"
-        style="position: relative; left: 90%; top: 1%"
+        style="position: relative; left: 65%; top: 1%"
         @click="toggle = !toggle"
       >
         <i class="fas fa-times fa-2x"></i
