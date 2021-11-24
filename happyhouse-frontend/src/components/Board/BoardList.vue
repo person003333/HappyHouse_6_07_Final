@@ -84,7 +84,7 @@
               justify-content: space-between;
             "
           >
-            <div class="d-flex justify-content-between" style="width: 55%">
+            <div class="d-flex justify-content-between" style="width: 50%">
               <div>
                 <span>
                   <strong class="notice_icon" style="color: rgb(250, 70, 124)"
@@ -104,18 +104,16 @@
 
             <div
               style="
-                width: 44%;
+                width: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
               "
             >
-              <span style="width: 90px">
-                <span class="sv_member" style="color: #d81e22">{{
-                  notice.name
-                }}</span>
-              </span>
-              <span style="width: 60px; text-align: left"
+              <div style="width: 200px; color: #d81e22">
+                <span>{{ notice.name }}</span>
+              </div>
+              <span style="width: 90px; text-align: left"
                 ><i
                   style="color: #005bfe"
                   class="fa fa-eye"
@@ -146,7 +144,7 @@
               justify-content: space-between;
             "
           >
-            <div class="d-flex justify-content-between" style="width: 55%">
+            <div class="d-flex justify-content-between" style="width: 50%">
               <div>
                 <span> {{ item.noticeNo }} &nbsp;</span>
               </div>
@@ -161,16 +159,19 @@
 
             <div
               style="
-                width: 44%;
+                width: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
               "
             >
-              <div style="width: 90px">
-                <span class="sv_member">{{ item.name }}</span>
+              <div style="width: 200px">
+                <span v-if="item.name != null && item.name != ''">{{
+                  item.name
+                }}</span>
+                <span v-else>(탈퇴한 회원)</span>
               </div>
-              <span style="width: 60px; text-align: left"
+              <span style="width: 90px; text-align: left"
                 ><i
                   style="color: #005bfe"
                   class="fa fa-eye"
@@ -187,24 +188,22 @@
         </router-link>
       </li>
     </ul>
-    <div class="d-flex justify-content-between">
-      <div style="width: 11%"></div>
+    <div
+      class="d-flex justify-content-between"
+      style="position: absolute; width: 33%; left: 44%; bottom: 5%"
+    >
       <pagination style="margin: 0px" />
-      <div
-        id="btn-group"
-        class="d-flex justify-content-between"
-        style="width: 18%; position: inherit; height: 5%"
+
+      <b-button
+        v-if="this.userInfo.id == 'admin'"
+        variant="outline-primary"
+        style="position: relative"
+        :to="{ name: 'BoardCreate' }"
+        >공지사항 작성</b-button
       >
-        <b-button
-          v-if="this.userInfo.id == 'admin'"
-          variant="outline-primary"
-          :to="{ name: 'BoardCreate' }"
-          >공지사항 작성</b-button
-        >
-        <b-button v-else variant="outline-info" :to="{ name: 'BoardCreate' }"
-          >글 작성</b-button
-        >
-      </div>
+      <b-button v-else variant="outline-info" :to="{ name: 'BoardCreate' }"
+        >글 작성</b-button
+      >
     </div>
   </div>
 </template>

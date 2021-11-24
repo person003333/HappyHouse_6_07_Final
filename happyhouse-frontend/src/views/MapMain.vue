@@ -150,7 +150,6 @@ export default {
   },
   mounted() {
     this.get_interestedApt(this.userInfo.id);
-    console.log(this.userInfo);
   },
   methods: {
     ...mapActions("myhouseStore", ["detailHouse"]),
@@ -161,7 +160,6 @@ export default {
     },
 
     chosemyhouse(aptCode) {
-      console.log(aptCode);
       this.detailHouse(aptCode);
       this.mytoggle = true;
     },

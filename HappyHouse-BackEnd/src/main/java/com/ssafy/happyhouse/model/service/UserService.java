@@ -1,8 +1,9 @@
 package com.ssafy.happyhouse.model.service;
 
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.List;
 
+import com.ssafy.happyhouse.model.dto.NoticeParameterDto;
 import com.ssafy.happyhouse.model.dto.User;
 
 public interface UserService {
@@ -20,4 +21,8 @@ public interface UserService {
 	int idCheck(String userId) throws Exception;
 	
 	public User userInfo(String id) throws Exception;
+	
+	List<User> getUserList(NoticeParameterDto noticeParameterDto) throws Exception;
+	
+	int totalCnt() throws Exception;
 }

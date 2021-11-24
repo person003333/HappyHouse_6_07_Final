@@ -1,8 +1,8 @@
 package com.ssafy.happyhouse.model.mapper;
 
 import java.sql.SQLException;
-import java.util.Map;
-
+import java.util.List;
+import com.ssafy.happyhouse.model.dto.NoticeParameterDto;
 import com.ssafy.happyhouse.model.dto.User;
 
 public interface UserMapper {
@@ -20,4 +20,9 @@ public interface UserMapper {
 	void deleteUser(String user_id) throws SQLException;
 
 	int idCheck(String userId) throws Exception;
+	
+	List<User> getUserList(NoticeParameterDto onoticeParameterDto) throws Exception;
+	
+	int totalCnt() throws Exception;
+
 }

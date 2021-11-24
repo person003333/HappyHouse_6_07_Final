@@ -38,6 +38,18 @@ export default {
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
+  updated() {
+    console.log(this.userInfo.id);
+    if (this.userInfo.id == "admin") {
+      this.menu[6].hidden = false;
+    }
+  },
+  created() {
+    console.log(this.userInfo.id);
+    if (this.userInfo.id == "admin") {
+      this.menu[6].hidden = false;
+    }
+  },
   data() {
     return {
       menu: [
@@ -50,12 +62,6 @@ export default {
           href: "/main/map",
           title: "거래정보",
           icon: "far fa-building ",
-          // child: [
-          //   {
-          //     href: "/map/sublink",
-          //     title: "서브링크가능",
-          //   },
-          // ],
         },
         {
           href: "/main/user",
@@ -81,7 +87,9 @@ export default {
         {
           href: "/main/admin",
           title: "관리자페이지",
+          id: "hello",
           icon: "fas fa-user-cog ",
+          hidden: true,
         },
       ],
     };

@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.happyhouse.model.dto.NoticeDto;
+import com.ssafy.happyhouse.model.dto.NoticeParameterDto;
 import com.ssafy.happyhouse.model.dto.User;
 import com.ssafy.happyhouse.model.service.JwtServiceImpl;
 import com.ssafy.happyhouse.model.service.UserService;
@@ -41,6 +44,11 @@ public class UserController {
 		int cnt = 1;
 		cnt = userService.idCheck(ckid);
 		return cnt;
+	}
+	
+	@GetMapping("/list")
+	public ResponseEntity<List<User>> getUserList( NoticeParameterDto noticeParameterDto) throws Exception {
+		return new ResponseEntity<List<User>>(userService.getUserList(noticeParameterDto), HttpStatus.OK);
 	}
 
 	@PostMapping("/login")
@@ -120,4 +128,9 @@ public class UserController {
 			System.out.println("삭제");
 			return new ResponseEntity<>("delete", HttpStatus.OK);
 	}
+	
+	@GetMapping("/total")
+	public int totalCnt() throws Exception {
+		return userService.totalCnt();
+	} 
 }

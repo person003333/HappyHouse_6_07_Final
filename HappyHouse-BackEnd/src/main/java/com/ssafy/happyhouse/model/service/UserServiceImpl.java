@@ -2,11 +2,14 @@ package com.ssafy.happyhouse.model.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.happyhouse.model.dto.NoticeDto;
+import com.ssafy.happyhouse.model.dto.NoticeParameterDto;
 import com.ssafy.happyhouse.model.dto.User;
 import com.ssafy.happyhouse.model.mapper.UserMapper;
 
@@ -56,4 +59,15 @@ public class UserServiceImpl implements UserService {
 		return userMapper.idCheck(userId);
 	}
 
+	@Override
+	public List<User> getUserList(NoticeParameterDto noticeParameterDto) throws Exception {
+		int start =noticeParameterDto.getPg() == 0 ? 0 : (noticeParameterDto.getPg() - 1) * noticeParameterDto.getSpp();
+		noticeParameterDto.setStart(start);
+		return userMapper.getUserList(noticeParameterDto);
+	}
+
+	@Override
+	public int totalCnt() throws Exception{
+		return userMapper.totalCnt();
+	}
 }

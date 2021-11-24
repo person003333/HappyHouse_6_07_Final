@@ -91,10 +91,10 @@ const routes = [
         path: "admin",
         name: "Admin",
         component: Admin,
-        redirect: { name: "UserManage" },
+        redirect: { name: "UserManage", params: { page: 1 } },
         children: [
           {
-            path: "usermanage",
+            path: "usermanage/:page",
             name: "UserManage",
             component: UserManage,
           },

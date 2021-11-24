@@ -54,9 +54,8 @@
               text-align: left;
               font-size: 1.2em;
             "
-          >
-            {{ board.content }}
-          </div>
+            v-html="enterToBr(board.content)"
+          ></div>
         </section>
 
         <!-- 댓글 리스트 -->
@@ -200,6 +199,10 @@ export default {
     this.loadComment();
   },
   methods: {
+    enterToBr(str) {
+      // 문자열에 enter값을 <br />로 변경.(html상에서 줄바꿈 처리)
+      return str.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    },
     deleteBoard() {
       if (!confirm("해당 글을 삭제하시겠습니까?")) return;
 

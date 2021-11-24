@@ -75,7 +75,6 @@ export default {
       var request = new XMLHttpRequest();
       request.onreadystatechange = () => {
         if (request.readyState == 4) {
-          console.log(request.responseText);
           this.news.thumbnail = request.responseText
             .split('<meta property="og:image"')[1]
             .split('"')[1];
@@ -93,7 +92,6 @@ export default {
     loadList() {
       this.newsList = [];
       http.get("/api/news/recommend").then(({ data }) => {
-        console.log(data);
         data.forEach((el) => {
           this.newsList.push({
             번호: el.no,

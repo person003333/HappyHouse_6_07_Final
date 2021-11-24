@@ -47,7 +47,6 @@ public class NoticeController {
 	 
 	@GetMapping("/total")
 	public int totalCnt() throws Exception {
-		System.out.println("??");
 		return noticeService.totalCnt();
 	} 
 	

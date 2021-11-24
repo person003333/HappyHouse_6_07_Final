@@ -4,7 +4,7 @@
     style="height: 90vh; padding: 0px !important"
   >
     <div class="container col-lg-5 col-lg-7" style="height: 90%">
-      <div class="card mb-4" style="margin-top: 60px; height: 85% !important">
+      <div class="card mb-4" style="margin-top: 10%; height: 85% !important">
         <div class="card-body mt-4">
           <h2 class="card-title" v-show="!edit">회원 정보 확인</h2>
           <h2 class="card-title" v-show="edit">회원 정보 수정</h2>

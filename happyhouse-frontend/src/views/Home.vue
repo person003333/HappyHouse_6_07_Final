@@ -103,13 +103,6 @@
             <span>Sign Up</span>
           </button>
 
-          <!-- <a>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Submit
-          </a> -->
           <button
             class="custom-btn btn-6"
             @click="

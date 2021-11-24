@@ -15,11 +15,6 @@ public class User {
 	// 해당 회원의 이메일
 	private String email;
 
-	// 해당 회원의 동코드
-	private String dongcode;
-	
-	// 해당 회원의 나머지 주소
-	private String addrOther;
 	
 	// 해당 회원의 관심지역
 	private ArrayList<InterestedPlace> interList;
@@ -60,21 +55,6 @@ public class User {
 		this.email = email;
 	}
 
-	public String getDongcode() {
-		return dongcode;
-	}
-
-	public void setDongcode(String dongcode) {
-		this.dongcode = dongcode;
-	}
-
-	public String getAddrOther() {
-		return addrOther;
-	}
-
-	public void setAddrOther(String addrOther) {
-		this.addrOther = addrOther;
-	}
 	
 	public void addInterPlace(InterestedPlace ip) {
 		String dc = ip.getDongcode();
