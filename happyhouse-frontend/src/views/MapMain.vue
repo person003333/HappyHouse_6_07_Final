@@ -68,7 +68,7 @@
       <span
         id="x"
         v-show="toggle"
-        style="position: relative; left: 65%; top: 1%"
+        style="position: relative; left: 90%; top: 1%"
         @click="toggle = !toggle"
       >
         <i class="fas fa-times fa-2x"></i
@@ -78,7 +78,11 @@
         <house-list v-on:toDetail="toDetail"></house-list>
       </div>
       <div v-show="!list">
-        <div id="toList" @click="list = !list">
+        <div
+          id="toList"
+          @click="list = !list"
+          style="position: absolute; top: 0%"
+        >
           <i class="fas fa-arrow-left"></i> <span>목록으로</span>
         </div>
         <house-detail :house="house" style="width: 90%; margin: 10px auto" />
@@ -151,6 +155,7 @@ export default {
   methods: {
     ...mapActions("myhouseStore", ["detailHouse"]),
     ...mapActions("interestedAptStore", ["get_interestedApt"]),
+
     toDetail() {
       this.list = !this.list;
     },
@@ -168,6 +173,7 @@ export default {
     dongCode(newVal) {
       console.log(newVal);
       this.list = true;
+      this.toggle = true;
     },
   },
 };
@@ -250,8 +256,8 @@ export default {
 
 #mytoggleBtn {
   position: absolute;
-  left: 75%;
-  top: 3%;
+  right: 250px;
+  top: 20px;
   transition-property: all;
   transition-duration: 300ms;
 }

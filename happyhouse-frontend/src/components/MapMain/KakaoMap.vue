@@ -16,7 +16,7 @@
       </li>
       <li id="SW8" data-order="3">
         <span class="category_bg oil"></span>
-        지하철역
+        지하철
       </li>
       <li id="CE7" data-order="4">
         <span class="category_bg cafe"></span>
@@ -315,18 +315,7 @@ export default {
       console.log(place);
       //지도 클릭한 매물로 이동
       this.mapInstance.panTo(new kakao.maps.LatLng(place.lat, place.lng));
-      this.setSubway(["없음 (2000m)", null]);
-      this.currCategory = "SW8";
-      this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
-        location: new kakao.maps.LatLng(place.lat, place.lng),
-        radius: 2000,
-      });
-      this.setStore(["없음 (1000m)", null]);
-      this.currCategory = "CS2";
-      this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
-        location: new kakao.maps.LatLng(place.lat, place.lng),
-        radius: 1000,
-      });
+
       this.currCategory = "";
 
       var content = '<div class="placehouse">';
@@ -757,6 +746,19 @@ export default {
       this.displayMarker();
     },
     house(newVal) {
+      this.setSubway(["없음 (2000m)", null]);
+      this.currCategory = "SW8";
+      this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
+        location: new kakao.maps.LatLng(newVal.lat, newVal.lng),
+        radius: 2000,
+      });
+      this.setStore(["없음 (1000m)", null]);
+      this.currCategory = "CS2";
+      this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
+        location: new kakao.maps.LatLng(newVal.lat, newVal.lng),
+        radius: 1000,
+      });
+
       this.displayPlacehouse(newVal);
       this.storeOverlay.setMap(null);
       this.subwayOverlay.setMap(null);
