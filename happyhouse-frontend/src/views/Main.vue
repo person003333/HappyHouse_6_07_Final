@@ -60,7 +60,7 @@ export default {
         {
           href: "/main/user",
           title: "마이페이지",
-          icon: "fa fa-user",
+          icon: "fa fa-user-alt",
         },
         {
           href: "/main/board",
@@ -68,9 +68,20 @@ export default {
           icon: "fas fa-chalkboard",
         },
         {
+          href: "/main/interest",
+          title: "관심 아파트",
+          icon: "far fa-star ",
+        },
+        {
           href: "/main/news",
           title: "오늘의 뉴스",
           icon: "far fa-list-alt ",
+        },
+
+        {
+          href: "/main/admin",
+          title: "관리자페이지",
+          icon: "fas fa-user-cog ",
         },
       ],
     };
@@ -192,10 +203,6 @@ export default {
   }
 }
 
-.vsm--item {
-  margin: 30px 0;
-}
-
 .vsm--list {
   margin-top: 50px;
 }
@@ -210,5 +217,6 @@ export default {
   color: #5c8cf1e5;
   font-family: "Righteous", serif;
   text-shadow: 0.03em 0.03em 0 rgb(39, 46, 83);
+  z-index: 10;
 }
 </style>

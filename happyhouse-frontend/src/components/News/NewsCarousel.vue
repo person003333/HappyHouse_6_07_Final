@@ -7,19 +7,19 @@
       controls
       indicators
       background="#ababab"
-      style="text-shadow: 1px 1px 2px #333; width: 700px; height: 450px"
+      style="text-shadow: 1px 1px 2px #333; width: 620px; height: 380px"
     >
       <b-carousel-slide
         v-for="news in newsList"
         :key="news.link"
-        style="text-align: center; width: 700px; height: 450px"
+        style="text-align: center; width: 620px; height: 380px"
         class="img-wrapper"
       >
         <template #img>
           <img
             :src="news.thumbnail"
             alt="image slot"
-            style="width: auto; height: 450px"
+            style="width: auto; height: 380px"
             @click="goto(news.link)"
           />
         </template>

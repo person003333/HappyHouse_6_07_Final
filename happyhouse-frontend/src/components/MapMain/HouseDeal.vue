@@ -30,7 +30,8 @@
 
       <b-button
         block
-        style="width: 30%; background-color: #7a7ad8; border: none"
+        id="searchBtn"
+        style="width: 30%; border: 0px"
         class="ml-2"
         @click="toSearch"
         >검색</b-button

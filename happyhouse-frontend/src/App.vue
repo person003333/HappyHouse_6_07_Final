@@ -60,4 +60,15 @@ body {
     color-stop(1, rgb(150, 197, 228))
   );
 }
+
+.page-item.active .page-link {
+  background: #4e54c8; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #8f94fb,
+    #4e54c8
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #8f94fb, #4e54c8);
+  border: 0px;
+}
 </style>

@@ -1,50 +1,62 @@
 <template>
   <div>
-    <h1 style="text-align: center; margin-bottom: 50px">
-      <strong>추천 뉴스</strong>
-    </h1>
-    <div></div>
+    <div style="width: 80%; margin: 50px auto">
+      <h1 style="text-align: center; margin-bottom: 50px">
+        <strong>추천 뉴스</strong>
+        <div class="d-flex justify-content-around">
+          <div style="padding-top: 60px">
+            <news-carousel
+              v-if="추천 != null && 추천.length > 0"
+              id="recommend"
+              :newsList="추천"
+            ></news-carousel>
+            <h3 v-else>등록된 뉴스가 없습니다.</h3>
+          </div>
+        </div>
+      </h1>
+      <div></div>
 
-    <hr
-      style="
-        height: 10px;
-        margin: 5% 10%;
-        border: 0;
-        box-shadow: 0 10px 10px -15px #8c8b8b inset;
-      "
-    />
-    <h1 style="text-align: center; margin-bottom: 50px">
-      <strong>오늘의 뉴스</strong>
-    </h1>
-    <div class="d-flex justify-content-around">
-      <div>
-        <h2 class="category">
-          <strong>부동산</strong>
-        </h2>
-        <news-carousel :newsList="부동산"></news-carousel>
+      <hr
+        style="
+          height: 10px;
+          margin: 5% 10%;
+          border: 0;
+          box-shadow: 0 10px 10px -15px #8c8b8b inset;
+        "
+      />
+      <h1 style="text-align: center; margin-bottom: 50px">
+        <strong>오늘의 뉴스</strong>
+      </h1>
+      <div class="d-flex justify-content-around">
+        <div>
+          <h2 class="category">
+            <strong>부동산</strong>
+          </h2>
+          <news-carousel :newsList="부동산"></news-carousel>
+        </div>
+        <div>
+          <h2 class="category">
+            <strong>재개발</strong>
+          </h2>
+          <news-carousel :newsList="재개발"></news-carousel>
+        </div>
       </div>
-      <div>
-        <h2 class="category">
-          <strong>재개발</strong>
-        </h2>
-        <news-carousel :newsList="재개발"></news-carousel>
-      </div>
-    </div>
-    <div
-      class="d-flex justify-content-around"
-      style="margin-top: 5%; margin-bottom: 10%"
-    >
-      <div>
-        <h2 class="category">
-          <strong>1인 가구</strong>
-        </h2>
-        <news-carousel :newsList="가구"></news-carousel>
-      </div>
-      <div>
-        <h2 class="category">
-          <strong>분양</strong>
-        </h2>
-        <news-carousel :newsList="분양"></news-carousel>
+      <div
+        class="d-flex justify-content-around"
+        style="margin-top: 5%; margin-bottom: 10%"
+      >
+        <div>
+          <h2 class="category">
+            <strong>1인 가구</strong>
+          </h2>
+          <news-carousel :newsList="가구"></news-carousel>
+        </div>
+        <div>
+          <h2 class="category">
+            <strong>분양</strong>
+          </h2>
+          <news-carousel :newsList="분양"></news-carousel>
+        </div>
       </div>
     </div>
   </div>
@@ -63,12 +75,13 @@ export default {
       재개발: [],
       가구: [],
       분양: [],
+      추천: [],
       slide: 0,
       sliding: null,
     };
   },
   created() {
-    http.get("/api/news/부동산 정책").then(({ data }) => {
+    http.get("/api/news/search/부동산 정책").then(({ data }) => {
       data.items.forEach((el, index) => {
         this.부동산.push({
           link: el.originallink,
@@ -78,7 +91,7 @@ export default {
         this.setThumnailLink(this.부동산, index, el.link);
       });
     });
-    http.get("/api/news/재개발").then(({ data }) => {
+    http.get("/api/news/search/재개발").then(({ data }) => {
       data.items.forEach((el, index) => {
         this.재개발.push({
           link: el.originallink,
@@ -88,7 +101,7 @@ export default {
         this.setThumnailLink(this.재개발, index, el.link);
       });
     });
-    http.get("/api/news/1인 가구").then(({ data }) => {
+    http.get("/api/news/search/1인 가구").then(({ data }) => {
       data.items.forEach((el, index) => {
         this.가구.push({
           link: el.originallink,
@@ -98,7 +111,7 @@ export default {
         this.setThumnailLink(this.가구, index, el.link);
       });
     });
-    http.get("/api/news/분양").then(({ data }) => {
+    http.get("/api/news/search/분양").then(({ data }) => {
       data.items.forEach((el, index) => {
         this.분양.push({
           link: el.originallink,
@@ -108,6 +121,7 @@ export default {
         this.setThumnailLink(this.분양, index, el.link);
       });
     });
+    http.get("/api/news/recommend").then(({ data }) => (this.추천 = data));
   },
   methods: {
     setThumnailLink(category, index, link) {
@@ -137,6 +151,24 @@ export default {
 </script>
 
 <style lang="scss">
+#recommend {
+  #carousel-1 {
+    width: 960px !important;
+    height: 540px !important;
+  }
+
+  .carousel-item {
+    width: 960px !important;
+    height: 540px !important;
+  }
+  img {
+    height: 540px !important;
+    width: auto !important;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+}
 .img-wrapper :hover {
   cursor: pointer;
 }

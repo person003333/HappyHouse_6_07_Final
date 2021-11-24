@@ -29,9 +29,7 @@
           />
         </b-col>
         <b-col align-self="center">
-          <b-button block style="background-color: #7a7ad8" @click="toSearch"
-            >검색</b-button
-          >
+          <b-button id="searchBtn" block @click="toSearch">검색</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -96,4 +94,26 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#searchBtn {
+  background: #4e54c8; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #8f94fb,
+    #4e54c8
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #8f94fb, #4e54c8);
+  border: 0px;
+}
+
+#searchBtn:hover {
+  background: #3138c7; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #6e75fc,
+    #323ac9
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #646cff, #333bce);
+  border: 0px;
+}
+</style>
