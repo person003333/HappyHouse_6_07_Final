@@ -214,6 +214,7 @@ export default {
         // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", () => {
           this.displayPlacehouse(house);
+          this.detailHouse(house);
         });
       });
     },
@@ -311,12 +312,13 @@ export default {
       console.log(place);
       //지도 클릭한 매물로 이동
       this.mapInstance.panTo(new kakao.maps.LatLng(place.lat, place.lng));
-
+      this.setSubway(["없음 (2000m)", null]);
       this.currCategory = "SW8";
       this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
         location: new kakao.maps.LatLng(place.lat, place.lng),
         radius: 2000,
       });
+      this.setStore(["없음 (1000m)", null]);
       this.currCategory = "CS2";
       this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
         location: new kakao.maps.LatLng(place.lat, place.lng),
@@ -324,7 +326,6 @@ export default {
       });
       this.currCategory = "";
 
-      this.detailHouse(place);
       var content = '<div class="placehouse">';
 
       content +=
@@ -673,6 +674,12 @@ export default {
         }
       } else if (status === kakao.maps.services.Status.ERROR) {
         // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
+        if (this.currCategory == "SW8") {
+          this.setSubway(["없음", null]);
+        }
+        if (this.currCategory == "CS2") {
+          this.setStore(["없음", null]);
+        }
       }
     },
     displayPlaces_ss(places) {

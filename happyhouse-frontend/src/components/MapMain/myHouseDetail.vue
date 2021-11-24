@@ -189,11 +189,13 @@ export default {
   methods: {
     ...mapActions("myhouseStore", ["setStore", "setSubway"]),
     displayPlacehouse(place) {
+      this.setSubway(["없음 (2000m)", null]);
       this.currCategory = "SW8";
       this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
         location: new window.kakao.maps.LatLng(place.lat, place.lng),
         radius: 2000,
       });
+      this.setStore(["없음 (2000m)", null]);
       this.currCategory = "CS2";
       this.ps.categorySearch(this.currCategory, this.placesSearchCB_ss, {
         location: new window.kakao.maps.LatLng(place.lat, place.lng),
