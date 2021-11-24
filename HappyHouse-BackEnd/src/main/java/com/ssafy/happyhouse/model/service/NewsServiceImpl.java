@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.model.service;
 
 import java.util.List;
+import org.apache.commons.text.StringEscapeUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	public void registerNews(NewsDto newsDto) throws Exception {
+		newsDto.setTitle(StringEscapeUtils.unescapeHtml4(newsDto.getTitle()));
+
 		newsMapper.registerNews(newsDto);
 	}
 

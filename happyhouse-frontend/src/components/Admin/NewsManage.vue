@@ -15,10 +15,10 @@
         <tbody>
           <tr v-for="news in newsList" :key="news.no">
             <td style="font-size: 1.3em">
-              <strong>{{ news.등록일 }}</strong>
+              {{ news.등록일 }}
             </td>
             <td style="font-size: 1.2em; text-align: left">
-              {{ news.제목 }}
+              <a :href="news.링크" style="color: #60627f"> {{ news.제목 }}</a>
             </td>
             <td style="width: 60px">
               <b-button
@@ -75,6 +75,7 @@ export default {
       var request = new XMLHttpRequest();
       request.onreadystatechange = () => {
         if (request.readyState == 4) {
+          console.log(request.responseText);
           this.news.thumbnail = request.responseText
             .split('<meta property="og:image"')[1]
             .split('"')[1];
@@ -92,10 +93,11 @@ export default {
     loadList() {
       this.newsList = [];
       http.get("/api/news/recommend").then(({ data }) => {
+        console.log(data);
         data.forEach((el) => {
           this.newsList.push({
             번호: el.no,
-            등록일: el.regtime,
+            등록일: el.regTime,
             제목: el.title,
             링크: el.link,
             썸네일: el.thumbnail,

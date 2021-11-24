@@ -5,11 +5,11 @@
         <strong>추천 뉴스</strong>
         <div class="d-flex justify-content-around">
           <div style="padding-top: 60px">
-            <news-carousel
+            <recommend-carousel
               v-if="추천 != null && 추천.length > 0"
               id="recommend"
               :newsList="추천"
-            ></news-carousel>
+            ></recommend-carousel>
             <h3 v-else>등록된 뉴스가 없습니다.</h3>
           </div>
         </div>
@@ -65,9 +65,11 @@
 <script>
 import http from "@/util/http-common.js";
 import NewsCarousel from "../components/News/NewsCarousel.vue";
+import RecommendCarousel from "../components/News/RecommendCarousel.vue";
 export default {
   components: {
     NewsCarousel,
+    RecommendCarousel,
   },
   data() {
     return {
@@ -127,14 +129,30 @@ export default {
     setThumnailLink(category, index, link) {
       var request = new XMLHttpRequest();
       request.onreadystatechange = () => {
-        if (request.readyState == 4) {
-          category[index].thumbnail = request.responseText
-            .split('<meta property="og:image"')[1]
-            .split('"')[1];
+        let metaTxt = "";
 
-          category[index].title = request.responseText
-            .split('<meta property="og:title"')[1]
-            .split('"')[1];
+        if (request.readyState == 4) {
+          metaTxt = request.responseText;
+
+          if (
+            metaTxt.split("og:image")[1].split('"')[1].substr(0, 3) == "htt"
+          ) {
+            category[index].thumbnail = metaTxt
+              .split("og:image")[1]
+              .split('"')[1];
+          } else {
+            category[index].thumbnail = metaTxt
+              .split("og:image")[1]
+              .split('"')[2];
+          }
+
+          category[index].title = metaTxt
+            .split("og:title")[1]
+            .split('"')[2]
+            .replaceAll("&lt;", "<")
+            .replaceAll("&gt;", ">")
+            .replaceAll("&quot;", '"')
+            .replaceAll("&#39;", "'");
         }
       };
       request.open("GET", link);
@@ -152,19 +170,6 @@ export default {
 
 <style lang="scss">
 #recommend {
-  #carousel-1 {
-    width: 960px !important;
-    height: 540px !important;
-  }
-
-  .carousel-item {
-    width: 960px !important;
-    height: 540px !important;
-  }
-  img {
-    height: 540px !important;
-    width: auto !important;
-  }
   h2 {
     font-size: 3rem;
   }

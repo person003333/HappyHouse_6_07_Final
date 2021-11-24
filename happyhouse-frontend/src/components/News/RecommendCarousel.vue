@@ -3,23 +3,23 @@
     <b-carousel
       id="carousel-1"
       v-model="slide"
-      :interval="5000000"
+      :interval="5000"
       controls
       indicators
       background="#ababab"
-      style="text-shadow: 1px 1px 2px #333; width: 530px; height: 400px"
+      style="text-shadow: 1px 1px 2px #333; width: 750px; height: 560px"
     >
       <b-carousel-slide
         v-for="news in newsList"
         :key="news.link"
-        style="text-align: center; width: 530px; height: 400px"
+        style="text-align: center; width: 750px; height: 560px"
         class="img-wrapper"
       >
         <template #img>
           <img
             :src="news.thumbnail"
             alt="image slot"
-            style="width: auto; height: 400px"
+            style="width: auto; height: 560px"
             @click="goto(news.link)"
           />
         </template>

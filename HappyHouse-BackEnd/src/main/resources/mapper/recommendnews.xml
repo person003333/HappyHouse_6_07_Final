@@ -20,8 +20,7 @@
 
 	<select id="getNewsList" parameterType="map"
 		resultMap="newsList">
-		select no,link, thumbnail,title,regtime,
-		date_format(regtime, '%y/%m/%d')
+		select no,link, thumbnail,title,date_format(regtime, '%y/%m/%d') as regtime
 		from
 		recommend_news
 		order by no desc
