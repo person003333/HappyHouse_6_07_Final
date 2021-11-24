@@ -394,14 +394,14 @@ export default {
     addMarker_h(position, idx) {
       var imageSrc =
           "http://t1.daumcdn.net/localimg/localimages/07/2012/img/marker_normal.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
-        imageSize = new kakao.maps.Size(46, 47), // 마커 이미지의 크기
+        imageSize = new kakao.maps.Size(52, 53), // 마커 이미지의 크기
         imgOptions = {
           spriteSize: new kakao.maps.Size(644, 946), // 스프라이트 이미지의 크기
           spriteOrigin: new kakao.maps.Point(
-            134 - 44 * parseInt((idx % 45) / 15),
-            ((idx % 45) % 15) * 46 + 10
+            410 - 52 * parseInt((idx % 45) / 15),
+            ((idx % 45) % 15) * 52 + 5
           ), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-          offset: new kakao.maps.Point(23, 47), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+          offset: new kakao.maps.Point(26, 53), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
         },
         markerImage = new kakao.maps.MarkerImage(
           imageSrc,
