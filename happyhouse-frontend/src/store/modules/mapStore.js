@@ -23,7 +23,7 @@ const mapStore = {
     subway: null,
     store: null,
     price_start: 0,
-    price_end: 100000,
+    price_end: 1000000,
 
     date_start: minDate,
     date_end: new Date(today),

@@ -36,7 +36,6 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-// import EventBus from "@/api/EventBus";
 import EventBus from "@/api/EventBus.js";
 const mapStore = "mapStore";
 let kakao = window.kakao;
@@ -70,6 +69,10 @@ export default {
     EventBus.$on("push-store", (payload) => {
       if (this.marker_store == null) this.displayStoreMarker();
       else this.removeMarker_store();
+      console.log(payload);
+    });
+    EventBus.$on("display_apt", (payload) => {
+      this.displayPlacehouse(this.house);
       console.log(payload);
     });
   },

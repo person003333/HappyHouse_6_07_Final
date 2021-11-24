@@ -23,7 +23,7 @@
           </b-row>
           <VueSlider
             :min="0"
-            :max="100000"
+            :max="1000000"
             :interval="100"
             v-model="value_price"
           />
@@ -72,7 +72,7 @@ export default {
   },
   data() {
     return {
-      value_price: [0, 100000],
+      value_price: [0, 1000000],
     };
   },
   computed: {

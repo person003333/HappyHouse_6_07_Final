@@ -2,7 +2,7 @@
   <div>
     <b-container class="bv-example-row">
       <b-row align-h="between">
-        <b-col cols="8"
+        <b-col cols="8" @click="clickApt()"
           ><h3 class="mb-4">{{ house.aptName }}</h3></b-col
         >
         <b-col cols="3">
@@ -214,6 +214,9 @@ export default {
       "insert_interestedApt",
       "delete_interestedApt",
     ]),
+    clickApt() {
+      EventBus.$emit("display_apt", "안녕");
+    },
 
     clickSubway() {
       EventBus.$emit("push-subway", "안녕");
