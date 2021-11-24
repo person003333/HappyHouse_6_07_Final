@@ -207,6 +207,7 @@ export default {
   watch: {
     myhouse(newVal) {
       this.displayPlacehouse(newVal);
+      this.check_myInterest();
     },
     interestedApt() {
       this.check_myInterest();
