@@ -109,7 +109,7 @@
         </div>
       </div>
 
-      <div class="badge" @click="clickStore">
+      <div class="badge" style="width: 200px" @click="clickStore">
         <img src="../../assets/convenientstore.png" style="height: 80px" />
         <div class="d-flex flex-column mt-2" style="font-size: 1.3em">
           <span style="display: none">{{ store_text }}</span>

@@ -65,6 +65,11 @@ export default {
         {
           href: "/main/board",
           title: "게시판",
+          icon: "fas fa-chalkboard",
+        },
+        {
+          href: "/main/news",
+          title: "오늘의 뉴스",
           icon: "far fa-list-alt ",
         },
       ],
@@ -185,6 +190,18 @@ export default {
       }
     }
   }
+}
+
+.vsm--item {
+  margin: 30px 0;
+}
+
+.vsm--list {
+  margin-top: 50px;
+}
+
+.v-sidebar-menu.vsm_white-theme .vsm--mobile-bg {
+  background-color: #ddddebc0 !important;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Righteous);

@@ -351,7 +351,7 @@ export default {
     //편의점 마커를 생성하고 지도위에 표시하는 함수입니다.
     addMarker_store(position) {
       var imageSrc =
-          "https://user-images.githubusercontent.com/67899393/142990692-81a242e2-7263-4ef4-97de-0e21767557e8.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+          "https://user-images.githubusercontent.com/49037411/143152043-d0a1163f-926d-4caa-9a66-d00c184ae660.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(44, 45), // 마커 이미지의 크기
         imgOptions = {
           offset: new kakao.maps.Point(22, 45), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
@@ -376,7 +376,7 @@ export default {
     //지하철 마커를 생성하고 지도위에 표시하는 함수입니다.
     addMarker_subway(position) {
       var imageSrc =
-          "https://user-images.githubusercontent.com/67899393/142990791-c414a0b1-e7ef-4121-9020-6f464244b56b.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+          "https://user-images.githubusercontent.com/49037411/143152144-83e4e887-18ae-4dc0-aaf9-1e21498c5c8a.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(44, 45), // 마커 이미지의 크기
         imgOptions = {
           offset: new kakao.maps.Point(22, 45), // 마커 좌표에 일치시킬 이미지 내에서의 좌표

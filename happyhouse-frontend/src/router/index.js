@@ -6,6 +6,7 @@ import Board from "../views/Board.vue";
 import User from "../views/User.vue";
 import store from "@/store/index.js";
 import MapMain from "../views/MapMain.vue";
+import News from "../views/News.vue";
 import BoardList from "../components/Board/BoardList.vue";
 import BoardCreate from "../components/Board/BoardCreate.vue";
 import BoardView from "../components/Board/BoardView.vue";
@@ -77,6 +78,11 @@ const routes = [
         path: "map",
         name: "MapMain",
         component: MapMain,
+      },
+      {
+        path: "news",
+        name: "News",
+        component: News,
       },
     ],
   },
