@@ -485,12 +485,6 @@ export default {
         // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
         this.displayPlaces(data);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        if (this.currCategory == "SW8") {
-          this.setSubway(["없음", null]);
-        }
-        if (this.currCategory == "CS2") {
-          this.setStore(["없음", null]);
-        }
         // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
       } else if (status === kakao.maps.services.Status.ERROR) {
         // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
@@ -671,6 +665,12 @@ export default {
         this.displayPlaces_ss(data);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
+        if (this.currCategory == "SW8") {
+          this.setSubway(["없음", null]);
+        }
+        if (this.currCategory == "CS2") {
+          this.setStore(["없음", null]);
+        }
       } else if (status === kakao.maps.services.Status.ERROR) {
         // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
       }

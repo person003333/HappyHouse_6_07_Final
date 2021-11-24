@@ -80,16 +80,19 @@
       <i class="fas fa-chevron-down"></i>거래내역 펼치기
     </div>
     <b-table
+      id="dealList"
       class="scrollbar"
       sticky-header
       responsive
       :items="house_deal"
       :fields="fields"
+      sort-icon-left
+      :sort-compare="daySort"
       style="max-height: 470px"
       v-if="dealList"
     >
-      <template #cell(dealDate)="data">
-        {{ data.item.dealYear }}.{{ data.item.dealMonth }}.{{
+      <template #cell(dealDate)="data" style="font-size: 15pt">
+        {{ data.item.dealYear }}/{{ data.item.dealMonth }}/{{
           data.item.dealDay
         }}
       </template>
@@ -99,11 +102,11 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
-
+const mapStore = "myhouseStore";
 export default {
-  name: "myHousedeal",
+  name: "Housedeal",
   computed: {
-    ...mapState("myhouseStore", [
+    ...mapState(mapStore, [
       "myhouse",
       "date_start",
       "date_end",
@@ -126,15 +129,18 @@ export default {
       fields: [
         {
           key: "dealAmount",
-          label: "거래 금액(만원)",
+          label: "거래 금액(만 원)",
+          sortable: true,
         },
         {
           key: "area",
           label: "면적(m²)",
+          sortable: true,
         },
         {
           key: "dealDate",
-          label: "판매 일자",
+          label: "거래 일자",
+          sortable: true,
         },
       ],
 
@@ -156,22 +162,33 @@ export default {
     this.value_start = this.date_start;
     this.value_end = this.date_end;
     this.dealInfo(this.myhouse.aptCode);
-    console.log("mydeal");
-    console.log(this.myhouse);
   },
 
   methods: {
-    ...mapActions("myhouseStore", ["dealInfo"]),
-    ...mapMutations("myhouseStore", ["SET_HOUSE_DEAL", "GROUP_HOUSE_AREA"]),
+    ...mapActions(mapStore, ["dealInfo"]),
+    ...mapMutations(mapStore, ["SET_HOUSE_DEAL", "GROUP_HOUSE_AREA"]),
     toSearch() {
       this.SET_HOUSE_DEAL([this.value_start, this.value_end]);
+    },
+
+    daySort(a, b, key) {
+      if (key == "dealDate") {
+        return 1;
+      }
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
 .toggle:hover {
   cursor: pointer;
+}
+#dealList td {
+  font-size: 1.5em;
+}
+
+#dealList th {
+  font-size: 1.2em;
 }
 </style>
