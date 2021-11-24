@@ -23,7 +23,7 @@ const mapStore = {
     subway: null,
     store: null,
     price_start: 0,
-    price_end: 1000,
+    price_end: 100000,
 
     date_start: minDate,
     date_end: new Date(today),
@@ -66,8 +66,9 @@ const mapStore = {
       state.houses_origin = houses;
       state.houses = [];
       for (let i = 0; i < state.houses_origin.length; i++) {
-        let price =
-          parseInt(state.houses_origin[i].recentPrice.replace(",", "")) / 1000;
+        let price = parseInt(
+          state.houses_origin[i].recentPrice.replace(",", "")
+        );
         if (price >= state.price_start && price <= state.price_end) {
           state.houses.push(state.houses_origin[i]);
         }
@@ -81,8 +82,9 @@ const mapStore = {
       state.price_end = price[1];
       state.houses = [];
       for (let i = 0; i < state.houses_origin.length; i++) {
-        let price =
-          parseInt(state.houses_origin[i].recentPrice.replace(",", "")) / 1000;
+        let price = parseInt(
+          state.houses_origin[i].recentPrice.replace(",", "")
+        );
         if (price >= state.price_start && price <= state.price_end) {
           state.houses.push(state.houses_origin[i]);
         }

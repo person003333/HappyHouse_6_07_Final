@@ -3,7 +3,7 @@
     <b-container fluid class="text-center">
       <b-row>
         <b-col cols="8">
-          가격(천 만원)
+          가격(만 원)
           <b-row align-h="between">
             <b-col cols="5">
               <input
@@ -23,8 +23,8 @@
           </b-row>
           <VueSlider
             :min="0"
-            :max="1000"
-            :interval="0.01"
+            :max="100000"
+            :interval="100"
             v-model="value_price"
           />
         </b-col>
@@ -72,7 +72,7 @@ export default {
   },
   data() {
     return {
-      value_price: [0, 50],
+      value_price: [0, 100000],
     };
   },
   computed: {
