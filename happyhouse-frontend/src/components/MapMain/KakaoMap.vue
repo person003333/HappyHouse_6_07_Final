@@ -409,7 +409,7 @@ export default {
         imgOptions = {
           spriteSize: new kakao.maps.Size(644, 946), // 스프라이트 이미지의 크기
           spriteOrigin: new kakao.maps.Point(
-            44 * parseInt((idx % 45) / 15) + 46,
+            134 - 44 * parseInt((idx % 45) / 15),
             ((idx % 45) % 15) * 46 + 10
           ), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
           offset: new kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표

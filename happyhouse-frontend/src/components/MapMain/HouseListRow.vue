@@ -76,49 +76,49 @@ export default {
   background: url(http://t1.daumcdn.net/localimg/localimages/07/2012/img/marker_normal.png)
     no-repeat;
 }
-.marker_posiont_0 {
+.marker_posiont_30 {
   background-position: -46px -10px;
 }
-.marker_posiont_1 {
+.marker_posiont_31 {
   background-position: -46px -56px;
 }
-.marker_posiont_2 {
+.marker_posiont_32 {
   background-position: -46px -102px;
 }
-.marker_posiont_3 {
+.marker_posiont_33 {
   background-position: -46px -148px;
 }
-.marker_posiont_4 {
+.marker_posiont_34 {
   background-position: -46px -194px;
 }
-.marker_posiont_5 {
+.marker_posiont_35 {
   background-position: -46px -240px;
 }
-.marker_posiont_6 {
+.marker_posiont_36 {
   background-position: -46px -286px;
 }
-.marker_posiont_7 {
+.marker_posiont_37 {
   background-position: -46px -332px;
 }
-.marker_posiont_8 {
+.marker_posiont_38 {
   background-position: -46px -378px;
 }
-.marker_posiont_9 {
+.marker_posiont_39 {
   background-position: -46px -424px;
 }
-.marker_posiont_10 {
+.marker_posiont_40 {
   background-position: -46px -470px;
 }
-.marker_posiont_11 {
+.marker_posiont_41 {
   background-position: -46px -516px;
 }
-.marker_posiont_12 {
+.marker_posiont_42 {
   background-position: -46px -562px;
 }
-.marker_posiont_13 {
+.marker_posiont_43 {
   background-position: -46px -608px;
 }
-.marker_posiont_14 {
+.marker_posiont_44 {
   background-position: -46px -654px;
 }
 .marker_posiont_15 {
@@ -166,49 +166,49 @@ export default {
 .marker_posiont_29 {
   background-position: -90px -654px;
 }
-.marker_posiont_30 {
+.marker_posiont_0 {
   background-position: -134px -10px;
 }
-.marker_posiont_31 {
+.marker_posiont_1 {
   background-position: -134px -56px;
 }
-.marker_posiont_32 {
+.marker_posiont_2 {
   background-position: -134px -102px;
 }
-.marker_posiont_33 {
+.marker_posiont_3 {
   background-position: -134px -148px;
 }
-.marker_posiont_34 {
+.marker_posiont_4 {
   background-position: -134px -194px;
 }
-.marker_posiont_35 {
+.marker_posiont_5 {
   background-position: -134px -240px;
 }
-.marker_posiont_36 {
+.marker_posiont_6 {
   background-position: -134px -286px;
 }
-.marker_posiont_37 {
+.marker_posiont_7 {
   background-position: -134px -332px;
 }
-.marker_posiont_38 {
+.marker_posiont_8 {
   background-position: -134px -378px;
 }
-.marker_posiont_39 {
+.marker_posiont_9 {
   background-position: -134px -424px;
 }
-.marker_posiont_40 {
+.marker_posiont_10 {
   background-position: -134px -470px;
 }
-.marker_posiont_41 {
+.marker_posiont_11 {
   background-position: -134px -516px;
 }
-.marker_posiont_42 {
+.marker_posiont_12 {
   background-position: -134px -562px;
 }
-.marker_posiont_43 {
+.marker_posiont_13 {
   background-position: -134px -608px;
 }
-.marker_posiont_44 {
+.marker_posiont_14 {
   background-position: -134px -654px;
 }
 </style>

@@ -1,6 +1,37 @@
 <template>
   <section id="index_section" class="d-flex justify-content-center">
+    <div id="mytoggleBtn">
+      <b-dropdown
+        id="dropdown-right"
+        dropleft
+        text="관심 목록"
+        variant="primary"
+        class="m-2"
+      >
+        <b-table
+          sticky-header
+          responsive
+          :items="interestedApt"
+          :fields="fields"
+          style="max-height: 470px"
+        >
+          <template #cell(aptName)="data">
+            <div @click="chosemyhouse(data.item.aptCode)">
+              {{ data.item.aptName }}
+            </div>
+          </template>
+        </b-table>
+      </b-dropdown>
+    </div>
     <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
+    <div>
+      <house-search-bar
+        id="house-search"
+        style="width: 100%; margin: 0px"
+        class="d-flex justify-content-center"
+      ></house-search-bar>
+    </div>
+
     <div id="toggleBtn" v-show="!toggle" @click="toggle = !toggle">
       <span style="position: absolute; top: 25%; left: 25%; color: white">
         <i class="fas fa-list fa-2x"></i>
@@ -34,27 +65,6 @@
       style="border-radius: 10px"
       v-show="toggle"
     >
-      <b-dropdown
-        id="dropdown-right"
-        right
-        text="관심 목록"
-        variant="primary"
-        class="m-2"
-      >
-        <b-table
-          sticky-header
-          responsive
-          :items="interestedApt"
-          :fields="fields"
-          style="max-height: 470px"
-        >
-          <template #cell(aptName)="data">
-            <div @click="chosemyhouse(data.item.aptCode)">
-              {{ data.item.aptName }}
-            </div>
-          </template>
-        </b-table>
-      </b-dropdown>
       <span
         id="x"
         v-show="toggle"
@@ -64,11 +74,6 @@
         <i class="fas fa-times fa-2x"></i
       ></span>
 
-      <house-search-bar
-        id="house-search"
-        style="width: 100%; margin: 0px"
-        class="d-flex justify-content-center"
-      ></house-search-bar>
       <div v-show="list">
         <house-list v-on:toDetail="toDetail"></house-list>
       </div>
@@ -244,13 +249,9 @@ export default {
 }
 
 #mytoggleBtn {
-  width: 40px;
-  height: 40px;
-  background-color: #293e6d;
-  border-radius: 40px;
   position: absolute;
-  left: 9%;
-  top: 2%;
+  left: 75%;
+  top: 3%;
   transition-property: all;
   transition-duration: 300ms;
 }

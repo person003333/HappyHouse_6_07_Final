@@ -24,7 +24,7 @@
           <VueSlider
             :min="0"
             :max="1000000"
-            :interval="100"
+            :interval="1000"
             v-model="value_price"
           />
         </b-col>
