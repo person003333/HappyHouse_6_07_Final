@@ -41,18 +41,19 @@
         variant="primary"
         class="m-2"
       >
-        <table>
-          <tr @click="chosemyhouse('11110-100')">
-            <td>
-              <div @click="chosemyhouse('11110-100')">1</div>
-            </td>
-          </tr>
-          <tr @click="chosemyhouse('11110-101')">
-            <td>
-              <div>2</div>
-            </td>
-          </tr>
-        </table>
+        <b-table
+          sticky-header
+          responsive
+          :items="interestedApt"
+          :fields="fields"
+          style="max-height: 470px"
+        >
+          <template #cell(aptName)="data">
+            <div @click="chosemyhouse(data.item.aptCode)">
+              {{ data.item.aptName }}
+            </div>
+          </template>
+        </b-table>
       </b-dropdown>
       <span
         id="x"
@@ -62,13 +63,6 @@
       >
         <i class="fas fa-times fa-2x"></i
       ></span>
-
-      <!-- <div style="font-size: calc(5em)">
-        <label class="toggle happy-sad">
-          <input type="checkbox" class="toggle-checkbox" />
-          <div class="toggle-btn"></div>
-        </label>
-      </div> -->
 
       <house-search-bar
         id="house-search"
@@ -121,6 +115,14 @@ export default {
       list: true,
       toggle: true,
       mytoggle: false,
+
+      fields: [
+        {
+          key: "aptName",
+          label: "아파트",
+          sortable: true,
+        },
+      ],
     };
   },
   components: {
@@ -134,12 +136,16 @@ export default {
   },
   computed: {
     ...mapState(mapStore, ["map", "marker", "houses", "dongCode", "house"]),
+    ...mapState("interestedAptStore", ["interestedApt"]),
+    ...mapState("memberStore", ["userInfo"]),
   },
   mounted() {
-    this.chosemyhouse("11110-100");
+    this.get_interestedApt(this.userInfo.id);
+    console.log(this.userInfo);
   },
   methods: {
     ...mapActions("myhouseStore", ["detailHouse"]),
+    ...mapActions("interestedAptStore", ["get_interestedApt"]),
     toDetail() {
       this.list = !this.list;
     },

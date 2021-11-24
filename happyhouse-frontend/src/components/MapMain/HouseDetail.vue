@@ -1,10 +1,26 @@
 <template>
   <div>
     <b-container class="bv-example-row">
-      <b-row>
-        <b-col
+      <b-row align-h="between">
+        <b-col cols="8"
           ><h3 class="mb-4">{{ house.aptName }}</h3></b-col
         >
+        <b-col cols="3">
+          <img
+            src="../../assets/star_chose.png"
+            style="height: 36px"
+            v-show="check_interest"
+            @click="delete_interestedApt([userInfo.id, house.aptCode])"
+          />
+          <img
+            src="../../assets/star_empty.png"
+            style="height: 36px"
+            v-show="!check_interest"
+            @click="
+              insert_interestedApt([userInfo.id, house.aptCode, house.aptName])
+            "
+          />
+        </b-col>
       </b-row>
       <b-row class="d-flex x justify-content-center mb-4"
         ><b-col cols="10" align-self="stretch"
@@ -148,12 +164,14 @@
 
 <script>
 import EventBus from "@/api/EventBus.js";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 const mapStore = "mapStore";
 export default {
   name: "HouseDetail",
   computed: {
     ...mapState(mapStore, ["house", "subway_text", "store_text"]),
+    ...mapState("interestedAptStore", ["interestedApt"]),
+    ...mapState("memberStore", ["userInfo"]),
   },
   data() {
     return {
@@ -161,6 +179,7 @@ export default {
       subwayDist: 0,
       convenient: "",
       convenientDist: 0,
+      check_interest: false,
     };
   },
   created() {
@@ -191,11 +210,34 @@ export default {
     },
   },
   methods: {
+    ...mapActions("interestedAptStore", [
+      "insert_interestedApt",
+      "delete_interestedApt",
+    ]),
+
     clickSubway() {
       EventBus.$emit("push-subway", "안녕");
     },
     clickStore() {
       EventBus.$emit("push-store", "안녕");
+    },
+    check_myInterest() {
+      this.check_interest = false;
+      for (let i = 0; i < this.interestedApt.length; i++) {
+        if (this.interestedApt[i].aptCode == this.house.aptCode) {
+          this.check_interest = true;
+          break;
+        }
+      }
+    },
+  },
+  watch: {
+    house(newVal) {
+      console.log(newVal);
+      this.check_myInterest();
+    },
+    interestedApt() {
+      this.check_myInterest();
     },
   },
 };
