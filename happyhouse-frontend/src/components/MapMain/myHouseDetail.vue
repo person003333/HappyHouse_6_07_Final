@@ -1,10 +1,30 @@
 <template>
   <div>
     <b-container class="bv-example-row">
-      <b-row>
-        <b-col
+      <b-row align-h="between">
+        <b-col cols="8"
           ><h3 class="mb-4">{{ myhouse.aptName }}</h3></b-col
         >
+        <b-col cols="3">
+          <img
+            src="../../assets/star_chose.png"
+            style="height: 36px"
+            v-show="check_interest"
+            @click="delete_interestedApt([userInfo.id, myhouse.aptCode])"
+          />
+          <img
+            src="../../assets/star_empty.png"
+            style="height: 36px"
+            v-show="!check_interest"
+            @click="
+              insert_interestedApt([
+                userInfo.id,
+                myhouse.aptCode,
+                myhouse.aptName,
+              ])
+            "
+          />
+        </b-col>
       </b-row>
       <b-row class="d-flex x justify-content-center mb-4"
         ><b-col cols="10" align-self="stretch"
@@ -141,6 +161,8 @@ export default {
   name: "myHouseDetail",
   computed: {
     ...mapState("myhouseStore", ["myhouse", "subway_text", "store_text"]),
+    ...mapState("interestedAptStore", ["interestedApt"]),
+    ...mapState("memberStore", ["userInfo"]),
   },
   data() {
     return {
@@ -149,6 +171,7 @@ export default {
       convenient: "",
       convenientDist: 0,
       ps: null,
+      check_interest: true,
     };
   },
   created() {
@@ -185,9 +208,26 @@ export default {
     myhouse(newVal) {
       this.displayPlacehouse(newVal);
     },
+    interestedApt() {
+      this.check_myInterest();
+    },
   },
   methods: {
     ...mapActions("myhouseStore", ["setStore", "setSubway"]),
+    ...mapActions("interestedAptStore", [
+      "insert_interestedApt",
+      "delete_interestedApt",
+    ]),
+    check_myInterest() {
+      this.check_interest = false;
+      for (let i = 0; i < this.interestedApt.length; i++) {
+        if (this.interestedApt[i].aptCode == this.myhouse.aptCode) {
+          this.check_interest = true;
+          break;
+        }
+      }
+    },
+
     displayPlacehouse(place) {
       this.setSubway(["없음 (2000m)", null]);
       this.currCategory = "SW8";
