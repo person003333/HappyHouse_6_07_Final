@@ -62,6 +62,7 @@
       :xmin="date_start"
       :xmax="date_end"
       v-if="graph"
+      :points="false"
     ></line-chart>
     <div
       class="mt-5 toggle"
