@@ -1,6 +1,12 @@
 <template>
   <section id="index_section" class="d-flex justify-content-center">
-    <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
+    <KakaoMap
+      :toggle="toggle"
+      :mytoggle="mytoggle"
+      ref="kmap"
+      class="kmap"
+      :options="mapOption"
+    />
     <div style="width: 1100px">
       <house-search-bar
         id="house-search"

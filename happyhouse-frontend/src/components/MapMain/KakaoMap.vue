@@ -40,7 +40,7 @@ import EventBus from "@/api/EventBus.js";
 const mapStore = "mapStore";
 let kakao = window.kakao;
 export default {
-  props: ["options"],
+  props: { options: Object, toggle: Boolean, mytoggle: Boolean },
   data() {
     return {
       mapInstance: null,
@@ -60,6 +60,7 @@ export default {
       ps: null,
     };
   },
+
   created() {
     EventBus.$on("push-subway", (payload) => {
       if (this.marker_subway == null) this.displaySubwayMarker();
@@ -212,7 +213,15 @@ export default {
           new kakao.maps.LatLng(house.lat, house.lng),
           index
         );
-
+        var move_lng = 0;
+        if (this.toggle) move_lng += 0.007;
+        if (this.mytoggle) move_lng += 0.007;
+        this.mapInstance.panTo(
+          new kakao.maps.LatLng(
+            parseFloat(house.lat),
+            parseFloat(house.lng) + move_lng
+          )
+        );
         // 마커와 검색결과 항목을 클릭 했을 때
         // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", () => {
@@ -313,15 +322,23 @@ export default {
     },
     displayPlacehouse(place) {
       console.log(place);
+      console.log(this.toggle);
+      console.log(this.mytoggle);
+      var move_lng = 0;
+      if (this.toggle) move_lng += 0.007;
+      if (this.mytoggle) move_lng += 0.007;
       //지도 클릭한 매물로 이동
+      console.log(move_lng);
       this.mapInstance.panTo(
-        new kakao.maps.LatLng(place.lat, place.lng - 0.07)
+        new kakao.maps.LatLng(
+          parseFloat(place.lat),
+          parseFloat(place.lng) + move_lng
+        )
       );
 
       this.currCategory = "";
 
       var content = '<div class="placehouse">';
-
       content +=
         '    <span title="' +
         place.aptName +
@@ -337,6 +354,7 @@ export default {
       content += "</div>" + '<div class="after"></div>';
 
       this.contentNode_house.innerHTML = content;
+
       this.houseOverlay.setPosition(
         new kakao.maps.LatLng(place.lat, place.lng)
       );
@@ -417,7 +435,7 @@ export default {
         });
       // 마커가 지도 위에 표시되도록 설정합니다
       marker.setMap(this.mapInstance);
-      this.mapInstance.panTo(marker.getPosition());
+
       // 생성된 마커를 배열에 추가합니다
       this.markers_house.push(marker);
       return marker;
