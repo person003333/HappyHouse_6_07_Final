@@ -33,51 +33,61 @@
         :footer-text-variant="footerTextVariant"
         style="background-color: #ddddebc0 !important"
       >
-        <h4>{{ infoModal.content.aptName }}</h4>
-        <input
-          type="text"
-          v-model="newName"
-          @keyup.enter="
-            update_interestedApt([
-              infoModal.content.id,
-              infoModal.content.aptCode,
-              newName,
-            ]),
-              ok()
-          "
-        />
+        <h3>{{ infoModal.content.aptName }}</h3>
+        <h4>{{ infoModal.content.aptNickName }}</h4>
         <template #modal-footer="{ ok, cancel }">
-          <!-- Emulate built in modal footer ok and cancel button actions -->
-          <b-button
-            size="sm"
-            variant="primary"
-            @click="
-              update_interestedApt([
-                infoModal.content.id,
-                infoModal.content.aptCode,
-                newName,
-              ]),
-                ok()
-            "
-          >
-            수정
-          </b-button>
-          <b-button
-            size="sm"
-            variant="success"
-            @click="
-              delete_interestedApt([
-                infoModal.content.id,
-                infoModal.content.aptCode,
-              ]),
-                ok()
-            "
-          >
-            삭제
-          </b-button>
-          <b-button size="sm" variant="danger" @click="cancel()">
-            Cancel
-          </b-button>
+          <div class="w-100">
+            <input
+              type="text"
+              v-model="newName"
+              @keyup.enter="
+                update_interestedApt([
+                  infoModal.content.id,
+                  infoModal.content.aptCode,
+                  newName,
+                ]),
+                  ok()
+              "
+            />
+            <!-- Emulate built in modal footer ok and cancel button actions -->
+            <b-button
+              size="sm"
+              variant="danger"
+              @click="cancel()"
+              class="float-right"
+            >
+              Cancel
+            </b-button>
+            <b-button
+              class="float-right"
+              size="sm"
+              variant="success"
+              @click="
+                delete_interestedApt([
+                  infoModal.content.id,
+                  infoModal.content.aptCode,
+                ]),
+                  ok()
+              "
+            >
+              삭제
+            </b-button>
+            <b-button
+              class="float-right"
+              size="sm"
+              variant="primary"
+              @click="
+                update_interestedApt([
+                  infoModal.content.id,
+                  infoModal.content.aptCode,
+                  newName,
+                ]),
+                  ok()
+              "
+            >
+              수정
+            </b-button>
+          </div>
         </template>
       </b-modal>
     </b-container>
@@ -93,7 +103,7 @@ export default {
       fields: [
         { key: "aptCode", sortable: true, label: "일련번호" },
         { key: "aptName", sortable: true, label: "이름" },
-        { key: "action", label: " " },
+        { key: "aptNickName", sortable: true, label: "별칭" },
       ],
       variants: [
         "primary",
@@ -114,7 +124,7 @@ export default {
 
       infoModal: {
         id: "info-modal",
-        title: "관심 아파트 이름 변경",
+        title: "관심 아파트 별칭 변경",
         content: { aptName: "" },
       },
       newName: "",
