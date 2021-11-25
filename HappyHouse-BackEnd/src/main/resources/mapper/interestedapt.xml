@@ -11,7 +11,7 @@
 	
 	<insert id="insertInterestedApt" parameterType="InterestedApt">
 		insert into interest_apt (id, aptCode, aptName, aptNickName)
-		values (#{id}, #{aptCode}, #{aptName}, #{aptNickName})
+		values (#{id}, #{aptCode}, #{aptName}, #{aptName})
 	</insert>
 	
 	<update id="updateInterestedApt" parameterType="InterestedApt">
