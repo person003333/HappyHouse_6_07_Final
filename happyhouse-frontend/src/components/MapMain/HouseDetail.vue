@@ -317,7 +317,7 @@ export default {
         this.house.lng
       );
 
-      rc.getNearestPanoId(rvPosition, 50, function (panoid) {
+      rc.getNearestPanoId(rvPosition, 100, function (panoid) {
         rv.setPanoId(panoid, rvPosition); //좌표에 근접한 panoId를 통해 로드뷰를 실행합니다.
       });
 
