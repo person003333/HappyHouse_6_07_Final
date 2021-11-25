@@ -5,18 +5,18 @@
 <mapper namespace="com.ssafy.happyhouse.model.mapper.InterestedAptMapper">
 
 	<select id="getInterestedApt" parameterType="String" resultType="InterestedApt">
-		select id, aptCode, aptName from interest_apt where id = #{id}
+		select * from interest_apt where id = #{id}
 	</select>
 	
 	
 	<insert id="insertInterestedApt" parameterType="InterestedApt">
-		insert into interest_apt (id, aptCode, aptName)
-		values (#{id}, #{aptCode}, #{aptName})
+		insert into interest_apt (id, aptCode, aptName, aptNickName)
+		values (#{id}, #{aptCode}, #{aptName}, #{aptNickName})
 	</insert>
 	
 	<update id="updateInterestedApt" parameterType="InterestedApt">
 		update interest_apt 
-		set aptName = #{aptName}
+		set aptNickName = #{aptNickName}
 		where id = #{id} and aptCode = #{aptCode}
 	</update>
 	<delete id="deleteInterestedApt" parameterType="InterestedApt">
