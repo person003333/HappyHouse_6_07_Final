@@ -214,8 +214,9 @@ export default {
           index
         );
         var move_lng = 0;
-        if (this.toggle) move_lng += 0.007;
-        if (this.mytoggle) move_lng += 0.007;
+        var t = this.mapInstance.getLevel();
+        if (this.toggle) move_lng += 0.0003 / 2 ** -t;
+        if (this.mytoggle) move_lng += 0.0003 / 2 ** -t;
         this.mapInstance.panTo(
           new kakao.maps.LatLng(
             parseFloat(house.lat),
@@ -325,8 +326,9 @@ export default {
       console.log(this.toggle);
       console.log(this.mytoggle);
       var move_lng = 0;
-      if (this.toggle) move_lng += 0.007;
-      if (this.mytoggle) move_lng += 0.007;
+      var t = this.mapInstance.getLevel();
+      if (this.toggle) move_lng += 0.0003 / 2 ** -t;
+      if (this.mytoggle) move_lng += 0.0003 / 2 ** -t;
       //지도 클릭한 매물로 이동
       console.log(move_lng);
       this.mapInstance.panTo(
