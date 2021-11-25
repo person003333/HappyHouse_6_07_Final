@@ -10,6 +10,16 @@ public class InterestedApt {
 	
 	// 관심지역 아파트 이름 / 별칭
 	private String aptName;
+	
+	private String aptNickName;
+	
+	public String getAptNickName() {
+		return aptNickName;
+	}
+
+	public void setAptNickName(String aptNickName) {
+		this.aptNickName = aptNickName;
+	}
 
 	public String getId() {
 		return id;
