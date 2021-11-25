@@ -3,7 +3,7 @@
     <b-container class="bv-example-row mt-3 text-center">
       <router-link :to="{ name: 'Interest' }" style="color: rgba(5, 5, 5, 90)"
         ><h2 style="font-size: 2.4em" class="underline-hotpink">
-          관심 아파트
+          관심 아파트 관리
         </h2></router-link
       >
 
@@ -16,7 +16,7 @@
         :items="interestedApt"
         :fields="fields"
         @row-clicked="detail"
-        style="max-height: 470px"
+        style="max-height: 500px; margin-top: 80px"
       >
       </b-table>
       <!-- Info modal -->

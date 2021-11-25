@@ -42,7 +42,8 @@ public class NewsController {
 		}
 
 		 
-		String apiURL = "https://openapi.naver.com/v1/search/news.json?sort=sim&display=5&query=" + text;
+		String apiURL = "https://openapi.naver.com/v1/search/news.json?query=" + text+"&display=5";
+		System.out.println(apiURL);
 		Map<String, String> requestHeaders = new HashMap<>();
 		requestHeaders.put("X-Naver-Client-Id", clientId);
 		requestHeaders.put("X-Naver-Client-Secret", clientSecret);

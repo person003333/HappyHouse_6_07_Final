@@ -24,10 +24,12 @@
       </b-dropdown>
     </div>
     <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
-    <div>
+    <div style="width: 1100px">
       <house-search-bar
         id="house-search"
-        style="width: 100%; margin: 0px"
+        style="width: 480px; position:relative;margin 0px !important;padding:15px !important; background-color:red;
+    background-color: #7a7ad85e;
+    border-radius: 15px;"
         class="d-flex justify-content-center"
       ></house-search-bar>
     </div>
@@ -37,11 +39,11 @@
         <i class="fas fa-list fa-2x"></i>
       </span>
     </div>
-
     <div
-      id="myinfo"
+      id="myinfo_only"
       class="scrollbar"
-      style="border-radius: 10px"
+      style="border-radius: 10px; z-index: 10"
+      v-if="!toggle"
       v-show="mytoggle"
     >
       <span
@@ -58,35 +60,58 @@
         <my-house-deal style="width: 90%; margin: 20px auto" />
       </div>
     </div>
-
-    <div
-      id="info"
-      class="scrollbar"
-      style="border-radius: 10px"
-      v-show="toggle"
-    >
-      <span
-        id="x"
-        v-show="toggle"
-        style="position: relative; left: 90%; top: 1%"
-        @click="toggle = !toggle"
+    <div>
+      <div
+        id="myinfo"
+        class="scrollbar"
+        style="border-radius: 10px"
+        v-show="mytoggle"
+        v-if="toggle"
       >
-        <i class="fas fa-times fa-2x"></i
-      ></span>
-
-      <div v-show="list">
-        <house-list v-on:toDetail="toDetail"></house-list>
-      </div>
-      <div v-show="!list">
-        <div
-          id="toList"
-          @click="list = !list"
-          style="position: absolute; top: 0%"
+        <span
+          id="x"
+          v-show="mytoggle"
+          style="position: relative; left: 90%; top: 1%"
+          @click="mytoggle = false"
         >
-          <i class="fas fa-arrow-left"></i> <span>목록으로</span>
+          <i class="fas fa-times fa-2x"></i
+        ></span>
+
+        <div>
+          <my-house-detail style="width: 90%; margin: 10px auto" />
+          <my-house-deal style="width: 90%; margin: 20px auto" />
         </div>
-        <house-detail :house="house" style="width: 90%; margin: 10px auto" />
-        <house-deal style="width: 90%; margin: 20px auto" />
+      </div>
+
+      <div
+        id="info"
+        class="scrollbar"
+        style="border-radius: 10px"
+        v-show="toggle"
+      >
+        <span
+          id="x"
+          v-show="toggle"
+          style="position: relative; left: 90%; top: 1%"
+          @click="toggle = !toggle"
+        >
+          <i class="fas fa-times fa-2x"></i
+        ></span>
+
+        <div v-show="list">
+          <house-list v-on:toDetail="toDetail"></house-list>
+        </div>
+        <div v-show="!list">
+          <div
+            id="toList"
+            @click="list = !list"
+            style="position: absolute; top: 0%"
+          >
+            <i class="fas fa-arrow-left"></i> <span>목록으로</span>
+          </div>
+          <house-detail :house="house" style="width: 90%; margin: 10px auto" />
+          <house-deal style="width: 90%; margin: 20px auto" />
+        </div>
       </div>
     </div>
   </section>
@@ -195,6 +220,15 @@ export default {
   height: 92.5% !important;
   z-index: 0;
 }
+#myinfo_only {
+  position: absolute;
+  left: 72%;
+  top: 10%;
+  z-index: 5;
+  width: 25%;
+  height: 85%;
+  background-color: #f7f8fa;
+}
 #myinfo {
   position: absolute;
   left: 47%;
@@ -270,44 +304,4 @@ export default {
 #x :hover {
   cursor: pointer;
 }
-
-/* .toggle {
-  position: relative;
-  width: 1em;
-  height: 0.1em;
-  border-radius: 0.5em;
-  border: 0.015em solid #9f9f9f;
-  background-image: linear-gradient(#f2f2f2, #fff, #f2f2f2);
-  margin: 0.26em 0.15em;
-  cursor: pointer;
-  filter: drop-shadow(0.015em 0.015em 0.01em rgba(0, 0, 0, 0.3));
-}
-
-.toggle-btn::after {
-  position: absolute;
-  top: -0.14rem;
-  left: 0;
-  width: 50%;
-  font-size: 0.35em;
-  text-align: center;
-  transition: all 500ms cubic-bezier(0.34, 0.78, 0.55, 1.4);
-}
-
-.toggle-checkbox {
-  position: absolute;
-  visibility: hidden;
-}
-
-.toggle-checkbox:checked + .toggle-btn::after {
-  left: 50%;
-}
-
-
-.happy-sad .toggle-btn::after {
-  content: "😁zz";
-}
-
-.happy-sad .toggle-checkbox:checked + .toggle-btn::after {
-  content: "😭";
-} */
 </style>

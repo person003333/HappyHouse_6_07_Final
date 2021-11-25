@@ -187,10 +187,10 @@ export default {
   cursor: pointer;
 }
 #dealList td {
-  font-size: 1.5em;
+  font-size: 1.2em !important;
 }
 
 #dealList th {
-  font-size: 1.2em;
+  font-size: 1em !important;
 }
 </style>

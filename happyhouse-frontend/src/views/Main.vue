@@ -61,34 +61,34 @@ export default {
         {
           href: "/main/map",
           title: "거래정보",
-          icon: "far fa-building ",
+          icon: "far fa-building fa-lg ",
         },
         {
           href: "/main/user",
           title: "마이페이지",
-          icon: "fa fa-user-alt",
+          icon: "fa fa-user-alt  fa-lg",
         },
         {
           href: "/main/board",
           title: "게시판",
-          icon: "fas fa-chalkboard",
+          icon: "fas fa-chalkboard  fa-lg",
         },
         {
           href: "/main/interest",
-          title: "관심 아파트",
-          icon: "far fa-star ",
+          title: "관심 아파트 관리",
+          icon: "far fa-star  fa-lg",
         },
         {
           href: "/main/news",
           title: "오늘의 뉴스",
-          icon: "far fa-list-alt ",
+          icon: "far fa-list-alt  fa-lg",
         },
 
         {
           href: "/main/admin",
           title: "관리자페이지",
           id: "hello",
-          icon: "fas fa-user-cog ",
+          icon: "fas fa-user-cog  fa-lg",
           hidden: true,
         },
       ],
@@ -129,6 +129,8 @@ export default {
 .vsm--title {
   margin-bottom: 30px;
   margin-left: 20px;
+  text-align: left;
+  width: 200px;
 }
 .vsm--header {
   padding-top: 60px !important;
@@ -169,14 +171,21 @@ export default {
     line-height: 50px !important;
     width: 50px !important;
     border-radius: 20px !important;
-    margin-bottom: 40px !important;
   }
 }
 
 .v-sidebar-menu.vsm_white-theme .vsm--link_mobile-item {
   color: black !important;
-  padding-top: 30px !important;
-  padding-left: 40px !important;
+  margin: auto !important;
+  height: 70px;
+  span {
+    margin: auto;
+  }
+}
+
+.vsm--list .vsm--item {
+  height: 110px;
+  display: flex !important;
 }
 
 .v-sidebar-menu.vsm_white-theme.vsm_expanded
@@ -212,7 +221,16 @@ export default {
 }
 
 .vsm--list {
-  margin-top: 50px;
+  margin-top: 30px;
+}
+.vsm--mobile-item {
+  height: 110px;
+  .vsm--item {
+    height: 100%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .v-sidebar-menu.vsm_white-theme .vsm--mobile-bg {

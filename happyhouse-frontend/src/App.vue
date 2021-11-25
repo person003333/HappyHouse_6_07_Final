@@ -20,6 +20,10 @@
   font-size: 1em !important;
 }
 
+.custom-select:hover {
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   height: 100vh;
