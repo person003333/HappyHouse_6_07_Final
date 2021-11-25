@@ -76,7 +76,7 @@ export default {
     deleteUser(user) {
       if (!confirm(`${user.name} 회원을 정말로 탈퇴시키겠습니까?`)) return;
       http.delete(`/api/user/${user.id}`).then(() => {
-        this.logout();
+        this.loadUser();
       });
     },
     loadUser() {

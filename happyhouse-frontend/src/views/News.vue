@@ -123,7 +123,9 @@ export default {
         this.setThumnailLink(this.분양, index, el.link);
       });
     });
-    http.get("/api/news/recommend").then(({ data }) => (this.추천 = data));
+    http
+      .get("/api/news/recommend")
+      .then(({ data }) => (this.추천 = data.slice(0, 5)));
   },
   methods: {
     setThumnailLink(category, index, link) {
