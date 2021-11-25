@@ -167,6 +167,7 @@ export default {
   watch: {
     house() {
       this.list = false;
+      this.toggle = true;
     },
     dongCode(newVal) {
       console.log(newVal);

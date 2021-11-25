@@ -8,6 +8,7 @@ import store from "@/store/index.js";
 import MapMain from "../views/MapMain.vue";
 import News from "../views/News.vue";
 import Admin from "../views/Admin.vue";
+import Interest from "../views/Interest.vue";
 import BoardList from "../components/Board/BoardList.vue";
 import BoardCreate from "../components/Board/BoardCreate.vue";
 import BoardView from "../components/Board/BoardView.vue";
@@ -15,6 +16,7 @@ import NoticeView from "../components/Board/NoticeView.vue";
 import BoardModify from "../components/Board/BoardModify.vue";
 import NewsManage from "../components/Admin/NewsManage.vue";
 import UserManage from "../components/Admin/UserManage.vue";
+
 Vue.use(VueRouter);
 
 const noHome = function (to, from, next) {
@@ -86,6 +88,11 @@ const routes = [
         path: "news",
         name: "News",
         component: News,
+      },
+      {
+        path: "interest",
+        name: "Interest",
+        component: Interest,
       },
       {
         path: "admin",
