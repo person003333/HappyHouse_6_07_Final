@@ -39,7 +39,7 @@
         <i class="fas fa-list fa-2x"></i>
       </span>
     </div>
-    <div
+    <!-- <div
       id="myinfo_only"
       class="scrollbar"
       style="border-radius: 10px; z-index: 10"
@@ -59,7 +59,7 @@
         <my-house-detail style="width: 90%; margin: 10px auto" />
         <my-house-deal style="width: 90%; margin: 20px auto" />
       </div>
-    </div>
+    </div> -->
     <div>
       <div
         id="myinfo"
@@ -185,6 +185,7 @@ export default {
     },
 
     chosemyhouse(aptCode) {
+      console.log(aptCode);
       this.detailHouse(aptCode);
       this.mytoggle = true;
     },
