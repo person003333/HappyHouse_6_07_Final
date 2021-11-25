@@ -743,6 +743,8 @@ export default {
       this.houseOverlay.setMap(null);
       this.storeOverlay.setMap(null);
       this.subwayOverlay.setMap(null);
+      this.removeMarker_subway();
+      this.removeMarker_store();
       this.displayMarker();
     },
     house(newVal) {

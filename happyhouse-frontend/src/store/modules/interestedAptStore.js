@@ -59,15 +59,15 @@ const interestedAptStore = {
         });
     },
 
-    update_interestedApt({ dispatch }, [id, aptCode, aptName]) {
+    update_interestedApt({ dispatch }, [id, aptCode, aptNickName]) {
       console.log("insert");
-      const params = { id: id, aptCode: aptCode, aptName: aptName };
+      const params = { id: id, aptCode: aptCode, aptNickName: aptNickName };
       console.log(params);
       http
         .put("/api/interesteApt/update", {
           id: id,
           aptCode: aptCode,
-          aptName: aptName,
+          aptNickName: aptNickName,
         })
         .then((response) => {
           console.log(response);

@@ -152,7 +152,7 @@ export default {
 
       fields: [
         {
-          key: "aptName",
+          key: "aptNickName",
           label: "아파트",
           sortable: true,
         },
