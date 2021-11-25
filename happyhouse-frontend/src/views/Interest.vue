@@ -9,11 +9,14 @@
 
       <hr class="mt-5" />
       <b-table
-        striped
+        class="scrollbar"
         hover
+        sticky-header
+        responsive
         :items="interestedApt"
         :fields="fields"
         @row-clicked="detail"
+        style="max-height: 470px"
       >
       </b-table>
       <!-- Info modal -->
@@ -22,9 +25,27 @@
         :title="infoModal.title"
         ok-only
         @hide="resetInfoModal"
+        :header-bg-variant="headerBgVariant"
+        :header-text-variant="headerTextVariant"
+        :body-bg-variant="bodyBgVariant"
+        :body-text-variant="bodyTextVariant"
+        :footer-bg-variant="footerBgVariant"
+        :footer-text-variant="footerTextVariant"
+        style="background-color: #ddddebc0 !important"
       >
-        <pre>{{ infoModal.content.aptName }}</pre>
-        <input type="text" v-model="newName" />
+        <h4>{{ infoModal.content.aptName }}</h4>
+        <input
+          type="text"
+          v-model="newName"
+          @keyup.enter="
+            update_interestedApt([
+              infoModal.content.id,
+              infoModal.content.aptCode,
+              newName,
+            ]),
+              ok()
+          "
+        />
         <template #modal-footer="{ ok, cancel }">
           <!-- Emulate built in modal footer ok and cancel button actions -->
           <b-button
@@ -74,9 +95,26 @@ export default {
         { key: "aptName", sortable: true, label: "이름" },
         { key: "action", label: " " },
       ],
+      variants: [
+        "primary",
+        "secondary",
+        "success",
+        "warning",
+        "danger",
+        "info",
+        "light",
+        "dark",
+      ],
+      headerBgVariant: "light",
+      headerTextVariant: "dark",
+      bodyBgVariant: "light",
+      bodyTextVariant: "dark",
+      footerBgVariant: "light",
+      footerTextVariant: "dark",
+
       infoModal: {
         id: "info-modal",
-        title: "",
+        title: "관심 아파트 이름 변경",
         content: { aptName: "" },
       },
       newName: "",
@@ -97,7 +135,7 @@ export default {
       this.infoModal.title = `Row index: ${index}`;
       this.infoModal.content = JSON.stringify(item, null, 2);
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
-      this.nuwName = "";
+      this.newName = "";
     },
     resetInfoModal() {
       this.infoModal.title = "";
@@ -108,6 +146,7 @@ export default {
       this.infoModal.title = `관심 아파트 이름 변경`;
       this.infoModal.content = item;
       this.$root.$emit("bv::show::modal", this.infoModal.id);
+      this.newName = "";
     },
   },
 };
