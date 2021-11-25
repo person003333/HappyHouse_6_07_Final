@@ -1,15 +1,37 @@
 <template>
   <section id="index_section" class="d-flex justify-content-center">
+    <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
+    <div style="width: 1100px">
+      <house-search-bar
+        id="house-search"
+        style="width: 480px; position:relative;margin 0px !important;padding:15px !important; background-color:red;
+    background-color: #7a7ad85e;
+    border-radius: 15px;"
+        class="d-flex justify-content-center"
+      ></house-search-bar>
+    </div>
+
+    <b-button id="toggleBtn" @click="toggle = !toggle">
+      <span style="position: absolute; top: 20%; left: 20%; color: white">
+        <i class="fas fa-list fa-2x"></i>
+      </span>
+    </b-button>
     <div id="mytoggleBtn">
       <b-dropdown
         id="dropdown-right"
-        dropleft
-        text="관심 목록"
         variant="primary"
-        class="m-2"
+        size="lg"
+        toggle-class="text-decoration-none"
+        no-caret
       >
+        <template #button-content>
+          <img
+            src="../assets/star_chose.png"
+            style="height: 36px; position: relative; right: 50%"
+          />
+        </template>
+
         <b-table
-          sticky-header
           responsive
           :items="interestedApt"
           :fields="fields"
@@ -23,26 +45,11 @@
         </b-table>
       </b-dropdown>
     </div>
-    <KakaoMap ref="kmap" class="kmap" :options="mapOption" />
-    <div style="width: 1100px">
-      <house-search-bar
-        id="house-search"
-        style="width: 480px; position:relative;margin 0px !important;padding:15px !important; background-color:red;
-    background-color: #7a7ad85e;
-    border-radius: 15px;"
-        class="d-flex justify-content-center"
-      ></house-search-bar>
-    </div>
 
-    <div id="toggleBtn" v-show="!toggle" @click="toggle = !toggle">
-      <span style="position: absolute; top: 25%; left: 25%; color: white">
-        <i class="fas fa-list fa-2x"></i>
-      </span>
-    </div>
-    <!-- <div
+    <div
       id="myinfo_only"
       class="scrollbar"
-      style="border-radius: 10px; z-index: 10"
+      style="border-radius: 10px; z-index: 8"
       v-if="!toggle"
       v-show="mytoggle"
     >
@@ -59,7 +66,7 @@
         <my-house-detail style="width: 90%; margin: 10px auto" />
         <my-house-deal style="width: 90%; margin: 20px auto" />
       </div>
-    </div> -->
+    </div>
     <div>
       <div
         id="myinfo"
@@ -185,7 +192,6 @@ export default {
     },
 
     chosemyhouse(aptCode) {
-      console.log(aptCode);
       this.detailHouse(aptCode);
       this.mytoggle = true;
     },
@@ -203,7 +209,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 .container {
   max-width: 98.1% !important;
   padding: 0px;
@@ -270,19 +276,25 @@ export default {
 }
 
 #toggleBtn {
-  width: 70px;
-  height: 70px;
-  background-color: #293e6d;
-  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  /* background-color: #293e6d; */
+  background: #4e54c8; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #8f94fb,
+    #4e54c8
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #8f94fb, #4e54c8);
+  border: 0px;
+
+  border-radius: 10px;
   position: absolute;
-  left: 94.4%;
-  top: 9%;
-  transition-property: all;
-  transition-duration: 300ms;
+  left: 97.2%;
+  top: 11%;
 }
 
 #toggleBtn:hover {
-  background: #afafd3;
   cursor: pointer;
   color: #7a7ad8;
   box-shadow: none;
@@ -290,16 +302,15 @@ export default {
 
 #mytoggleBtn {
   position: absolute;
-  right: 250px;
-  top: 20px;
+  left: 97.2%;
+  top: 18%;
+  z-index: 10;
   transition-property: all;
   transition-duration: 300ms;
 }
 
 #mytoggleBtn:hover {
-  background: #afafd3;
   cursor: pointer;
-  color: #7a7ad8;
   box-shadow: none;
 }
 #x :hover {

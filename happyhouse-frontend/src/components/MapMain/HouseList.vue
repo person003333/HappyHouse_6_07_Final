@@ -116,4 +116,19 @@ export default {
   background: linear-gradient(to right, #646cff, #333bce);
   border: 0px;
 }
+
+#dropdown-right button {
+  /* background-color: aqua; */
+  background: #4e54c8; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #8f94fb,
+    #4e54c8
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #8f94fb, #4e54c8);
+  border: 0px;
+  width: 50px;
+  border-radius: 10px;
+  z-index: 10;
+}
 </style>

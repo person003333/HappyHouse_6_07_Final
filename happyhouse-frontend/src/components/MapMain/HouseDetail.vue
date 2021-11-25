@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container class="bv-example-row">
-      <b-row align-h="between">
+      <b-row align-h="between" class="mt-4">
         <b-col cols="8" @click="clickApt()"
           ><h3 class="mb-4">{{ house.aptName }}</h3></b-col
         >
