@@ -70,19 +70,6 @@
                 {{ parseInt(house.recentPrice.replace(",", "")) | price }}만 원
               </td>
             </tr>
-            <!-- <tr @click="clickSubway">
-              <td
-                class="col-4 table-secondary"
-                style="font-size: 1.3em; background-color: #c0d3ed"
-              >
-                <strong>지하철</strong>
-              </td>
-              <td>{{ subway_text }}</td>
-            </tr>
-            <tr @click="clickStore">
-              <td>편의점</td>
-              <td>{{ store_text }}</td>
-            </tr> -->
           </table>
         </b-col>
       </b-row>
@@ -91,13 +78,17 @@
       class="d-flex justify-content-around"
       style="width: 100%; text-align: center"
     >
-      <div class="badge" @click="clickSubway">
-        <img src="../../assets/subway.png" style="height: 80px" />
-        <div class="d-flex flex-column mt-2" style="font-size: 1.3em">
-          <span style="display: none">{{ subway_text }}</span>
-          <span>{{ subway }}</span>
-          <span>({{ subwayDist }}m)</span>
-          <br />
+      <div class="d-flex flex-column">
+        <div class="badge" style="width: 200px" @click="clickSubway">
+          <img src="../../assets/subway.png" style="height: 80px" />
+          <div class="d-flex flex-column mt-2" style="font-size: 1.3em">
+            <span style="display: none">{{ subway_text }}</span>
+            <span>{{ subway }}</span>
+            <span>({{ subwayDist }}m)</span>
+          </div>
+        </div>
+
+        <div class="face d-flex justify-content-center mt-3">
           <div v-if="subwayDist < 400" class="d-flex flex-column">
             <img
               src="../../assets/green.png"
@@ -122,23 +113,34 @@
             />
             <span style="font-size: 0.8em">너무 멀어요ㅠㅠ</span>
           </div>
+          <i
+            id="subtooltip"
+            style="color: #6068fb; height: 16px"
+            class="far fa-question-circle"
+            @mouseover="subover"
+            @mouseleave="subleave"
+            v-b-tooltip.hove.bottom.html.v-light="subtip"
+          ></i>
         </div>
       </div>
 
-      <div class="badge" style="width: 200px" @click="clickStore">
-        <img src="../../assets/convenientstore.png" style="height: 80px" />
-        <div class="d-flex flex-column mt-2" style="font-size: 1.3em">
-          <span style="display: none">{{ store_text }}</span>
-          <span>{{ convenient }}</span>
-          <span>({{ convenientDist }}m)</span>
-          <br />
+      <div class="d-flex flex-column">
+        <div class="badge" style="width: 200px" @click="clickStore">
+          <img src="../../assets/convenientstore.png" style="height: 80px" />
+          <div class="d-flex flex-column mt-2" style="font-size: 1.3em">
+            <span style="display: none">{{ store_text }}</span>
+            <span>{{ convenient }}</span>
+            <span>({{ convenientDist }}m)</span>
+          </div>
+        </div>
+        <div class="face d-flex justify-content-center mt-3">
           <div v-if="convenientDist < 150" class="d-flex flex-column">
             <img
               src="../../assets/green.png"
               style="max-height: 40px; margin: 10px auto"
               alt=""
             />
-            <span style="font-size: 0.8em">바로 코 앞!</span>
+            <span style="font-size: 0.8em">바로 코앞!</span>
           </div>
           <div v-else-if="convenientDist < 300" class="d-flex flex-column">
             <img
@@ -156,6 +158,14 @@
             />
             <span style="font-size: 0.8em">쪼오금만 걸어봅시다</span>
           </div>
+          <i
+            id="convtooltip"
+            style="color: #6068fb; height: 16px"
+            class="far fa-question-circle"
+            @mouseover="convover"
+            @mouseleave="convleave"
+            v-b-tooltip.hove.bottom.html.v-light="convtip"
+          ></i>
         </div>
       </div>
     </div>
@@ -180,6 +190,46 @@ export default {
       convenient: "",
       convenientDist: 0,
       check_interest: false,
+      subtip: {
+        title: `
+        <div style= "font-family: 'RIDIBatang'; width:200px ;text-align:left; background-color:#dcdeef; border-radius:10px;padding:10px ">
+          <strong style= "font-size: 1.2em;">지하철 거리 정보</strong>
+          <br/>
+          <div class="d-flex justify-content-left ">
+            <div style="width:60px;text-align:right">~400m: </div>
+            <div>&nbsp;&nbsp;&nbsp; 5분 이내</div>
+          </div>
+          <div class="d-flex justify-content-left ">
+            <div style="width:60px;text-align:right">~1,000m: </div>
+            <div>&nbsp;&nbsp;&nbsp; 15분 이내</div>
+          </div>
+         <div class="d-flex justify-content-left ">
+            <div style="width:60px;text-align:right">1,000m~: </div>
+            <div>&nbsp;&nbsp;&nbsp; 멀어요...</div>
+          </div>
+        </div>
+      `,
+      },
+      convtip: {
+        title: `
+        <div style= "font-family: 'RIDIBatang'; width:200px ;text-align:left; background-color:#dcdeef; border-radius:10px;padding:10px ">
+          <strong style= "font-size: 1.2em;">편의점 거리 정보</strong>
+          <br/>
+          <div class="d-flex justify-content-left">
+            <div style="width:60px;text-align:right">~150m: </div>
+            <div>&nbsp;&nbsp;&nbsp;코앞!</div>
+          </div>
+          <div class="d-flex justify-content-left" >
+            <div style="width:60px;text-align:right">~300m: </div>
+            <div> &nbsp;&nbsp;&nbsp;갈만한 거리</div>
+          </div>
+         <div class="d-flex justify-content-left" >
+            <div style="width:60px;text-align:right">300m~: </div>
+            <div> &nbsp;&nbsp;&nbsp;조금만 가보죠</div>
+          </div>
+        </div>
+      `,
+      },
     };
   },
   created() {
@@ -233,6 +283,22 @@ export default {
         }
       }
     },
+    subover() {
+      document.getElementById("subtooltip").classList.add("fas");
+      document.getElementById("subtooltip").classList.remove("far");
+    },
+    subleave() {
+      document.getElementById("subtooltip").classList.remove("fas");
+      document.getElementById("subtooltip").classList.add("far");
+    },
+    convover() {
+      document.getElementById("convtooltip").classList.add("fas");
+      document.getElementById("convtooltip").classList.remove("far");
+    },
+    convleave() {
+      document.getElementById("convtooltip").classList.remove("fas");
+      document.getElementById("convtooltip").classList.add("far");
+    },
   },
   watch: {
     house(newVal) {
@@ -246,11 +312,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 table {
   font-size: 9pt !important;
 }
 .badge:hover {
   cursor: pointer;
+}
+
+.face {
+  i:hover {
+    cursor: pointer;
+  }
+  margin-left: 8%;
 }
 </style>

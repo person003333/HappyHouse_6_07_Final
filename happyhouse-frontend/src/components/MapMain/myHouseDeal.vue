@@ -180,7 +180,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .toggle:hover {
   cursor: pointer;
 }

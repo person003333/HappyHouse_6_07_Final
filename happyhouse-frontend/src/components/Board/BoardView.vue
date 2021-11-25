@@ -28,9 +28,10 @@
           class="d-flex justify-content-between"
           style="width: 90%; margin: auto; font-size: 0.9em; color: gray"
         >
-          <span style="width: 150px"
+          <span style="width: 150px" v-if="board.id != null && board.id != ''"
             >작성자: {{ board.name }}({{ board.id }})</span
           >
+          <span style="width: 150px" v-else>(탈퇴한 회원)</span>
 
           <span style="width: 150px"
             >조회: <i class="fa fa-eye" aria-hidden="true"></i>

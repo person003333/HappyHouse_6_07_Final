@@ -6,6 +6,10 @@ import VueSidebarMenu from "vue-sidebar-menu";
 // import Vuebar from "vuebar";
 import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 
+import VTooltip from "v-tooltip";
+
+Vue.use(VTooltip);
+
 Vue.config.productionTip = false;
 
 // Vue.use(Vuebar);

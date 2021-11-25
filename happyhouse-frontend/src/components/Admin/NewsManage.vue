@@ -18,7 +18,9 @@
               {{ news.등록일 }}
             </td>
             <td style="font-size: 1.2em; text-align: left">
-              <a :href="news.링크" style="color: #60627f"> {{ news.제목 }}</a>
+              <a :href="news.링크" target="_blank" style="color: #60627f">
+                {{ news.제목 }}</a
+              >
             </td>
             <td style="width: 60px">
               <b-button
