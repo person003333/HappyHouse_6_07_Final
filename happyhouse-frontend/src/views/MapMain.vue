@@ -18,45 +18,43 @@
     </div>
 
     <b-button id="toggleBtn" @click="toggle = !toggle">
-      <span style="position: absolute; top: 20%; left: 20%; color: white">
+      <span
+        style="position: absolute; top: 20%; left: 20%; color: white"
+        v-if="toggle"
+      >
+        <i class="fas fa-list fa-2x"></i>
+      </span>
+      <span
+        style="
+          position: absolute;
+          top: 20%;
+          left: 20%;
+          color: rgba(194, 218, 255, 0.5);
+        "
+        v-else
+      >
         <i class="fas fa-list fa-2x"></i>
       </span>
     </b-button>
-    <div id="mytoggleBtn">
-      <b-dropdown
-        id="dropdown-right"
-        variant="primary"
-        size="lg"
-        toggle-class="text-decoration-none"
-        no-caret
+    <b-button id="mytoggleBtn" @click="mytoggle = !mytoggle">
+      <span
+        style="position: absolute; top: 16%; left: 13%; color: white"
+        v-if="mytoggle"
       >
-        <template #button-content>
-          <img
-            src="../assets/star_chose.png"
-            style="height: 36px; position: relative; right: 50%"
-            v-if="mytoggle"
-          />
-          <img
-            src="../assets/star_empty.png"
-            style="height: 36px; position: relative; right: 50%"
-            v-else
-          />
-        </template>
-
-        <b-table
-          responsive
-          :items="interestedApt"
-          :fields="fields"
-          style="max-height: 470px"
-        >
-          <template #cell(aptNickName)="data">
-            <div @click="chosemyhouse(data.item.aptCode)">
-              {{ data.item.aptNickName }}
-            </div>
-          </template>
-        </b-table>
-      </b-dropdown>
-    </div>
+        <i class="fas fa-star fa-2x"></i>
+      </span>
+      <span
+        style="
+          position: absolute;
+          top: 16%;
+          left: 13%;
+          color: rgba(194, 218, 255, 0.5);
+        "
+        v-else
+      >
+        <i class="fas fa-star fa-2x"></i>
+      </span>
+    </b-button>
 
     <div
       id="myinfo_only"
@@ -76,7 +74,9 @@
 
       <div>
         <div
+          class="d-flex justify-content-between"
           style="
+            width: 180px;
             position: absolute;
             top: 0%;
             margin: 20px 10px;
@@ -84,8 +84,33 @@
           "
         >
           <span>관심 아파트</span>
+          <div id="aptdrop">
+            <b-dropdown
+              id="dropdown-right"
+              variant="primary"
+              size="lg"
+              toggle-class="text-decoration-none"
+              no-caret
+            >
+              <template #button-content> 목록 </template>
+
+              <b-table
+                responsive
+                :items="interestedApt"
+                :fields="fields"
+                style="max-height: 200px"
+                class="scrollbar nick"
+              >
+                <template #cell(aptNickName)="data">
+                  <div @click="chosemyhouse(data.item.aptCode)">
+                    {{ data.item.aptNickName }}
+                  </div>
+                </template>
+              </b-table>
+            </b-dropdown>
+          </div>
         </div>
-        <my-house-detail style="width: 90%; margin: 10px auto" />
+        <my-house-detail style="width: 90%; margin: 40px auto" />
         <my-house-deal style="width: 90%; margin: 20px auto" />
       </div>
     </div>
@@ -107,7 +132,9 @@
 
         <div>
           <div
+            class="d-flex justify-content-between"
             style="
+              width: 180px;
               position: absolute;
               top: 0%;
               margin: 20px 10px;
@@ -115,8 +142,33 @@
             "
           >
             <span>관심 아파트</span>
+            <div id="aptdrop">
+              <b-dropdown
+                id="dropdown-right"
+                variant="primary"
+                size="lg"
+                toggle-class="text-decoration-none"
+                no-caret
+              >
+                <template #button-content> 목록 </template>
+
+                <b-table
+                  responsive
+                  :items="interestedApt"
+                  :fields="fields"
+                  style="max-height: 200px"
+                  class="scrollbar nick"
+                >
+                  <template #cell(aptNickName)="data">
+                    <div @click="chosemyhouse(data.item.aptCode)">
+                      {{ data.item.aptNickName }}
+                    </div>
+                  </template>
+                </b-table>
+              </b-dropdown>
+            </div>
           </div>
-          <my-house-detail style="width: 90%; margin: 10px auto" />
+          <my-house-detail style="width: 90%; margin: 40px auto" />
           <my-house-deal style="width: 90%; margin: 20px auto" />
         </div>
       </div>
@@ -137,6 +189,16 @@
         ></span>
 
         <div v-show="list">
+          <div
+            style="
+              position: absolute;
+              top: 0%;
+              margin: 20px 10px;
+              padding-left: 14px;
+            "
+          >
+            <span>아파트 목록</span>
+          </div>
           <house-list v-on:toDetail="toDetail"></house-list>
         </div>
         <div v-show="!list">
@@ -147,7 +209,7 @@
           >
             <i class="fas fa-arrow-left"></i> <span>목록으로</span>
           </div>
-          <house-detail :house="house" style="width: 90%; margin: 10px auto" />
+          <house-detail :house="house" style="width: 90%; margin: 40px auto" />
           <house-deal style="width: 90%; margin: 20px auto" />
         </div>
       </div>
@@ -332,6 +394,18 @@ export default {
 }
 
 #mytoggleBtn {
+  width: 50px;
+  height: 50px;
+  /* background-color: #293e6d; */
+  background: #4e54c8; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #8f94fb,
+    #4e54c8
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #8f94fb, #4e54c8);
+  border: 0px;
+  border-radius: 10px;
   position: absolute;
   left: 97.2%;
   top: 18%;
@@ -345,6 +419,9 @@ export default {
   box-shadow: none;
 }
 #x :hover {
+  cursor: pointer;
+}
+#nick:hover {
   cursor: pointer;
 }
 </style>

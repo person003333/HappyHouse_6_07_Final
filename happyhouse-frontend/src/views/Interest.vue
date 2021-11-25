@@ -33,12 +33,35 @@
         :footer-text-variant="footerTextVariant"
         style="background-color: #ddddebc0 !important"
       >
-        <h3>{{ infoModal.content.aptName }}</h3>
-        <h4>{{ infoModal.content.aptNickName }}</h4>
+        <div
+          class="d-flex flex-column justify-content-around"
+          style="width: 300px; height: 120px"
+        >
+          <div class="d-flex">
+            <div style="width: 140px; font-size: 1.7em">
+              <strong>아파트 명:</strong>
+            </div>
+
+            <div style="font-size: 1.5em; margin: auto 0">
+              {{ infoModal.content.aptName }}
+            </div>
+          </div>
+          <div class="d-flex">
+            <div style="width: 140px; font-size: 1.7em">
+              <strong>별칭:</strong>
+            </div>
+
+            <div style="font-size: 1.5em; margin: auto 0">
+              {{ infoModal.content.aptNickName }}
+            </div>
+          </div>
+        </div>
+
         <template #modal-footer="{ ok, cancel }">
           <div class="w-100">
-            <input
+            <b-form-input
               type="text"
+              style="width: 80%; margin: 0 auto"
               v-model="newName"
               @keyup.enter="
                 update_interestedApt([
@@ -50,43 +73,42 @@
               "
             />
             <!-- Emulate built in modal footer ok and cancel button actions -->
-            <b-button
-              size="sm"
-              variant="danger"
-              @click="cancel()"
-              class="float-right"
+            <div
+              class="d-flex justify-content-around"
+              style="width: 60%; margin: auto; margin-top: 20px"
             >
-              Cancel
-            </b-button>
-            <b-button
-              class="float-right"
-              size="sm"
-              variant="success"
-              @click="
-                delete_interestedApt([
-                  infoModal.content.id,
-                  infoModal.content.aptCode,
-                ]),
-                  ok()
-              "
-            >
-              삭제
-            </b-button>
-            <b-button
-              class="float-right"
-              size="sm"
-              variant="primary"
-              @click="
-                update_interestedApt([
-                  infoModal.content.id,
-                  infoModal.content.aptCode,
-                  newName,
-                ]),
-                  ok()
-              "
-            >
-              수정
-            </b-button>
+              <b-button
+                variant="primary"
+                id="searchBtn"
+                style="width: 30%"
+                @click="
+                  update_interestedApt([
+                    infoModal.content.id,
+                    infoModal.content.aptCode,
+                    newName,
+                  ]),
+                    ok()
+                "
+              >
+                수정
+              </b-button>
+              <b-button
+                id="deleteBtn"
+                style="width: 30%"
+                @click="
+                  delete_interestedApt([
+                    infoModal.content.id,
+                    infoModal.content.aptCode,
+                  ]),
+                    ok()
+                "
+              >
+                삭제
+              </b-button>
+              <b-button id="cancelBtn" style="width: 30%" @click="cancel()">
+                취소
+              </b-button>
+            </div>
           </div>
         </template>
       </b-modal>

@@ -96,7 +96,7 @@
           >
             <b-button
               class="btn btn-group btn-animated mt-3"
-              id="editBtn"
+              id="searchBtn"
               @click="edit = !edit"
               v-show="!edit"
             >
@@ -104,7 +104,7 @@
             </b-button>
             <b-button
               class="btn btn-group btn-animated mt-3"
-              id="editBtn"
+              id="searchBtn"
               @click="modify"
               v-show="edit"
             >
@@ -269,37 +269,6 @@ label {
   display: flex;
   margin-top: 30px;
   justify-content: right;
-}
-
-#editBtn {
-  border: 0px;
-  background: #4e54c8; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #8f94fb,
-    #4e54c8
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #8f94fb,
-    #4e54c8
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-#editBtn:hover {
-  background-color: #bb97bb;
-  background-image: linear-gradient(0deg, #c49bc4 0%, #7bb3b9 100%);
-  border-color: rgba(255, 255, 255, 0);
-}
-
-#deleteBtn {
-  border: 0px;
-  background-image: linear-gradient(135deg, #f05f57 10%, #360940 100%);
-  border-color: rgba(255, 255, 255, 0);
-}
-#deleteBtn:hover {
-  background-image: linear-gradient(135deg, #a8453f 10%, #2d0d33 100%);
-  border-color: rgba(255, 255, 255, 0);
 }
 
 .container {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin: 40px auto">
     <b-container fluid class="text-center">
       <b-row>
         <b-col cols="8">
@@ -94,7 +94,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 #searchBtn {
   background: #4e54c8; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -117,18 +117,46 @@ export default {
   border: 0px;
 }
 
+#deleteBtn {
+  border: 0px;
+  background-image: linear-gradient(135deg, #f05f57 10%, #360940 100%);
+  border-color: rgba(255, 255, 255, 0);
+  border: 0px;
+}
+#deleteBtn:hover {
+  background-image: linear-gradient(135deg, #a8453f 10%, #2d0d33 100%);
+  border-color: rgba(255, 255, 255, 0);
+  border: 0px;
+}
+
+#cancelBtn {
+  border: 0px;
+  background-image: linear-gradient(135deg, #706666 10%, #3f3741 100%);
+  border-color: rgba(255, 255, 255, 0);
+  border: 0px;
+}
+#cancelBtn:hover {
+  background-image: linear-gradient(135deg, #363232 10%, #332b35 100%);
+  border-color: rgba(255, 255, 255, 0);
+  border: 0px;
+}
+
 #dropdown-right button {
   /* background-color: aqua; */
   background: #4e54c8; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #8f94fb,
-    #4e54c8
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #8f94fb, #4e54c8);
+
+  background: linear-gradient(to right, #8f94fb9f, #4e54c8ab);
   border: 0px;
-  width: 50px;
+  width: 70px;
+  height: 30px;
   border-radius: 10px;
   z-index: 10;
+  font-size: 1em;
+  padding: 0px;
+}
+#nick {
+  div:hover {
+    cursor: pointer;
+  }
 }
 </style>
