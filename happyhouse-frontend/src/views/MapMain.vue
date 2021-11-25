@@ -15,9 +15,9 @@
           :fields="fields"
           style="max-height: 470px"
         >
-          <template #cell(aptName)="data">
+          <template #cell(aptNickName)="data">
             <div @click="chosemyhouse(data.item.aptCode)">
-              {{ data.item.aptName }}
+              {{ data.item.aptNickName }}
             </div>
           </template>
         </b-table>
