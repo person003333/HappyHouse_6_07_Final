@@ -77,7 +77,7 @@
 	<select id="getNotice" parameterType="int"
 		resultMap="noticeList">
 		select notice_no,id, name, subject,content, regtime,view
-		from notice join userinfo using(id)
+		from notice left join userinfo u using(id)
 		where notice_no = #{no}
 	</select>
 	

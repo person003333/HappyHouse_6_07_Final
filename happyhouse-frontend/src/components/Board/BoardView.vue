@@ -189,8 +189,11 @@ export default {
   },
   created() {
     http.get(`/api/notice/${this.$route.params.no}`).then(({ data }) => {
-      this.board.id = data.id;
-      this.board.name = data.name;
+      console.log("??");
+      if (data.name != null && data.name != "") {
+        this.board.id = data.id;
+        this.board.name = data.name;
+      } else this.board.name = "탈퇴한 유저";
       this.board.subject = data.subject;
       this.board.regtime = data.regtime;
       this.board.content = data.content;
@@ -226,6 +229,7 @@ export default {
     loadComment() {
       this.comments = [];
       http.get(`/api/comment/${this.$route.params.no}`).then(({ data }) => {
+        console.log(data);
         data.forEach((d) => {
           this.comments.push({
             commentNo: d.commentNo,

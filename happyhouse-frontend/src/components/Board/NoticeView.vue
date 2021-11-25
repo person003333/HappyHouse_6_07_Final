@@ -88,7 +88,6 @@ export default {
       this.board.regtime = data.regtime;
       this.board.content = data.content;
       this.board.view = data.view;
-      console.log(data);
     });
   },
   methods: {

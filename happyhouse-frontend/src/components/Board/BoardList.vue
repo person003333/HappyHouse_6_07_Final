@@ -240,32 +240,13 @@ export default {
         params: { pg: this.pageOffset, spp: this.pageLimit },
       })
       .then(({ data }) => {
+        console.log(data);
         this.items = data;
-        // data.forEach((d) => {
-        //   this.items.push({
-        //     번호: d.noticeNo,
-        //     제목: d.subject,
-        //     작성자: d.id,
-        //     이름: d.name,
-        //     등록일: d.regTime,
-        //     조회수: d.view,
-        //   });
-        // });
       });
 
     http.get("/api/notice/notice").then(({ data }) => {
       console.log(data);
       this.notices = data;
-      // data.forEach((d) => {
-      //   this.notices.push({
-      //     번호: d.noticeNo,
-      //     제목: d.subject,
-      //     작성자: d.id,
-      //     이름: d.name,
-      //     등록일: d.regTime,
-      //     조회수: d.view,
-      //   });
-      // });
     });
   },
   computed: {
@@ -280,17 +261,6 @@ export default {
         })
         .then(({ data }) => {
           this.items = data;
-          // data.forEach((d) => {
-
-          //   this.items.push({
-          //     번호: d.noticeNo,
-          //     제목: d.subject,
-          //     작성자: d.id,
-          //     이름: d.name,
-          //     등록일: d.regTime,
-          //     조회수: d.view,
-          //   });
-          // });
         });
     },
   },
@@ -305,16 +275,6 @@ export default {
       const params = { key: this.key, word: this.word };
       http.get("/api/notice", { params }).then(({ data }) => {
         this.items = data;
-        // data.forEach((d) => {
-        //   this.items.push({
-        //     번호: d.noticeNo,
-        //     제목: d.subject,
-        //     작성자: d.id,
-        //     이름: d.name,
-        //     등록일: d.regTime,
-        //     조회수: d.view,
-        //   });
-        // });
       });
     },
 

@@ -7,11 +7,11 @@
       <table class="table" style="width: 100% height:100%">
         <thead>
           <tr>
-            <th>이름</th>
-            <th>아이디</th>
-            <th>비밀번호</th>
-            <th width="20%">이메일</th>
-            <th width="10%"></th>
+            <th width="220px">이름</th>
+            <th width="220px">아이디</th>
+            <th width="220px">비밀번호</th>
+            <th width="300px">이메일</th>
+            <th width="110px"></th>
           </tr>
         </thead>
         <tbody>
@@ -66,6 +66,12 @@ export default {
   created() {
     this.loadUser();
   },
+  watch: {
+    "$route.params": function () {
+      this.loadUser();
+    },
+  },
+
   methods: {
     deleteUser(user) {
       if (!confirm(`${user.name} 회원을 정말로 탈퇴시키겠습니까?`)) return;
@@ -81,7 +87,6 @@ export default {
         })
         .then(({ data }) => {
           this.userList = data;
-          this.loadUser();
         });
     },
   },

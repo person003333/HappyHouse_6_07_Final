@@ -106,7 +106,8 @@ export default {
       });
     },
     deleteNews(no) {
-      http.delete(`/api/news/${no}`).then(() => this.loadList());
+      if (confirm("해당 뉴스를 삭제하시겠습니까?"))
+        http.delete(`/api/news/${no}`).then(() => this.loadList());
     },
   },
 };
