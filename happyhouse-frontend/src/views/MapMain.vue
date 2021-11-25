@@ -28,6 +28,12 @@
           <img
             src="../assets/star_chose.png"
             style="height: 36px; position: relative; right: 50%"
+            v-if="mytoggle"
+          />
+          <img
+            src="../assets/star_empty.png"
+            style="height: 36px; position: relative; right: 50%"
+            v-else
           />
         </template>
 
@@ -63,6 +69,16 @@
       ></span>
 
       <div>
+        <div
+          style="
+            position: absolute;
+            top: 0%;
+            margin: 20px 10px;
+            padding-left: 14px;
+          "
+        >
+          <span>관심 아파트</span>
+        </div>
         <my-house-detail style="width: 90%; margin: 10px auto" />
         <my-house-deal style="width: 90%; margin: 20px auto" />
       </div>
@@ -77,7 +93,6 @@
       >
         <span
           id="x"
-          v-show="mytoggle"
           style="position: relative; left: 90%; top: 1%"
           @click="mytoggle = false"
         >
@@ -85,6 +100,16 @@
         ></span>
 
         <div>
+          <div
+            style="
+              position: absolute;
+              top: 0%;
+              margin: 20px 10px;
+              padding-left: 14px;
+            "
+          >
+            <span>관심 아파트</span>
+          </div>
           <my-house-detail style="width: 90%; margin: 10px auto" />
           <my-house-deal style="width: 90%; margin: 20px auto" />
         </div>
