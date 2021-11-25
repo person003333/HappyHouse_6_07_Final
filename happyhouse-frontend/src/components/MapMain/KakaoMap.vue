@@ -314,7 +314,9 @@ export default {
     displayPlacehouse(place) {
       console.log(place);
       //지도 클릭한 매물로 이동
-      this.mapInstance.panTo(new kakao.maps.LatLng(place.lat, place.lng));
+      this.mapInstance.panTo(
+        new kakao.maps.LatLng(place.lat, place.lng - 0.07)
+      );
 
       this.currCategory = "";
 
