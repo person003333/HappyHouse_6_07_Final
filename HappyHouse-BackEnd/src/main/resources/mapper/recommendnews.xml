@@ -24,6 +24,7 @@
 		from
 		recommend_news
 		order by no desc
+		limit 0,5
 	</select>
 
 
