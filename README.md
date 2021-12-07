@@ -1,4 +1,4 @@
-# Hom's Touch
+# Hom's TOUCH
 
 ![최종보고서  211126_6기_서울_6반_최종_공윤환_이정훈_1](https://user-images.githubusercontent.com/67899393/145033634-de9b4e4b-8fbf-4c8a-b96d-9b40a4eeb458.jpg)
 ![최종보고서  211126_6기_서울_6반_최종_공윤환_이정훈_2](https://user-images.githubusercontent.com/67899393/145033636-206e4d51-9fd3-473c-bdab-f3f3007c3b93.jpg)
